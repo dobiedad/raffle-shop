@@ -55,6 +55,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_140815) do
   create_table "raffles", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2
+    t.decimal "ticket_price", precision: 10, scale: 2
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

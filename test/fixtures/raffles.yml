@@ -1,9 +1,11 @@
 iphone_giveaway:
   user: leo
-  name: "Win an iPhone 15 Pro"
-  price: 5.0
+  name: "iPhone 15 Pro Max"
+  price: 1200.0
+  ticket_price: 5.0
 
 ps5_bundle:
   user: jane
   name: "PS5 Console + Extra Controller"
-  price: 3.5
+  price: 550.0
+  ticket_price: 3.5

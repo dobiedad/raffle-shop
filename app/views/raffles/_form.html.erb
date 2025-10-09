@@ -26,9 +26,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :price, class: "label" %>
+    <%= form.label :price, "Price Target", class: "label" %>
+    <p class="help">How much do you want to sell this item for?</p>
     <div class="control">
       <%= form.number_field :price, class: "input", step: 0.01, placeholder: "0.00" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :ticket_price, "Ticket Price", class: "label" %>
+    <p class="help">How much should each ticket cost?</p>
+    <div class="control">
+      <%= form.number_field :ticket_price, class: "input", step: 0.01, placeholder: "0.00" %>
     </div>
   </div>
 

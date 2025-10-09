@@ -63,7 +63,8 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     {
       name: 'BMW X6',
       description: 'My Beloved BMW X6, 2012 100k Miles',
-      price: 50_000
+      price: 50_000,
+      ticket_price: 25.0
     }
   end
 end

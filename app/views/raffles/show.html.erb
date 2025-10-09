@@ -22,8 +22,14 @@
             <div class="columns">
               <div class="column">
                 <div class="box has-background-light">
-                  <p class="heading">Price per Ticket</p>
+                  <p class="heading">Price Target</p>
                   <p class="title is-4">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
+                </div>
+              </div>
+              <div class="column">
+                <div class="box has-background-light">
+                  <p class="heading">Ticket Price</p>
+                  <p class="title is-4">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
                 </div>
               </div>
             </div>
