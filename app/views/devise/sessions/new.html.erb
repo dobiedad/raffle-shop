@@ -1,0 +1,46 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5-tablet is-4-desktop">
+        <h1 class="title">Log in</h1>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            <%= f.label :email, class: "label" %>
+            <div class="control">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :password, class: "label" %>
+            <div class="control">
+              <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
+            </div>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="field">
+              <div class="control">
+                <label class="checkbox">
+                  <%= f.check_box :remember_me %>
+                  Remember me
+                </label>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <div class="control">
+              <%= f.submit "Log in", class: "button is-primary is-fullwidth" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="mt-4">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

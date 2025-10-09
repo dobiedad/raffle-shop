@@ -1,0 +1,13 @@
+<div data-controller="bulma">
+  <% flash.each do |type, message| %>
+    <% next if message.blank? %>
+    <div
+      class="notification is-light
+             <%= 'is-success' if type.to_s == 'notice' %>
+             <%= 'is-danger' if type.to_s == 'alert' %>
+             <%= 'is-info' if type.to_s == 'info' %>">
+      <button class="delete" data-bulma-target="alertCloseButton" data-action="click->bulma#closeAlert"></button>
+      <%= message %>
+    </div>
+  <% end %>
+</div>
