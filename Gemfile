@@ -77,6 +77,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'responders'
 gem 'rubocop', '~> 1.81'
 gem 'rubocop-minitest', '~> 0.38.2'
 gem 'rubocop-rails', '~> 2.33'

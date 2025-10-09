@@ -1,0 +1,57 @@
+<div class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h1 class="title">Raffles</h1>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <% if user_signed_in? %>
+            <%= link_to "New Raffle", new_raffle_path, class: "button is-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <% @raffles.each do |raffle| %>
+        <div class="column is-one-third">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <% if raffle.image.attached? %>
+                  <%= image_tag raffle.image, alt: raffle.name %>
+                <% else %>
+                  <%= image_tag "https://via.placeholder.com/400x300?text=No+Image", alt: raffle.name %>
+                <% end %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= raffle.name %></p>
+                  <p class="subtitle is-6">$<%= number_with_precision(raffle.price, precision: 2) %></p>
+                </div>
+              </div>
+              <div class="content">
+                <%= truncate(raffle.description, length: 100) %>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <%= link_to "View Details", raffle_path(raffle), class: "card-footer-item" %>
+            </footer>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @raffles.empty? %>
+      <div class="notification is-info">
+        <p class="has-text-centered">No raffles available at the moment.</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
