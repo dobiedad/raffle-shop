@@ -21,7 +21,7 @@ $button-color: #ffffff;
 $button-border-color: transparent;
 $button-hover-background-color: #4338CA;
 
-@use "bulma/bulma";
+@import "bulma";
 
 .navbar {
   background-color: #ffffff;
