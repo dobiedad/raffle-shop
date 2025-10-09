@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+directory = 'test/vcr_cassettes'
+
+all_cassettes =
+  Dir.glob("#{directory}/**/*.yml")
+     .map { |f| f.sub(%r{\A#{Regexp.escape(directory)}/}, '').sub(/\.yml\z/, '') }
+
+used = Set.new
+patterns = [
+  /with_vcr\s*\(?\s*['"]([^'"]+)['"]/m,
+  %r{with_vcr\s*\(?\s*:([a-zA-Z0-9_/-]+)\b}m,
+  /VCR\.use_cassette\s*\(?\s*['"]([^'"]+)['"]/m,
+  %r{VCR\.use_cassette\s*\(?\s*:([a-zA-Z0-9_/-]+)\b}m,
+  /vcr_cassette(?:_name)?:\s*['"]([^'"]+)['"]/m
+]
+
+Dir.glob('test/**/*.rb').each do |ruby_file|
+  content = File.read(ruby_file)
+  patterns.each do |rx|
+    content.scan(rx) do |match|
+      name = match.is_a?(Array) ? match.first : match
+      used << name.to_s
+    end
+  end
+end
+
+to_delete = all_cassettes.sort - used.to_a.map(&:to_s).uniq.sort
+
+if to_delete.any?
+  to_delete.each do |cassette|
+    path = File.join(directory, "#{cassette}.yml")
+    puts "Deleting #{path}"
+    File.delete(path)
+  end
+else
+  puts 'All cassettes are used!'
+end

@@ -1,0 +1,92 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+          bundler-cache: true
+
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: 'stable'
+
+      - name: Start Xvfb (for non-headless runs)
+        run: |
+          export DISPLAY=:99
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        env:
+          DISPLAY: :99
+
+      - name: Setup Database
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        run: |
+          cp config/database.yml.github-actions config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+      - name: Model tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        run: COVERAGE=models bundle exec rails test:models
+
+      - name: Controller tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        run: COVERAGE=controllers bundle exec rails test:controllers
+
+      - name: Rack system tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        run: bundle exec rails test:system
+
+      - name: JS System tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          # If you run headless, set HEADLESS=1 in your app's test config
+        run: JS=1 bundle exec rails test:system
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: tmp/screenshots/

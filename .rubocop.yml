@@ -1,8 +1,131 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-minitest
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  NewCops: enable
+  Exclude:
+    - db/schema.rb
+    - db/queue_schema.rb
+    - node_modules/**/*
+    - tmp/**/*
+    - local/**/*
+    - vendor/**/*
+    - storage/**/*
+    - bin/**
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - config/**/*
+    - db/**
+
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Minitest/UnspecifiedException:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/FetchEnvVar:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Style/ExplicitBlockArgument:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - db/**/*
+    - app/controllers/**/*
+    - test/**/*
+    - app/helpers/**/*
+    - app/mailers/*
+    - app/models/application_record.rb
+    - config/application.rb
+    - lib/app/*
+
+Naming/ClassAndModuleCamelCase:
+  Exclude:
+    - lib/app/modules.rb
+
+Metrics/MethodLength:
+  Max: 18
+  Exclude:
+    - db/migrate/*
+
+Metrics/BlockLength:
+  Exclude:
+    - db/migrate/*
+    - config/environments/*
+    - config/routes.rb
+    - lib/tasks/*.rake
+    - test/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/*
+
+Metrics/ClassLength:
+  Exclude:
+    - db/migrate/*
+    - test/controllers/**/*
+    - test/helpers/**/*
+    - test/mailers/**/*
+    - test/models/**/*
+    - test/system/**/*
+
+Rails/BulkChangeTable:
+  Exclude:
+    - db/migrate/*
+
+Rails/ThreeStateBooleanColumn:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: true
+  Exclude:
+    - test/**/**/*
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - staging
+    - production
+
+Lint/MissingCopEnableDirective:
+  Enabled: false
+
+Lint/MissingSuper:
+  Exclude:
+    - app/services/**/**/*
+
+Metrics/ModuleLength:
+  Enabled: true
+  Exclude:
+    - test/modules_system_test_helper.rb
+
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
