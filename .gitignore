@@ -37,3 +37,12 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+/config/master.key
+.byebug_history
+.DS_Store
+coverage/
+
+# staging dump used in lib/tasks/test_migration.rake
+staging.dump
+bin/pg_restore
