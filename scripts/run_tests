@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -ex
+
+COVERAGE=models rails test:models \
+&& COVERAGE=controllers rails test:controllers \
+&& COVERAGE=jobs rails test:jobs \
+&& COVERAGE=components rails test:components \
+&& rails test:system \
+&& JS=1 rails test:system
