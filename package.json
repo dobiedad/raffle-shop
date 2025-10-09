@@ -2,10 +2,14 @@
   "name": "app",
   "private": "true",
   "dependencies": {
-    "bulma": "^1.0.4",
+    "bulma": "^0.9.4",
     "sass": "^1.93.2"
   },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.bulma.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass --quiet-deps ./app/assets/stylesheets/application.bulma.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "prepare": "husky install"
   }
 }
