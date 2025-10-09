@@ -7,11 +7,13 @@ require 'rails/test_help'
 require 'mocha/minitest'
 require_relative 'support/controller_test_helper'
 require_relative 'support/vcr'
+require_relative 'validate_assertions'
 require 'minitest/mock'
 
 module ActiveSupport
   class TestCase
     include ActiveJob::TestHelper
+    include ValidateAssertions
 
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
