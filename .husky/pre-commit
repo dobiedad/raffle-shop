@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+if bundle exec rubocop -A; then
+  exit 0
+else
+  echo -e "${RED}Commit has failed, please fix rubocop errors and try again${NC}"
+  exit 1
+fi
