@@ -3,6 +3,7 @@
 class Raffle < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  has_rich_text :description
 
   validates :name, :description, :price, presence: true
   validates :price, numericality: { greater_than: 0 }

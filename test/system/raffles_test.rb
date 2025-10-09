@@ -11,7 +11,7 @@ class RafflesTest < ApplicationSystemTestCase
     click_link 'New Raffle'
 
     fill_in 'Name', with: 'MacBook Pro Giveaway'
-    fill_in 'Description', with: 'Brand new MacBook Pro 16-inch'
+    find('trix-editor').click.set('Brand new MacBook Pro 16-inch')
     fill_in 'Price', with: '10.00'
 
     click_button 'Create Raffle'
