@@ -1,4 +1,4 @@
-name: Models, Job, Components, Controllers and System Tests
+name: Tests
 
 on:
   push:
@@ -61,20 +61,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         run: COVERAGE=models bundle exec rails test:models
-
-      - name: Job tests
-        env:
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        run: COVERAGE=jobs bundle exec rails test:jobs
-
-      - name: Component tests
-        env:
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        run: COVERAGE=components bundle exec rails test:components
 
       - name: Controller tests
         env:
