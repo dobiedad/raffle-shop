@@ -1,0 +1,32 @@
+# iPhone Raffle Images
+iphone_image_one:
+  name: images
+  blob: iphone_image_one_blob
+  record: iphone_giveaway (Raffle)
+
+iphone_image_two:
+  name: images
+  blob: iphone_image_two_blob
+  record: iphone_giveaway (Raffle)
+
+iphone_image_three:
+  name: images
+  blob: iphone_image_three_blob
+  record: iphone_giveaway (Raffle)
+
+# PS5 Raffle Images
+ps5_image_one:
+  name: images
+  blob: ps5_image_one_blob
+  record: ps5_bundle (Raffle)
+
+ps5_image_two:
+  name: images
+  blob: ps5_image_two_blob
+  record: ps5_bundle (Raffle)
+
+ps5_image_three:
+  name: images
+  blob: ps5_image_three_blob
+  record: ps5_bundle (Raffle)
+

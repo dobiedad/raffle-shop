@@ -1,0 +1,14 @@
+# iPhone Images
+iphone_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "image_one.jpg", service_name: "test" %>
+
+iphone_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "image_two.jpg", service_name: "test" %>
+
+iphone_image_three_blob: <%= ActiveStorage::FixtureSet.blob filename: "image_three.jpg", service_name: "test" %>
+
+# PS5 Images
+ps5_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_one.jpg", service_name: "test" %>
+
+ps5_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_two.jpg", service_name: "test" %>
+
+ps5_image_three_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_three.jpg", service_name: "test" %>
+
