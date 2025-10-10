@@ -19,3 +19,13 @@
   font-size: 14px;
   margin-bottom: 0px !important;
 }
+
+.navbar {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+
+.navbar a.navbar-item:hover {
+  color: #4f46e5;
+  background-color: #f9fafb;
+}
