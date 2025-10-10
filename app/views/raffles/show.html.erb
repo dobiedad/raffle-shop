@@ -1,5 +1,15 @@
 <div class="section raffle-show">
   <div class="container">
+    <div class="raffle-meta has-background-white-bis p-4 mb-5 is-flex is-align-items-center is-justify-content-space-between">
+      <div>
+        <p class="is-size-7 has-text-grey">Raffle ID #<%= @raffle.id %></p>
+        <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.email %></strong></p>
+      </div>
+      <div>
+        <span class="tag is-success is-light">Active</span>
+      </div>
+    </div>
+
     <div class="columns is-variable is-6">
       <!-- Left: Image -->
       <div class="column is-half">
@@ -15,7 +25,12 @@
       <!-- Right: Product Info -->
       <div class="column is-half">
         <div class="raffle-details">
-          <h1 class="title is-2 mb-4"><%= @raffle.name %></h1>
+          <h1 class="title is-3 mb-4"><%= @raffle.name %></h1>
+          <div class="tags mt-2">
+            <span class="tag is-light is-info">Brand New</span>
+            <span class="tag is-light is-success">Free Shipping</span>
+            <span class="tag is-light is-warning">Trusted Seller</span>
+          </div>
 
           <div class="is-flex mb-5" style="gap: 1rem;">
             <div class="box has-text-centered is-flex-grow-1">
@@ -28,18 +43,62 @@
             </div>
           </div>
 
-          <div class="buttons mb-6">
-            <%= link_to "Buy Ticket", '#', class: "button is-primary is-medium" %>
-            <% if user_signed_in? %>
-              <%= link_to "Edit Raffle", '#', class: "button is-light is-medium" %>
-            <% end %>
+          <div class="mb-5">
+           <p class="is-size-6 has-text-grey-dark">
+             Tickets sold: <strong>100</strong> / 500
+           </p>
+           <progress class="progress is-primary" value="100" max="500">20%</progress>
+
+           <p class="is-size-6 mt-2">
+             💰 <strong>$350.00</strong> raised of $<%= number_with_precision(@raffle.price, precision: 2) %> goal
+           </p>
+
+           <p class="is-size-7 has-text-grey mt-3">
+            👀 5 people viewed this raffle today
+          </p>
+         </div>
+
+         <div class="field has-addons mt-4">
+          <div class="control">
+            <input class="input" type="number" value="1" min="1" max="10" style="width:80px;">
           </div>
+          <div class="control">
+            <a class="button is-primary">Buy Tickets</a>
+          </div>
+        </div>
+        <p class="is-size-7 has-text-grey mt-2">$5.00 per ticket — total $5.00</p>
+
         </div>
       </div>
     </div>
-
-    <div class="content mt-5">
-      <%= simple_format(@raffle.description) %>
+    <div class="raffle-description mt-6">
+      <div class="content">
+        <h2 class="title is-4 mb-3">🧾 Description</h2>
+        <p>
+          Selling my <strong>PS5 Slim</strong> because I just don’t have time to game anymore with my new job.
+          Been sitting in my entertainment center collecting dust for about 3 months.
+        </p>
+        <h2 class="title is-4 mb-3">⚙️ Condition</h2>
+        <p>
+          8.5/10 – Excellent condition overall. Some light shelf wear on the box,
+          but the console itself is pristine and comes from a smoke-free home.
+        </p>
+        <h2 class="title is-4 mb-3">🎁 What’s Included</h2>
+        <ul class="ml-5">
+          <li>PlayStation 5 Slim Console (1TB)</li>
+          <li>2× DualSense Controllers (white)</li>
+          <li>HDMI & Power Cables</li>
+          <li>Original Box & Manuals</li>
+          <li>USB-C Controller Charging Cable</li>
+        </ul>
+        <h2 class="title is-4 mb-3">➕ Extras</h2>
+        <ul class="ml-5">
+          <li>Comes with <strong>God of War Ragnarök</strong> digital code (unused)</li>
+          <li>Includes extended 12-month warranty from Sony</li>
+          <li>Free tracked shipping within the UK</li>
+        </ul>
+      </div>
     </div>
+
   </div>
 </div>
