@@ -17,7 +17,7 @@ gem 'stimulus-rails'
 # Use Sass to process CSS
 gem 'sass-rails', '~> 6.0'
 # Bulma CSS framework
-gem 'bulma-rails', '~> 0.9.4'
+gem 'bulma-rails', '~> 1.0.4'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
