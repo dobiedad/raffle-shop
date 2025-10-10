@@ -2,7 +2,7 @@
 
 class Raffle < ApplicationRecord
   belongs_to :user
-  has_one_attached :image
+  has_many_attached :images
   has_rich_text :description
 
   validates :name, :description, :price, :ticket_price, presence: true

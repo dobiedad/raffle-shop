@@ -25,6 +25,6 @@ class RafflesController < ApplicationController
   private
 
   def raffle_params
-    params.expect(raffle: %i[name description price ticket_price image])
+    params.expect(raffle: [:name, :description, :price, :ticket_price, { images: [] }])
   end
 end

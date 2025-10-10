@@ -21,8 +21,8 @@
           <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
-                <% if raffle.image.attached? %>
-                  <%= image_tag raffle.image, alt: raffle.name %>
+                <% if raffle.images.attached? %>
+                  <%= image_tag raffle.images.first, alt: raffle.name %>
                 <% else %>
                   <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: raffle.name %>
                 <% end %>

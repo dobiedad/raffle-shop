@@ -41,11 +41,51 @@
     </div>
   </div>
 
-  <div class="field">
-    <%= form.label :image, class: "label" %>
-    <div class="control">
-      <%= form.file_field :image, class: "input", accept: "image/*" %>
+  <div class="field" data-controller="image-upload">
+    <%= form.label :images, "Images", class: "label" %>
+    <p class="help mb-3">Add up to 10 photos. Drag & drop or click to upload.</p>
+    
+    <div class="image-upload-container" 
+         data-image-upload-target="dropzone"
+         data-action="dragover->image-upload#dragOver 
+                      dragleave->image-upload#dragLeave 
+                      drop->image-upload#drop
+                      click->image-upload#openFileDialog">
+      <div class="upload-placeholder">
+        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+        </svg>
+        <p class="upload-text">Click to upload or drag and drop</p>
+        <p class="upload-hint">PNG, JPG, GIF up to 10MB each</p>
+      </div>
+      
+      <%= form.file_field :images, 
+          multiple: true, 
+          accept: "image/*",
+          direct_upload: true,
+          class: "hidden-file-input",
+          data: { 
+            image_upload_target: "input",
+            action: "change->image-upload#handleFiles" 
+          } %>
     </div>
+    
+    <div class="image-previews" data-image-upload-target="previews"></div>
+    
+    <% if raffle.images.attached? %>
+      <div class="mt-4">
+        <p class="has-text-weight-semibold mb-3">Current Images:</p>
+        <div class="columns is-multiline is-mobile">
+          <% raffle.images.each do |image| %>
+            <div class="column is-one-quarter-desktop is-half-mobile">
+              <div class="existing-image-wrapper">
+                <%= image_tag image, class: "existing-image" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="field is-grouped">
