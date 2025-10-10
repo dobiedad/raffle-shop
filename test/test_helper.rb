@@ -31,7 +31,15 @@ module ActiveSupport
     fixtures :all
 
     def bob
-      users(:bob_wilson)
+      users(:bob)
+    end
+
+    def leo
+      users(:leo)
+    end
+
+    def iphone_giveaway
+      raffles(:iphone_giveaway)
     end
   end
 end

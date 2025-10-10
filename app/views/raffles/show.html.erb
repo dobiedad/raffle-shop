@@ -1,0 +1,89 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <div class="card">
+          <% if @raffle.images.attached? %>
+            <div class="raffle-gallery" data-controller="image-gallery">
+              <div class="gallery-main">
+                <% if @raffle.images.length > 1 %>
+                  <button type="button" class="gallery-nav gallery-prev" data-action="click->image-gallery#previousImage">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  
+                  <button type="button" class="gallery-nav gallery-next" data-action="click->image-gallery#nextImage">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                <% end %>
+                
+                <div class="main-image-container">
+                  <%= image_tag @raffle.images.first, alt: @raffle.name, class: "main-raffle-image", data: { image_gallery_target: "mainImage" } %>
+                </div>
+                
+                <div class="image-counter">
+                  <span data-image-gallery-target="currentIndex">1</span> / <%= @raffle.images.length %>
+                </div>
+                
+                <% if @raffle.images.length > 1 %>
+                  <div class="gallery-thumbnails">
+                    <% @raffle.images.each_with_index do |image, index| %>
+                      <div class="thumbnail-item" data-index="<%= index %>">
+                        <%= image_tag image, 
+                          alt: "#{@raffle.name} - Image #{index + 1}", 
+                          class: "thumbnail-image",
+                          data: { 
+                            action: "click->image-gallery#changeImage",
+                            image_gallery_target: "thumbnail",
+                            image_url: url_for(image),
+                            index: index
+                          } %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="raffle-gallery">
+              <div class="gallery-main">
+                <div class="main-image-container">
+                  <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: @raffle.name, class: "main-raffle-image" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+            <div class="card-content">
+              <h1 class="title is-2"><%= @raffle.name %></h1>
+
+              <div class="content">
+                <%= @raffle.description %>
+              </div>
+
+            <div class="columns">
+              <div class="column">
+                <div class="box has-background-light">
+                  <p class="heading">Price Target</p>
+                  <p class="title is-4">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
+                </div>
+              </div>
+              <div class="column">
+                <div class="box has-background-light">
+                  <p class="heading">Ticket Price</p>
+                  <p class="title is-4">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <%= link_to "Back to Raffles", raffles_path, class: "button is-light" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

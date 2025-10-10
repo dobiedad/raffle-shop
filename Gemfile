@@ -46,7 +46,7 @@ gem 'hashid-rails', '~> 1.0'
 gem 'thruster', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem 'image_processing', '~> 1.2'
 
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
@@ -77,6 +77,9 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'responders'
 gem 'rubocop', '~> 1.81'
 gem 'rubocop-minitest', '~> 0.38.2'
 gem 'rubocop-rails', '~> 2.33'
+
+gem 'active_storage_validations', '~> 3.0'
