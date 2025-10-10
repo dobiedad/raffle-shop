@@ -13,7 +13,7 @@ class ComponentPreview < ViewComponent::Preview
     return '' if source.size < 2
 
     method_body = source[1...(source.size - 1)]
-    return '' if method_body.nil? || method_body.empty?
+    return '' if method_body.blank?
 
     min_indent = method_body.map { |line| line.match(/^\s*/)[0].length }.min
     cleaned_lines = method_body.map { |line| line[min_indent..] || line }
@@ -23,4 +23,3 @@ class ComponentPreview < ViewComponent::Preview
     end.join("\n")
   end
 end
-

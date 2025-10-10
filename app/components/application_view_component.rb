@@ -6,4 +6,3 @@ class ApplicationViewComponent < ViewComponent::Base
   include ActiveModel::Attributes
   include ActiveModel::Validations
 end
-

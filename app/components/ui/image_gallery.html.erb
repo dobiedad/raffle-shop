@@ -1,6 +1,6 @@
 <div class="raffle-gallery" data-controller="image-gallery">
   <div class="gallery-main">
-    <% if has_multiple_images? %>
+    <% if multiple_images? %>
       <button type="button" class="gallery-nav gallery-prev" data-action="click->image-gallery#previousImage">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -22,7 +22,7 @@
       <span data-image-gallery-target="currentIndex">1</span> / <%= total_images %>
     </div>
     
-    <% if has_multiple_images? %>
+    <% if multiple_images? %>
       <div class="gallery-thumbnails">
         <% images.each_with_index do |image, index| %>
           <div class="thumbnail-item" data-index="<%= index %>">

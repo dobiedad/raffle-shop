@@ -5,7 +5,7 @@ module UI
     attribute :images, required: true
     attribute :alt_prefix, default: 'Image'
 
-    def has_multiple_images?
+    def multiple_images?
       images.length > 1
     end
 

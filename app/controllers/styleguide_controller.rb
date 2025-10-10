@@ -16,4 +16,3 @@ class StyleguideController < ApplicationController
     example.humanize(capitalize: false)
   end
 end
-
