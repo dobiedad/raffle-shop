@@ -107,6 +107,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    coderay (1.1.3)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.4)
     crack (1.0.0)
@@ -188,6 +189,7 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    method_source (1.1.0)
     mini_magick (5.3.0)
       logger
     mini_mime (1.1.5)
@@ -416,6 +418,9 @@ GEM
     useragent (0.16.11)
     vcr (6.3.1)
       base64
+    view_component (4.0.2)
+      activesupport (>= 7.1.0, < 8.1)
+      concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -456,12 +461,14 @@ DEPENDENCIES
   bulma-rails (~> 0.9.4)
   byebug
   capybara
+  coderay
   devise
   hashid-rails (~> 1.0)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
+  method_source
   minitest-stub-const
   minitest-stub_any_instance
   mocha
@@ -484,6 +491,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   vcr
+  view_component
   web-console
   webmock
 

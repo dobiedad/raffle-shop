@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # ViewComponent styleguide routes (only in development and test)
+  if Rails.env.local?
+    get '/styleguide', to: 'styleguide#index', as: :styleguide
+    get '/styleguide/*path', to: 'styleguide#previews', as: :styleguide_preview
+  end
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
