@@ -1,0 +1,44 @@
+<div class="raffle-gallery" data-controller="image-gallery">
+  <div class="gallery-main">
+    <% if has_multiple_images? %>
+      <button type="button" class="gallery-nav gallery-prev" data-action="click->image-gallery#previousImage">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      
+      <button type="button" class="gallery-nav gallery-next" data-action="click->image-gallery#nextImage">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    <% end %>
+    
+    <div class="main-image-container">
+      <%= image_tag first_image, alt: alt_prefix, class: "main-raffle-image", data: { image_gallery_target: "mainImage" } %>
+    </div>
+    
+    <div class="image-counter">
+      <span data-image-gallery-target="currentIndex">1</span> / <%= total_images %>
+    </div>
+    
+    <% if has_multiple_images? %>
+      <div class="gallery-thumbnails">
+        <% images.each_with_index do |image, index| %>
+          <div class="thumbnail-item" data-index="<%= index %>">
+            <%= image_tag image, 
+              alt: "#{alt_prefix} - Image #{index + 1}", 
+              class: "thumbnail-image",
+              data: { 
+                action: "click->image-gallery#changeImage",
+                image_gallery_target: "thumbnail",
+                image_url: url_for(image),
+                index: index
+              } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
