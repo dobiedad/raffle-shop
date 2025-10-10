@@ -81,3 +81,5 @@ gem 'responders'
 gem 'rubocop', '~> 1.81'
 gem 'rubocop-minitest', '~> 0.38.2'
 gem 'rubocop-rails', '~> 2.33'
+
+gem 'active_storage_validations', '~> 3.0'

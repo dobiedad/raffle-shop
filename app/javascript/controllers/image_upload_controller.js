@@ -44,11 +44,33 @@ export default class extends Controller {
     const filesToAdd = files.slice(0, remainingSlots)
     
     filesToAdd.forEach((file, index) => {
+      // Validate file type
+      if (!this.isValidImageType(file)) {
+        alert(`${file.name} is not a valid image format. Please use JPEG, PNG, GIF, or WebP.`)
+        return
+      }
+      
+      // Validate file size (10MB = 10 * 1024 * 1024 bytes)
+      if (file.size > 10 * 1024 * 1024) {
+        alert(`${file.name} is too large. Maximum file size is 10MB.`)
+        return
+      }
+      
       this.filesList.push(file)
       this.createPreview(file, this.filesList.length - 1)
     })
     
+    // Show message if user tried to add more than 10 images
+    if (files.length > remainingSlots) {
+      alert(`You can only upload up to 10 images. ${remainingSlots} slot(s) remaining.`)
+    }
+    
     this.updateFileInput()
+  }
+
+  isValidImageType(file) {
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    return validTypes.includes(file.type)
   }
 
   createPreview(file, index) {
