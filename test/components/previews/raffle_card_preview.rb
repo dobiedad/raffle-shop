@@ -19,7 +19,7 @@ class RaffleCardPreview < ComponentPreview
   def long_description
     # Create a raffle with a long description for testing truncation
     raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
-    
+
     render UI::RaffleCard.new(raffle: raffle)
   end
 end

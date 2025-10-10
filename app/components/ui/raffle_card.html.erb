@@ -1,7 +1,7 @@
 <div class="card raffle-card">
   <div class="card-image">
     <figure class="image is-4by3">
-      <% if has_image? %>
+      <% if image? %>
         <%= image_tag first_image, alt: raffle.name %>
       <% else %>
         <%= image_tag default_image_url, alt: raffle.name %>
