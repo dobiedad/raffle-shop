@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../../app/components/ui/image_gallery'
-
 # This preview allows you to see the component in different states during development
 class ImageGalleryPreview < ComponentPreview
   def default

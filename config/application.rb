@@ -15,6 +15,7 @@ require 'action_text/engine'
 require 'action_view/railtie'
 # require "action_cable/engine"
 require 'rails/test_unit/railtie'
+require 'view_component'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -32,6 +33,15 @@ module RaffleShop
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+
+    # Ensure components are autoloaded
+    config.autoload_paths += %W[#{config.root}/app/components]
+
+    # ViewComponent Previews configuration
+    config.view_component.preview_paths = [Rails.root.join('test/components/previews')]
+    config.view_component.default_preview_layout = 'styleguide'
+
+    Rails.autoloaders.main.inflector.inflect('ui' => 'UI')
 
     # Configuration for the application, engines, and railties goes here.
     #
