@@ -18,31 +18,7 @@
     <div class="columns is-multiline">
       <% @raffles.each do |raffle| %>
         <div class="column is-one-third">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <% if raffle.images.attached? %>
-                  <%= image_tag raffle.images.first, alt: raffle.name %>
-                <% else %>
-                  <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: raffle.name %>
-                <% end %>
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4"><%= raffle.name %></p>
-                  <p class="subtitle is-6">$<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket</p>
-                </div>
-              </div>
-              <div class="content">
-                <%= truncate(raffle.description.to_plain_text, length: 100) %>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <%= link_to "View Details", raffle_path(raffle), class: "card-footer-item" %>
-            </footer>
-          </div>
+          <%= render UI::RaffleCard.new(raffle: raffle) %>
         </div>
       <% end %>
     </div>

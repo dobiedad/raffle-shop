@@ -1,0 +1,25 @@
+<div class="card raffle-card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <% if has_image? %>
+        <%= image_tag first_image, alt: raffle.name %>
+      <% else %>
+        <%= image_tag default_image_url, alt: raffle.name %>
+      <% end %>
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-content">
+        <p class="title is-5"><%= raffle.name %></p>
+        <p class="subtitle is-6">$<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket</p>
+      </div>
+    </div>
+    <div class="content">
+      <%= truncated_description %>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <%= link_to "View Details", raffle_path(raffle), class: "card-footer-item" %>
+  </footer>
+</div>

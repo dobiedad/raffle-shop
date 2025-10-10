@@ -552,6 +552,79 @@ trix-toolbar .trix-button[data-trix-action="redo"] {
   display: block;
 }
 
+/* Raffle Card Styling */
+.raffle-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Reduce gap between cards */
+.columns.is-multiline {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
+.columns.is-multiline .column {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.raffle-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.raffle-card .card-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.raffle-card .card-image .image {
+  height: 100%;
+}
+
+.raffle-card .card-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.raffle-card .card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.raffle-card .content {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.raffle-card .card-footer {
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.raffle-card .card-footer-item {
+  color: #4F46E5;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.raffle-card .card-footer-item:hover {
+  color: #4338CA;
+  text-decoration: none;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .main-image-container {
@@ -579,5 +652,9 @@ trix-toolbar .trix-button[data-trix-action="redo"] {
   
   .gallery-next {
     right: 0.5rem;
+  }
+  
+  .raffle-card .card-image {
+    height: 150px;
   }
 }
