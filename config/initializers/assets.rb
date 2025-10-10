@@ -11,3 +11,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.scss is already added by default.
 # Rails.application.config.assets.precompile += %w( admin.css )
+
+Rails.application.config.assets.precompile += %w[*.svg *.eot *.woff *.woff2 *.ttf]

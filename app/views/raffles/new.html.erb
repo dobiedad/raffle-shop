@@ -2,11 +2,126 @@
   <div class="container">
     <div class="columns">
       <div class="column is-8 is-offset-2">
-        <h1 class="title">New Raffle</h1>
-        
-        <%= render "form", raffle: @raffle %>
+        <section class="section" style="background-color:#fafafa; min-height:100vh;">
+          <div class="container">
+            <div class="mb-6 has-text-centered">
+              <h1 class="title is-3 mb-2">🎟️ Create a New Raffle</h1>
+              <p class="has-text-grey">Add your item details, pricing, and photos — your raffle page will be generated automatically.</p>
+            </div>
+
+            <div class="columns is-variable is-7">
+              <!-- Main Form -->
+              <div class="column is-three-quarters">
+                <%= form_with(model: @raffle, local: true) do |form| %>
+                  <% if @raffle.errors.any? %>
+                    <div class="notification is-danger">
+                      <strong><%= pluralize(@raffle.errors.count, "error") %> prevented saving:</strong>
+                      <ul>
+                        <% @raffle.errors.full_messages.each { |m| %><li><%= m %></li><% } %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                  <!-- NAME -->
+                  <div class="field mb-5">
+                    <%= form.label :name, "Raffle Name", class: "label has-text-weight-medium" %>
+                    <%= form.text_field :name, class: "input is-medium", placeholder: "e.g. PlayStation 5 Slim + Extra Controller" %>
+                  </div>
+
+                  <!-- DESCRIPTION -->
+                  <div class="field mb-6">
+                    <%= form.label :description, "Description", class: "label has-text-weight-medium" %>
+                    <p class="help mb-2">Describe your item, its condition, and what’s included.</p>
+                    <%= form.rich_text_area :description, placeholder: "Describe your raffle in detail..." %>
+                  </div>
+
+                  <!-- PRICING -->
+                  <div class="columns">
+                    <div class="column">
+                      <%= form.label :price, "Price Target", class: "label has-text-weight-medium" %>
+                      <%= form.number_field :price, class: "input is-medium", step: 0.01, placeholder: "550.00" %>
+                      <p class="help">Total value you want to reach</p>
+                    </div>
+                    <div class="column">
+                      <%= form.label :ticket_price, "Ticket Price", class: "label has-text-weight-medium" %>
+                      <%= form.number_field :ticket_price, class: "input is-medium", step: 0.01, placeholder: "3.50" %>
+                      <p class="help">Price per entry</p>
+                    </div>
+                  </div>
+
+                  <!-- IMAGES -->
+                  <div class="field mt-6" data-controller="image-upload">
+                    <%= form.label :images, "Images", class: "label has-text-weight-medium" %>
+                    <p class="help mb-3">Upload clear product photos (up to 10).</p>
+                    <div class="image-upload-container"
+                         data-image-upload-target="dropzone"
+                         data-action="dragover->image-upload#dragOver dragleave->image-upload#dragLeave drop->image-upload#drop click->image-upload#openFileDialog">
+                      <div class="upload-placeholder">
+                        <p class="upload-text">Click or drag & drop to upload images</p>
+                        <p class="upload-hint">JPEG, PNG, GIF, WebP • Max 10MB • Up to 10 images</p>
+                      </div>
+                      <%= form.file_field :images, multiple: true, accept: "image/*", direct_upload: true,
+                          class: "hidden-file-input",
+                          data: { image_upload_target: "input", action: "change->image-upload#handleFiles" } %>
+                    </div>
+                    <div class="image-previews" data-image-upload-target="previews"></div>
+                  </div>
+
+                  <hr class="my-6">
+
+                  <!-- BUTTONS -->
+                  <div class="is-flex is-justify-content-space-between">
+                    <%= link_to "Cancel", raffles_path, class: "button is-light" %>
+                    <%= form.submit "Create Raffle", class: "button is-primary is-medium" %>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Secondary Sidebar -->
+              <div class="column is-one-quarter">
+                <div class="content is-size-7 has-text-grey-dark" style="position: sticky; top: 2rem;">
+                  <p class="mb-3"><strong>Tips for Success</strong></p>
+                  <ul>
+                    <li>📸 Use bright, clear images</li>
+                    <li>💰 Keep ticket prices proportional to goal</li>
+                    <li>🕐 Short raffles (5–7 days) drive urgency</li>
+                    <li>🎯 Honest, concise descriptions convert better</li>
+                  </ul>
+
+                  <hr class="my-4">
+                  <p class="mb-2"><strong>Preview</strong></p>
+                  <div style="border:1px solid #e5e5e5; border-radius:8px; padding:1rem;">
+                    <div style="background:#f3f3f3; height:140px; border-radius:6px; margin-bottom:0.5rem;"></div>
+                    <p class="has-text-weight-semibold mb-1">Sample Raffle</p>
+                    <p class="is-size-7 has-text-grey">$3.50 per ticket</p>
+                    <button class="button is-small is-primary is-light is-fullwidth mt-2">View Details</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <style media="screen">
+          .upload-placeholder {
+          border: 2px dashed #d4d4e0;
+          border-radius: 10px;
+          padding: 2.5rem;
+          text-align: center;
+          color: #777;
+          transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .upload-placeholder:hover {
+          background: #f9f9ff;
+          border-color: #a5a6f6;
+        }
+        .box {
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        </style>
+
       </div>
     </div>
   </div>
 </div>
-

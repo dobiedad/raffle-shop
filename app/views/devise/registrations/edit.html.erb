@@ -1,71 +1,75 @@
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-5-tablet is-4-desktop">
-        <h1 class="title">Edit <%= resource_name.to_s.humanize %></h1>
+<section class="section" style="background-color:#fafafa; min-height:100vh;">
+  <div class="container" style="max-width: 780px;">
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
+    <!-- Header -->
+    <div class="has-text-centered mb-6">
+      <figure class="image is-128x128 is-inline-block mb-3">
+        <img class="is-rounded" src="https://i.pravatar.cc/150?img=7" alt="Profile picture">
+      </figure>
+      <h1 class="title is-4 mb-1"><%= current_user.email %></h1>
+      <p class="is-size-7 has-text-grey">
+        Member since <strong><%= current_user.created_at.strftime("%B %Y") rescue "June 2024" %></strong>
+      </p>
+      <div class="tags is-centered mt-2">
+        <span class="tag is-light is-info">Verified User</span>
+        <span class="tag is-light is-success">Active</span>
+      </div>
+    </div>
 
-          <div class="field">
-            <%= f.label :email, class: "label" %>
-            <div class="control">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
-            </div>
-          </div>
+    <!-- Form -->
+    <div class="box" style="padding: 2.5rem;">
+      <h2 class="title is-5 mb-5">Account Details</h2>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div class="notification is-info is-light">
-              Currently waiting confirmation for: <%= resource.unconfirmed_email %>
-            </div>
-          <% end %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-          <div class="field">
-            <%= f.label :password, class: "label" %>
-            <p class="help">Leave blank if you don't want to change it</p>
-            <div class="control">
-              <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
-            </div>
-            <% if @minimum_password_length %>
-              <p class="help"><%= @minimum_password_length %> characters minimum</p>
-            <% end %>
-          </div>
-
-          <div class="field">
-            <%= f.label :password_confirmation, class: "label" %>
-            <div class="control">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-            </div>
-          </div>
-
-          <div class="field">
-            <%= f.label :current_password, class: "label" %>
-            <p class="help">We need your current password to confirm your changes</p>
-            <div class="control">
-              <%= f.password_field :current_password, autocomplete: "current-password", class: "input" %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.submit "Update", class: "button is-primary is-fullwidth" %>
-            </div>
-          </div>
-        <% end %>
+        <div class="field mb-4">
+          <%= f.label :email, class: "label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium" %>
+        </div>
 
         <hr>
 
-        <h2 class="subtitle">Cancel my account</h2>
-        <p class="mb-3">Unhappy?</p>
-        <%= button_to "Cancel my account", registration_path(resource_name), 
-            data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, 
-            method: :delete, 
-            class: "button is-danger is-light" %>
-
-        <div class="mt-4">
-          <%= link_to "Back", :back, class: "button is-text" %>
+        <div class="field mt-5">
+          <%= f.label :password, class: "label" %>
+          <p class="help mb-2">Leave blank if you don't want to change it</p>
+          <%= f.password_field :password, autocomplete: "new-password", class: "input is-medium" %>
         </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation, class: "label" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input is-medium" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :current_password, class: "label" %>
+          <p class="help mb-2">We need your current password to confirm your changes</p>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "input is-medium" %>
+        </div>
+
+        <div class="field mt-5">
+          <%= f.submit "Update Profile", class: "button is-primary is-fullwidth is-medium" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Extras -->
+    <div class="has-text-centered mt-6">
+      <p class="is-size-6 mb-2">🎟️ <strong>24</strong> tickets entered</p>
+      <p class="is-size-6 mb-2">💰 <strong>$92.50</strong> total spent</p>
+      <p class="is-size-6 mb-5">🏆 <strong>2</strong> raffles won</p>
+
+      <hr style="width:60%;margin:auto;margin-bottom:2rem;">
+
+      <div>
+        <p class="has-text-grey mb-3">Want to delete your account?</p>
+        <%= button_to "Cancel My Account",
+                      registration_path(resource_name),
+                      data: { confirm: "Are you sure?" },
+                      method: :delete,
+                      class: "button is-danger is-light" %>
       </div>
     </div>
+
   </div>
 </section>
