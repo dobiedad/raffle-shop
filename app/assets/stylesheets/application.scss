@@ -14,3 +14,12 @@
 // Import component-specific stylesheets
 @import "components/raffle_gallery";
 @import "components/raffle_card";
+
+.section {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.box:not(:last-child) {
+  margin-bottom: 0px;
+}

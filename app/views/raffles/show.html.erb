@@ -1,47 +1,45 @@
-<div class="section">
+<div class="section raffle-show">
   <div class="container">
-    <div class="columns">
-      <div class="column is-8 is-offset-2">
-        <div class="card">
-          <% if @raffle.images.attached? %>
-            <%= render UI::ImageGallery.new(images: @raffle.images, alt_prefix: @raffle.name) %>
-          <% else %>
-            <div class="raffle-gallery">
-              <div class="gallery-main">
-                <div class="main-image-container">
-                  <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: @raffle.name, class: "main-raffle-image" %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-            <div class="card-content">
-              <h1 class="title is-2"><%= @raffle.name %></h1>
+    <div class="columns is-variable is-6">
+      <!-- Left: Image -->
+      <div class="column is-half">
+        <% if @raffle.images.attached? %>
+          <%= render UI::ImageGallery.new(images: @raffle.images, alt_prefix: @raffle.name) %>
+        <% else %>
+          <figure class="image is-3by2">
+            <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: @raffle.name, class: "main-raffle-image" %>
+          </figure>
+        <% end %>
+      </div>
 
-              <div class="content">
-                <%= @raffle.description %>
-              </div>
+      <!-- Right: Product Info -->
+      <div class="column is-half">
+        <div class="raffle-details">
+          <h1 class="title is-2 mb-4"><%= @raffle.name %></h1>
 
-            <div class="columns">
-              <div class="column">
-                <div class="box has-background-light">
-                  <p class="heading">Price Target</p>
-                  <p class="title is-4">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
-                </div>
-              </div>
-              <div class="column">
-                <div class="box has-background-light">
-                  <p class="heading">Ticket Price</p>
-                  <p class="title is-4">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
-                </div>
-              </div>
+          <div class="is-flex mb-5" style="gap: 1rem;">
+            <div class="box has-text-centered is-flex-grow-1">
+              <p class="heading has-text-grey">Price Target</p>
+              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
             </div>
+            <div class="box has-text-centered is-flex-grow-1">
+              <p class="heading has-text-grey">Ticket Price</p>
+              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
+            </div>
+          </div>
 
-            <div class="field is-grouped">
-              <%= link_to "Back to Raffles", raffles_path, class: "button is-light" %>
-            </div>
+          <div class="buttons mb-6">
+            <%= link_to "Buy Ticket", '#', class: "button is-primary is-medium" %>
+            <% if user_signed_in? %>
+              <%= link_to "Edit Raffle", '#', class: "button is-light is-medium" %>
+            <% end %>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="content mt-5">
+      <%= simple_format(@raffle.description) %>
     </div>
   </div>
 </div>

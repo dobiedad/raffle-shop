@@ -1,14 +1,10 @@
 // Mobile Responsive Styles
 @media (max-width: 768px) {
-  .main-image-container {
-    height: 400px;
-  }
-  
   .thumbnail-item {
     width: 50px;
     height: 50px;
   }
-  
+
   .gallery-nav {
     width: 36px;
     height: 36px;
@@ -18,15 +14,15 @@
       height: 18px;
     }
   }
-  
+
   .gallery-prev {
     left: 0.5rem;
   }
-  
+
   .gallery-next {
     right: 0.5rem;
   }
-  
+
   .raffle-card .card-image {
     height: 150px;
   }
