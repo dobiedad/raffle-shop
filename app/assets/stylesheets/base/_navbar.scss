@@ -1,0 +1,21 @@
+// Navbar Styling
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #E5E7EB;
+  box-shadow: none;
+
+  .navbar-brand .navbar-item {
+    font-weight: 700;
+    color: #4F46E5;
+
+    &:hover {
+      color: #7C3AED;
+    }
+  }
+}
+
+.notification {
+  padding: 15px;
+  font-size: 14px;
+  margin-bottom: 0px !important;
+}
