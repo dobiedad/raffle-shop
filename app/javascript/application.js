@@ -4,3 +4,7 @@ import "controllers"
 
 import "trix"
 import "@rails/actiontext"
+
+document.addEventListener('trix-initialize', (event) => {
+  window.trixEditorLoaded = true
+})
