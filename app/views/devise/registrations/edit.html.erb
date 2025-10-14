@@ -1,92 +1,106 @@
 <section class="section" style="background-color:#f8f9fb; min-height:100vh;">
-  <div class="container" style="max-width: 1000px;">
+  <div class="container" style="max-width: 1100px;">
+
     <!-- Header -->
-    <div class="columns is-vcentered mb-6">
-      <div class="column is-narrow has-text-centered">
-        <figure class="image is-128x128 is-inline-block">
-          <img class="is-rounded" src="https://i.pravatar.cc/150?img=7" alt="Profile picture">
-        </figure>
-      </div>
-      <div class="column">
-        <h1 class="title is-4 mb-1"><%= current_user.email %></h1>
-        <p class="is-size-7 has-text-grey">
-          Member since <strong><%= current_user.created_at.strftime("%B %Y") rescue "June 2024" %></strong>
-        </p>
-        <div class="tags mt-2">
-          <span class="tag is-light is-info">Verified</span>
-          <span class="tag is-light is-success">Active</span>
-        </div>
-      </div>
-      <div class="column is-narrow has-text-right-desktop">
-        <%= link_to "View All Raffles", raffles_path, class: "button is-light is-small" %>
-      </div>
-    </div>
+    <div class="box has-text-centered" style="padding:3rem 2rem; border-radius:14px;">
+      <figure class="image is-128x128 is-inline-block mb-3">
+        <img class="is-rounded" src="https://i.pravatar.cc/150?img=12" alt="Profile photo">
+      </figure>
 
-    <div class="columns is-variable is-7">
-      <!-- Left: Account Form -->
-      <div class="column is-two-thirds">
-        <div class="box" style="padding:2.5rem; border-radius:12px;">
-          <h2 class="title is-5 mb-5">Account Details</h2>
+      <h1 class="title is-4 mb-1"><%= current_user.email %></h1>
+      <p class="is-size-7 has-text-grey mb-2">
+        Member since <strong><%= current_user.created_at.strftime("%B %Y") rescue "June 2024" %></strong>
+      </p>
 
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
-
-            <div class="field mb-4">
-              <%= f.label :email, class: "label" %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input is-medium" %>
-            </div>
-
-            <div class="columns">
-              <div class="column">
-                <%= f.label :password, class: "label" %>
-                <p class="help mb-2">Leave blank if unchanged</p>
-                <%= f.password_field :password, autocomplete: "new-password", class: "input is-medium" %>
-              </div>
-              <div class="column">
-                <%= f.label :password_confirmation, class: "label" %>
-                <p class="help mb-2">Leave blank if unchanged</p>
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input is-medium" %>
-              </div>
-            </div>
-
-            <div class="field mt-3">
-              <%= f.label :current_password, class: "label" %>
-              <p class="help mb-2">Confirm changes with your current password</p>
-              <%= f.password_field :current_password, autocomplete: "current-password", class: "input is-medium" %>
-            </div>
-
-            <div class="field mt-5">
-              <%= f.submit "Save Changes", class: "button is-primary is-fullwidth is-medium" %>
-            </div>
-          <% end %>
-        </div>
+      <div class="tags is-centered mb-4">
+        <span class="tag is-light is-info">Verified</span>
+        <span class="tag is-light is-success">Active</span>
       </div>
 
-      <!-- Right: Stats / Danger Zone -->
-      <div class="column">
-        <div class="box mb-4" style="padding:1.8rem; border-radius:12px;">
-          <h2 class="title is-6 mb-4">Your Stats</h2>
-          <div class="is-flex is-justify-content-space-between mb-3">
-            <span>🎟️ Tickets Entered</span><strong>24</strong>
-          </div>
-          <div class="is-flex is-justify-content-space-between mb-3">
-            <span>💰 Total Spent</span><strong>$92.50</strong>
-          </div>
-          <div class="is-flex is-justify-content-space-between">
-            <span>🏆 Raffles Won</span><strong>2</strong>
-          </div>
-        </div>
-
-        <div class="box has-background-white-ter" style="padding:1.8rem; border-radius:12px;">
-          <h2 class="title is-6 has-text-danger mb-3">Danger Zone</h2>
-          <p class="is-size-7 mb-3">Deleting your account is irreversible.</p>
-          <%= button_to "Delete Account",
-                        registration_path(resource_name),
-                        data: { confirm: "Are you sure?" },
-                        method: :delete,
-                        class: "button is-danger is-light is-fullwidth" %>
-        </div>
+      <div class="buttons is-centered">
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "button is-primary is-small" %>
+        <%= link_to "My Raffles", raffles_path, class: "button is-light is-small" %>
       </div>
     </div>
+
+    <!-- Dashboard Grid -->
+    <div class="columns is-multiline mt-6">
+
+      <!-- Stats -->
+      <div class="column is-one-third">
+        <div class="box has-text-centered" style="border-radius:12px;">
+          <h2 class="title is-6 mb-3">🎟️ Tickets Entered</h2>
+          <p class="is-size-3 has-text-weight-semibold">24</p>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="box has-text-centered" style="border-radius:12px;">
+          <h2 class="title is-6 mb-3">💰 Total Spent</h2>
+          <p class="is-size-3 has-text-weight-semibold">$92.50</p>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="box has-text-centered" style="border-radius:12px;">
+          <h2 class="title is-6 mb-3">🏆 Raffles Won</h2>
+          <p class="is-size-3 has-text-weight-semibold">2</p>
+        </div>
+      </div>
+
+      <!-- Wallet -->
+      <div class="column is-half">
+        <div class="box" style="border-radius:12px;">
+          <div class="is-flex is-justify-content-space-between is-align-items-center">
+            <div>
+              <h2 class="title is-6 mb-2">Wallet Balance</h2>
+              <p class="is-size-4 has-text-weight-semibold">$42.00</p>
+            </div>
+            <div class="buttons">
+              <%= link_to "Add Funds", "#", class: "button is-primary is-small" %>
+              <%= link_to "Withdraw", "#", class: "button is-light is-small" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="column is-half">
+        <div class="box" style="border-radius:12px;">
+          <h2 class="title is-6 mb-3">Achievements</h2>
+          <div class="tags">
+            <span class="tag is-success is-light">🏆 First Win</span>
+            <span class="tag is-info is-light">🎟️ 10+ Tickets</span>
+            <span class="tag is-warning is-light">⭐ Trusted User</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="column is-full">
+        <div class="box" style="border-radius:12px;">
+          <h2 class="title is-6 mb-4">Recent Activity</h2>
+          <table class="table is-fullwidth is-hoverable is-size-7">
+            <tbody>
+              <tr>
+                <td>🎟️ Joined <strong>PS5 Giveaway</strong> — 2 tickets</td>
+                <td class="has-text-right has-text-grey">2d ago</td>
+              </tr>
+              <tr>
+                <td>🏆 Won <strong>Apple Watch Ultra</strong></td>
+                <td class="has-text-right has-text-grey">Oct 8</td>
+              </tr>
+              <tr>
+                <td>💳 Added $25 wallet credit</td>
+                <td class="has-text-right has-text-grey">Oct 5</td>
+              </tr>
+            </tbody>
+          </table>
+          <%= link_to "View Full History", "#", class: "has-text-link is-size-7" %>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
