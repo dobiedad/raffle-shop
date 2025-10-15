@@ -11,6 +11,9 @@ class RaffleTest < ActiveSupport::TestCase
     assert_invalid 'must be greater than 0', price: 0
     assert_invalid 'must be greater than 2', ticket_price: 0
     assert_invalid 'must be less than 100', ticket_price: 101
+    assert_invalid "can't be blank", status: nil
+    assert_invalid "can't be blank", category: nil
+    assert_invalid "can't be blank", condition: nil
   end
 
   test 'accepts valid image formats' do
@@ -72,5 +75,12 @@ class RaffleTest < ActiveSupport::TestCase
 
     assert_not raffle.valid?
     assert_includes raffle.errors[:images], 'must be less than 10MB'
+  end
+
+  test 'by_category scope filters correctly' do
+    tech_raffles = Raffle.by_category('Tech')
+
+    assert_includes tech_raffles, raffles(:iphone_giveaway)
+    assert_not_includes tech_raffles, raffles(:ps5_bundle)
   end
 end

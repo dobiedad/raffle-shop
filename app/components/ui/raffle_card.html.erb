@@ -20,6 +20,6 @@
     </div>
   </div>
   <footer class="card-footer">
-    <%= link_to "View Details", raffle_path(raffle), class: "card-footer-item" %>
+    <%= link_to "View Details", raffle.persisted? ? raffle_path(raffle) : '#', class: "card-footer-item" %>
   </footer>
 </div>

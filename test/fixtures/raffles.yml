@@ -3,9 +3,17 @@ iphone_giveaway:
   name: "iPhone 15 Pro Max"
   price: 1200.0
   ticket_price: 5.0
+  status: active
+  category: Tech
+  condition: New
+  end_date: <%= 7.days.from_now %>
 
 ps5_bundle:
   user: jane
   name: "PS5 Console + Extra Controller"
   price: 550.0
   ticket_price: 3.5
+  status: active
+  category: Gaming
+  condition: New
+  end_date: <%= 5.days.from_now %>

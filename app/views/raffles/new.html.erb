@@ -1,12 +1,38 @@
-<div class="section">
+<section class="section" style="background-color:#fafafa; min-height:100vh;" data-controller="raffle-preview">
   <div class="container">
-    <div class="columns">
-      <div class="column is-8 is-offset-2">
-        <h1 class="title">New Raffle</h1>
-        
+    <div class="mb-6 has-text-centered">
+      <h1 class="title is-3 mb-2">🎟️ Create a New Raffle</h1>
+      <p class="has-text-grey">Add your item details, pricing, and photos — your raffle page will be generated automatically.</p>
+    </div>
+
+    <div class="columns is-variable is-7">
+      <!-- Main Form -->
+      <div class="column is-three-quarters">
         <%= render "form", raffle: @raffle %>
+      </div>
+
+      <!-- Secondary Sidebar -->
+      <div class="column is-one-quarter">
+        <div class="content is-size-7 has-text-grey-dark" style="position: sticky; top: 2rem;">
+          <p class="mb-3"><strong>Tips for Success</strong></p>
+          <ul>
+            <li>📸 Use bright, clear images</li>
+            <li>💰 Keep ticket prices proportional to goal</li>
+            <li>🕐 Short raffles (5–7 days) drive urgency</li>
+            <li>🎯 Honest, concise descriptions convert better</li>
+          </ul>
+
+          <hr class="my-4">
+          <p class="mb-2"><strong>Live Preview</strong></p>
+          
+          <!-- Raffle Card Preview -->
+          <% if @preview_raffle %>
+            <div id="preview-card" style="max-width: 100%;">
+              <%= render UI::RaffleCard.new(raffle: @preview_raffle) %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
+</section>

@@ -66,6 +66,9 @@ export default class extends Controller {
     }
     
     this.updateFileInput()
+    
+    // Dispatch event to notify preview controller
+    this.dispatch('imagesChanged', { detail: { files: this.filesList } })
   }
 
   isValidImageType(file) {
@@ -119,6 +122,9 @@ export default class extends Controller {
     })
     
     this.updateFileInput()
+    
+    // Dispatch event to notify preview controller
+    this.dispatch('imagesChanged', { detail: { files: this.filesList } })
   }
 
   updateFileInput() {
