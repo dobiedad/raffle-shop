@@ -64,7 +64,10 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
       name: 'BMW X6',
       description: 'My Beloved BMW X6, 2012 100k Miles',
       price: 50_000,
-      ticket_price: 25.0
+      ticket_price: 25.0,
+      category: 'Vehicles',
+      condition: 'Good',
+      end_date: 7.days.from_now
     }
   end
 end
