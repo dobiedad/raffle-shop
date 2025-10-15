@@ -21,4 +21,14 @@ class Raffle < ApplicationRecord
                      message: 'cannot be more than 10 images' }
 
   scope :by_category, ->(category) { where(category: category) }
+
+  def tickets_sold_count
+    0
+  end
+
+  def days_remaining
+    return nil if end_date.nil?
+
+    [(end_date.to_date - Date.current).to_i, 0].max
+  end
 end

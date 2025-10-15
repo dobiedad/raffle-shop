@@ -26,19 +26,22 @@ export default class extends Controller {
     const price = this.ticketPriceTarget.value || "3.50"
     const formattedPrice = parseFloat(price).toFixed(2)
     const previewCard = document.querySelector("#preview-card")
-    const subtitleElement = previewCard.querySelector(".subtitle")
-    if (subtitleElement) {
-      subtitleElement.textContent = `$${formattedPrice} per ticket`
+    // Updated selector for new card design
+    const priceElement = previewCard.querySelector(".has-text-weight-semibold")
+    if (priceElement) {
+      priceElement.textContent = `$${formattedPrice} per ticket`
     }
   }
 
   updateDescription() {
     const description = this.getDescriptionText() || "Add a description to see it here..."
-    const truncated = this.truncate(description, 100)
+    // Updated truncation to match component (80 chars)
+    const truncated = this.truncate(description, 80)
     const previewCard = document.querySelector("#preview-card")
-    const contentElement = previewCard.querySelector(".card-content .content")
-    if (contentElement) {
-      contentElement.textContent = truncated
+    // Updated selector for new card design
+    const descriptionElement = previewCard.querySelector(".is-size-7.has-text-grey.mb-4")
+    if (descriptionElement) {
+      descriptionElement.textContent = truncated
     }
   }
 
@@ -84,4 +87,3 @@ export default class extends Controller {
     return str.substring(0, length) + "..."
   }
 }
-

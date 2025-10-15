@@ -17,7 +17,7 @@
 
     <div class="columns is-multiline">
       <% @raffles.each do |raffle| %>
-        <div class="column is-one-third">
+        <div class="column is-one-third-desktop is-half-tablet">
           <%= render UI::RaffleCard.new(raffle: raffle) %>
         </div>
       <% end %>
