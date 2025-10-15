@@ -20,10 +20,6 @@
     </div>
   </div>
   <footer class="card-footer">
-    <% if raffle.persisted? %>
-      <%= link_to "View Details", raffle_path(raffle), class: "card-footer-item" %>
-    <% else %>
-      <a class="card-footer-item" style="cursor: default; pointer-events: none; color: #999;">Preview Only</a>
-    <% end %>
+    <%= link_to "View Details", raffle.persisted? ? raffle_path(raffle) : '#', class: "card-footer-item" %>
   </footer>
 </div>

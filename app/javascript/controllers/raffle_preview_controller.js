@@ -5,12 +5,12 @@ export default class extends Controller {
   static targets = [
     "name",
     "ticketPrice",
-    "description",
-    "image"
+    "description"
   ]
 
   connect() {
     this.updatePreview()
+    this.defaultImageUrl = 'https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg'
   }
 
   updateName() {
@@ -42,18 +42,25 @@ export default class extends Controller {
     }
   }
 
-  updateImage(event) {
-    const file = event.target.files[0]
-    if (file) {
+  // Listen for images changed event from image-upload controller
+  handleImagesChanged(event) {
+    const files = event.detail.files
+    const previewCard = document.querySelector("#preview-card")
+    const imageElement = previewCard.querySelector(".card-image img")
+    
+    if (!imageElement) return
+
+    if (files && files.length > 0) {
+      // Show the first image in the list
+      const firstFile = files[0]
       const reader = new FileReader()
       reader.onload = (e) => {
-        const previewCard = document.querySelector("#preview-card")
-        const imageElement = previewCard.querySelector(".card-image img")
-        if (imageElement) {
-          imageElement.src = e.target.result
-        }
+        imageElement.src = e.target.result
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(firstFile)
+    } else {
+      // No images, show placeholder
+      imageElement.src = this.defaultImageUrl
     }
   }
 

@@ -90,7 +90,9 @@
   </div>
 
   <!-- IMAGES -->
-  <div class="field mt-6" data-controller="image-upload">
+  <div class="field mt-6" 
+       data-controller="image-upload"
+       data-action="image-upload:imagesChanged->raffle-preview#handleImagesChanged">
     <%= form.label :images, "Images", class: "label has-text-weight-medium" %>
     <p class="help mb-3">Upload clear product photos (up to 10).</p>
     <div class="image-upload-container"
@@ -107,8 +109,7 @@
           class: "hidden-file-input",
           data: { 
             image_upload_target: "input",
-            raffle_preview_target: "image",
-            action: "change->image-upload#handleFiles change->raffle-preview#updateImage"
+            action: "change->image-upload#handleFiles"
           } %>
     </div>
     <div class="image-previews" data-image-upload-target="previews"></div>
