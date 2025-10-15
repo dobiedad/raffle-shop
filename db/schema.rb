@@ -59,10 +59,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_103407) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "active"
-    t.string "category"
-    t.string "condition"
-    t.datetime "end_date"
+    t.string "status", null: false
+    t.string "category", null: false
+    t.string "condition", null: false
+    t.datetime "end_date", null: false
     t.index ["user_id"], name: "index_raffles_on_user_id"
   end
 

@@ -16,6 +16,7 @@ class RafflesTest < ApplicationSystemTestCase
     fill_in 'Ticket Price', with: '10.00'
     select 'Tech', from: 'Category'
     select 'New', from: 'Condition'
+    fill_in 'End Date', with: 10.days.from_now
 
     click_button 'Create Raffle'
 

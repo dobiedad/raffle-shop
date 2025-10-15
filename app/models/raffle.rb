@@ -5,7 +5,7 @@ class Raffle < ApplicationRecord
   has_many_attached :images
   has_rich_text :description
 
-  enum :status, { active: 'active', completed: 'completed' }
+  enum :status, { active: 'active', completed: 'completed' }, default: :active
 
   validates :name, :description, :price, :ticket_price, :status, :category, :condition, presence: true
   validates :price, numericality: { greater_than: 0 }
