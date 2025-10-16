@@ -1,5 +1,5 @@
 <div class="raffle-card card p-0" style="transition: all 0.2s ease-in-out;">
-  <div class="card-image">
+  <div class="card-image" style="position: relative;">
     <figure class="image is-3by2">
       <% if image? %>
         <%= image_tag url_for(first_image), alt: raffle.name %>
@@ -7,6 +7,9 @@
         <%= image_tag default_image_url, alt: raffle.name %>
       <% end %>
     </figure>
+    <% if badge? %>
+      <%= render UI::Badge.new(text: badge_text, position: :absolute) %>
+    <% end %>
   </div>
 
   <div class="card-content">

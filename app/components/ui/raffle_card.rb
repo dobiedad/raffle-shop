@@ -3,6 +3,7 @@
 module UI
   class RaffleCard < ApplicationViewComponent
     attribute :raffle, required: true
+    attribute :badge_text, default: nil
 
     def image?
       raffle.images.attached?
@@ -30,6 +31,10 @@ module UI
       return 'Less than 1 day' if days <= 1
 
       "#{days}d left"
+    end
+
+    def badge?
+      badge_text.present?
     end
   end
 end

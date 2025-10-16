@@ -22,4 +22,10 @@ class RaffleCardPreview < ComponentPreview
 
     render UI::RaffleCard.new(raffle: raffle)
   end
+
+  def with_badge
+    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+
+    render UI::RaffleCard.new(raffle: raffle, badge_text: '5 tickets')
+  end
 end
