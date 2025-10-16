@@ -26,3 +26,15 @@
 .box:not(:last-child) {
   margin-bottom: 0px;
 }
+
+.main-section {
+  margin: auto;
+  width: 100%;
+  padding: 0px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
