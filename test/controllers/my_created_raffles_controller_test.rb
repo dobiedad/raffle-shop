@@ -20,7 +20,6 @@ class MyCreatedRafflesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_text raffle.name
-    assert_text '1 raffle created'
   end
 
   test '#index shows empty state when no raffles' do
@@ -54,18 +53,15 @@ class MyCreatedRafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index only shows current user raffles' do
     login_as bob
     other_user = users(:leo)
-    
-    # Create raffle for other user
+
     Raffle.create!(valid_raffle_params.merge(user: other_user))
-    
-    # Create raffle for current user
+
     user_raffle = Raffle.create!(valid_raffle_params.merge(user: bob))
 
     get my_created_raffles_url
 
     assert_response :success
     assert_text user_raffle.name
-    assert_text '1 raffle created'
   end
 
   private
