@@ -104,4 +104,16 @@ class RaffleTest < ActiveSupport::TestCase
   test 'self.ransackable_associations' do
     assert_equal %w[user], subject.class.ransackable_associations
   end
+
+  test '#max_tickets' do
+    subject.price = 100
+    subject.ticket_price = 2.5
+
+    assert_equal 40, subject.max_tickets
+
+    subject.price = 100
+    subject.ticket_price = 3.5
+
+    assert_equal 29, subject.max_tickets
+  end
 end
