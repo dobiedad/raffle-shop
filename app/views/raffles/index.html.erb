@@ -1,7 +1,10 @@
 <!-- Top Notification Banner -->
-<div class="notification is-light is-info has-text-centered mb-6">
-  <strong>💡 Tip:</strong> Buying multiple tickets increases your odds — view active raffles below.
-</div>
+<%= render UI::NotificationBanner.new(
+  type: 'info',
+  icon: '💡',
+  title: 'Tip:',
+  message: 'Buying multiple tickets increases your odds — view active raffles below.'
+) %>
 
 <div class="section raffles-index" style="background-color: #f9fafb;">
   <div class="container">
