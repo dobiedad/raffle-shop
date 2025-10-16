@@ -16,16 +16,10 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index with search query' do
     raffle = raffles(:iphone_giveaway)
 
-    get raffles_url, params: { q: { name_cont: 'iPhone' } }
+    get raffles_url, params: { q: { name_cont: 'iPhone' }, category: 'Tech' }
 
     assert_response :success
     assert_text raffle.name
-  end
-
-  test '#index with category filter' do
-    get raffles_url, params: { category: 'Tech' }
-
-    assert_response :success
     assert_select '.button.is-active', text: 'Tech'
   end
 

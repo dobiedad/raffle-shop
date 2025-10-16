@@ -6,7 +6,7 @@ class RafflesController < ApplicationController
 
   def index
     @q = Raffle.ransack(search_params)
-    @pagy, @raffles = pagy(@q.result(distinct: true).order(created_at: :desc), limit: 1)
+    @pagy, @raffles = pagy(@q.result(distinct: true).order(created_at: :desc))
     @total_raffles_count = Raffle.count
     @active_category = params[:category] || 'All'
   end
