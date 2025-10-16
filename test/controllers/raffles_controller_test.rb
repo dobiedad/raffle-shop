@@ -23,7 +23,6 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#index with category filter' do
-    # Test category filtering
     get raffles_url, params: { category: 'Tech' }
 
     assert_response :success
@@ -31,7 +30,6 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#index pagination' do
-    # Create more than 9 raffles to test pagination
     15.times do |i|
       Raffle.create!(
         name: "Test Raffle #{i}",
@@ -48,7 +46,6 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     get raffles_url
 
     assert_response :success
-    # Should see pagination controls
     assert_select '.pagination'
   end
 
