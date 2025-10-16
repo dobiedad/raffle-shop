@@ -25,7 +25,9 @@
   <body>
     <%= render "partials/navbar" %>
     <%= render "partials/flash_alert" %>
-    <%= yield %>
+    <main class="main-section">
+     <%= yield %>
+   </main>
     <%= render 'partials/footer' %>
   </body>
 </html>
