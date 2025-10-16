@@ -9,12 +9,10 @@
 <div class="section raffles-index" style="background-color: #f9fafb;">
   <div class="container">
 
-    <div class="has-text-centered mb-6">
-      <h1 class="title is-2 mb-6">🎟️ Current Raffles</h1>
-      <p class="subtitle is-5 has-text-grey">
-        Enter raffles for the latest gadgets, collectibles, and more — starting from just $1 per ticket.
-      </p>
-    </div>
+    <%= render UI::PageHeader.new(
+      title: '🎟️ Current Raffles',
+      subtitle: 'Enter raffles for the latest gadgets, collectibles, and more — starting from just $1 per ticket.'
+    ) %>
 
     <%= render UI::SearchBar.new(
       value: params.dig(:q, :name_cont),
