@@ -90,3 +90,9 @@ gem 'view_component'
 # Syntax highlighting for styleguide
 gem 'coderay'
 gem 'method_source'
+
+# Search
+gem 'ransack'
+
+# Pagination
+gem 'pagy', '~> 9.0'
