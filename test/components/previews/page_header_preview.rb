@@ -28,12 +28,4 @@ class PageHeaderPreview < ComponentPreview
       subtitle: 'Manage your account preferences and notification settings.'
     )
   end
-
-  def long_content
-    render UI::PageHeader.new(
-      title: '🏆 Winners Gallery',
-      subtitle: 'Congratulations to all our recent winners! Check out who won amazing prizes in our latest raffles. Your next win could be just around the corner!'
-    )
-  end
 end
-
