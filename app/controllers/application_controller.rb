@@ -9,5 +9,4 @@ class ApplicationController < ActionController::Base
   respond_to :html
 
   allow_browser versions: :modern
-
 end
