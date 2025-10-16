@@ -17,6 +17,7 @@
 @import "components/raffle_card";
 @import "components/pagination";
 @import "components/search_bar";
+@import "components/my_raffles";
 
 .section {
   max-width: 1300px;
@@ -31,6 +32,7 @@
   margin: auto;
   width: 100%;
   padding: 0px;
+  margin-top: 0px;
 }
 
 body {

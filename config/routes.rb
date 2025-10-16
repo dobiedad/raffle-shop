@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   root 'raffles#index'
 
   resources :raffles, only: %i[index show new create]
+  resources :my_created_raffles, only: [:index]
+  resources :my_participating_raffles, only: [:index]
 end

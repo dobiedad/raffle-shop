@@ -1,0 +1,35 @@
+<div class="styleguide-section">
+  <h3 class="title is-4 mb-4">Raffle Badge on Card Example</h3>
+  <p class="mb-4">Here's how the badge looks when overlaid on a raffle card:</p>
+  
+  <div class="columns is-centered">
+    <div class="column is-one-third">
+      <div class="raffle-card card p-0" style="transition: all 0.2s ease-in-out;">
+        <div class="card-image" style="position: relative;">
+          <figure class="image is-3by2">
+            <img src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg" alt="Sample Raffle">
+          </figure>
+          <%= render UI::RaffleBadge.new(text: "5 tickets") %>
+        </div>
+        <div class="card-content">
+          <p class="title is-5 mb-1">Sample Raffle</p>
+          <p class="has-text-weight-semibold is-size-6 mb-2">$3.50 per ticket</p>
+          <p class="is-size-7 has-text-grey mb-4">
+            This is a sample raffle to demonstrate the badge overlay functionality.
+          </p>
+          <div class="level is-mobile mb-2">
+            <div class="level-left">
+              <p class="is-size-7 has-text-grey">🎟️ 0 sold</p>
+            </div>
+            <div class="level-right">
+              <p class="is-size-7 has-text-grey">⏰ 14d left</p>
+            </div>
+          </div>
+          <button class="button is-light is-fullwidth mt-2" style="color:#4f46e5; font-weight:600;">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

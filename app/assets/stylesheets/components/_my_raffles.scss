@@ -1,0 +1,106 @@
+// My Raffles page styles
+.section.raffles-index {
+  padding: 2rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Tab styles
+.tabs.is-boxed {
+  a {
+    border-bottom-color: transparent;
+  }
+
+  li.is-active a {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    color: #fff;
+  }
+
+  a:hover {
+    background-color: #f1f5f9;
+    border-bottom-color: #ddd;
+  }
+
+  li.is-active a:hover {
+    background-color: #4338ca;
+    border-color: #4338ca;
+  }
+}
+
+.tabs {
+  margin-bottom: 2rem !important;
+}
+
+// Raffle card animations
+.raffle-card {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+// Raffle badge component
+.raffle-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 10;
+  text-align: center;
+  min-width: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &__icon {
+    font-size: 0.875rem;
+  }
+
+  &__text {
+    white-space: nowrap;
+  }
+
+  // Variants
+  &--default {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+  }
+
+  &--success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  }
+
+  &--warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+
+  &--danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  }
+}
+
+// Grid layout
+.columns.is-multiline {
+  margin-top: 1.5rem;
+}
+
+.column {
+  margin-bottom: 1.5rem;
+}

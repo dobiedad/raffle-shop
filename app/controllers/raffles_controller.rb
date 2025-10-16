@@ -27,6 +27,7 @@ class RafflesController < ApplicationController
     respond_with @raffle
   end
 
+
   private
 
   def build_preview_raffle

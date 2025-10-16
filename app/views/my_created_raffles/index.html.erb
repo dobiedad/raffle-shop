@@ -1,0 +1,58 @@
+<div class="section raffles-index" style="background-color: #f9fafb;">
+  <div class="container">
+
+    <div class="has-text-centered mb-6" style="margin-top: 2rem;">
+      <h1 class="title is-2 mb-4">🎫 My Raffles</h1>
+      <p class="subtitle is-5 has-text-grey">
+        Manage your created raffles and track raffles you're participating in
+      </p>
+    </div>
+
+    <div class="tabs is-centered is-boxed is-medium mb-6">
+      <ul>
+        <li class="is-active">
+          <%= link_to my_created_raffles_path do %>
+            <span class="icon is-small">📝</span>
+            <span>Created by Me</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to my_participating_raffles_path do %>
+            <span class="icon is-small">🎟️</span>
+            <span>Participating In</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="has-text-centered mb-5">
+      <p class="is-size-6 has-text-grey">
+        <strong><%= @raffles.count %></strong> <%= 'raffle'.pluralize(@raffles.count) %> created
+      </p>
+    </div>
+
+    <% if @raffles.present? %>
+      <div class="columns is-multiline" style="margin-top: 1rem;">
+        <% @raffles.each do |raffle| %>
+          <div class="column is-one-third-desktop is-half-tablet">
+            <%= render UI::RaffleCard.new(raffle: raffle) %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= render UI::Pagination.new(pagy: @pagy) %>
+
+      <p class="has-text-centered is-size-7 has-text-grey mt-2">
+        Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
+      </p>
+    <% else %>
+      <div class="has-text-centered py-6" style="margin-top: 2rem;">
+        <p class="is-size-4 mb-4">📭</p>
+        <p class="is-size-5 has-text-grey-dark mb-3">You haven't created any raffles yet</p>
+        <p class="is-size-6 has-text-grey mb-5">Start your first raffle and reach thousands of potential participants</p>
+        <%= link_to "Create Your First Raffle", new_raffle_path, class: "button is-primary is-rounded" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
