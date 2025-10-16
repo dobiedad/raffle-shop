@@ -3,11 +3,15 @@
 class Raffle < ApplicationRecord
   belongs_to :user
   has_many_attached :images
-  has_rich_text :description
+  has_rich_text :general_description
+  has_rich_text :condition_description
+  has_rich_text :whats_included_description
+  has_rich_text :extra_description
 
   enum :status, { active: 'active', completed: 'completed' }, default: :active
 
-  validates :name, :description, :price, :ticket_price, :status, :category, :condition, presence: true
+  validates :name, :general_description, :condition_description, :whats_included_description, :price, :ticket_price,
+            :status, :category, :condition, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates :ticket_price, numericality: { greater_than: 2, less_than: 100 }
   validates :end_date, comparison: { greater_than: -> { Time.current } }, allow_nil: true
