@@ -27,3 +27,48 @@ ps5_image_three:
   name: images
   blob: ps5_image_three_blob
   record: ps5_bundle (Raffle)
+
+rolex_image_one:
+  name: images
+  blob: rolex_image_one_blob
+  record: rolex_yacht_master (Raffle)
+
+rolex_image_two:
+  name: images
+  blob: rolex_image_two_blob
+  record: rolex_yacht_master (Raffle)
+
+hublot_image_one:
+  name: images
+  blob: hublot_image_one_blob
+  record: hublot_king_power (Raffle)
+
+hublot_image_two:
+  name: images
+  blob: hublot_image_two_blob
+  record: hublot_king_power (Raffle)
+
+apple_watch_image_one:
+  name: images
+  blob: apple_watch_image_one_blob
+  record: apple_watch_series_10 (Raffle)
+
+apple_watch_image_two:
+  name: images
+  blob: apple_watch_image_two_blob
+  record: apple_watch_series_10 (Raffle)
+
+dyson_comb_image_one:
+  name: images
+  blob: dyson_comb_image_one_blob
+  record: dyson_comb (Raffle)
+
+dyson_comb_image_two:
+  name: images
+  blob: dyson_comb_image_two_blob
+  record: dyson_comb (Raffle)
+
+dyson_hair_dryer_image_one:
+  name: images
+  blob: dyson_hair_dryer_image_one_blob
+  record: dyson_hair_dryer (Raffle)

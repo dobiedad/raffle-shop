@@ -8,7 +8,7 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    Raffle.find_each do |raffle|
+    Raffle.order(created_at: :desc).limit(6).find_each do |raffle|
       assert_text raffle.name
     end
   end

@@ -78,3 +78,254 @@ ps5_extra_description:
     </blockquote>
     
     <p><strong>Note:</strong> Local pickup available if you're in the area. Can demo before you enter if you want to see it working!</p>
+
+rolex_general_description:
+  record: rolex_yacht_master (Raffle)
+  name: general_description
+  body: |
+    <h1>ROLEX Yacht-Master 40mm Blue Dial</h1>
+    <p>Selling my <strong>authentic ROLEX Yacht-Master 40mm</strong> with stunning blue dial. This is the 116622 model with the platinum bezel. Purchased from an authorized dealer and comes with all original documentation.</p>
+    
+    <h2>Specifications:</h2>
+    <ul>
+      <li>Reference: 116622</li>
+      <li>Case Size: 40mm Oyster case in Oystersteel</li>
+      <li>Bezel: Platinum bidirectional rotatable</li>
+      <li>Movement: Caliber 3135 automatic</li>
+      <li>Water Resistance: 100 meters (330 feet)</li>
+    </ul>
+
+rolex_condition_description:
+  record: rolex_yacht_master (Raffle)
+  name: condition_description
+  body: |
+    <p>9/10 - Excellent pre-owned condition. Watch has been worn regularly but well maintained. Some minor desk diving marks on the bracelet clasp, barely visible hairline scratches on the case. Crystal is flawless. Bracelet has minimal stretch. Recently serviced at an authorized service center (6 months ago).</p>
+
+rolex_whats_included_description:
+  record: rolex_yacht_master (Raffle)
+  name: whats_included_description
+  body: |
+    <ul>
+      <li>ROLEX Yacht-Master 40mm (Ref. 116622)</li>
+      <li>Original ROLEX Oyster bracelet with Oysterlock clasp</li>
+      <li>Original ROLEX wooden presentation box</li>
+      <li>Outer box and sleeve</li>
+      <li>Warranty card (dated 2021)</li>
+      <li>Service papers from 2024</li>
+      <li>Instruction manual and booklets</li>
+      <li>Chronometer certificate</li>
+    </ul>
+
+rolex_extra_description:
+  record: rolex_yacht_master (Raffle)
+  name: extra_description
+  body: |
+    <p><strong>Authentication Guarantee:</strong> This watch has been authenticated by a certified watchmaker and comes with documentation. Serial number can be verified with ROLEX.</p>
+    
+    <blockquote>
+      Purchased new for $13,600 in 2021. Current retail value is approximately $14,500-$15,000. Selling due to upgrading to a different model.
+    </blockquote>
+    
+    <p><em>Serious collectors only. International shipping available with full insurance. Will provide additional photos and videos upon request.</em></p>
+
+hublot_general_description:
+  record: hublot_king_power (Raffle)
+  name: general_description
+  body: |
+    <h1>Hublot Big Bang King Power</h1>
+    <p>Authentic <strong>Hublot Big Bang King Power</strong> chronograph. This is a statement piece that commands attention. The iconic fusion of materials and bold design makes this one of Hublot's most recognizable models.</p>
+    
+    <h2>Features:</h2>
+    <ul>
+      <li>Case: 48mm titanium with black ceramic bezel</li>
+      <li>Movement: HUB4100 automatic chronograph</li>
+      <li>Power Reserve: 42 hours</li>
+      <li>Functions: Chronograph, date</li>
+      <li>Crystal: Sapphire with anti-reflective coating</li>
+      <li>Water Resistance: 100 meters</li>
+    </ul>
+
+hublot_condition_description:
+  record: hublot_king_power (Raffle)
+  name: condition_description
+  body: |
+    <p>8.5/10 - Very good pre-owned condition. Watch shows signs of wear consistent with normal use. Minor scuffs on the titanium case, bezel is in excellent condition. Rubber strap in great shape with no cracks or tears. Movement running perfectly, keeping excellent time. Serviced 8 months ago by authorized Hublot service center.</p>
+
+hublot_whats_included_description:
+  record: hublot_king_power (Raffle)
+  name: whats_included_description
+  body: |
+    <ul>
+      <li>Hublot Big Bang King Power watch</li>
+      <li>Original black rubber strap with deployant buckle</li>
+      <li>Additional black leather strap</li>
+      <li>Original Hublot presentation box (wood)</li>
+      <li>Outer shipping box</li>
+      <li>International warranty card</li>
+      <li>Service papers from 2024</li>
+      <li>Instruction manual</li>
+      <li>Hublot polishing cloth</li>
+    </ul>
+
+hublot_extra_description:
+  record: hublot_king_power (Raffle)
+  name: extra_description
+  body: |
+    <p><strong>Verified Authentic:</strong> All serial numbers match and can be verified with Hublot. Watch comes with full authenticity guarantee.</p>
+    
+    <blockquote>
+      Originally purchased for $28,000 in 2020. These models have held their value exceptionally well. Selling to make room for a new acquisition.
+    </blockquote>
+    
+    <p><em>Worldwide shipping with full insurance. Additional documentation and photos available. Can arrange in-person viewing in major cities.</em></p>
+
+apple_watch_general_description:
+  record: apple_watch_series_10 (Raffle)
+  name: general_description
+  body: |
+    <h1>Apple Watch Series 10</h1>
+    <p>Brand new, sealed <strong>Apple Watch Series 10</strong> in Titanium with Blue/Black Ultra 2 Band. This is the latest Apple Watch with the largest, most advanced display yet.</p>
+    
+    <h2>Features:</h2>
+    <ul>
+      <li>46mm Titanium case</li>
+      <li>Always-On Retina display</li>
+      <li>S10 SiP with Neural Engine</li>
+      <li>Temperature sensing</li>
+      <li>Blood Oxygen sensor</li>
+      <li>ECG app and high/low heart rate notifications</li>
+      <li>Advanced health and fitness features</li>
+      <li>Water resistant 50 meters</li>
+      <li>GPS + Cellular</li>
+    </ul>
+
+apple_watch_condition_description:
+  record: apple_watch_series_10 (Raffle)
+  name: condition_description
+  body: |
+    <p>10/10 - Brand new, never opened. Still factory sealed in original packaging with all protective seals intact.</p>
+
+apple_watch_whats_included_description:
+  record: apple_watch_series_10 (Raffle)
+  name: whats_included_description
+  body: |
+    <ul>
+      <li>Apple Watch Series 10 (46mm Titanium)</li>
+      <li>Blue/Black Ultra 2 Band (M/L)</li>
+      <li>Magnetic fast charger to USB-C cable (1m)</li>
+      <li>Full 1-year Apple warranty</li>
+      <li>Original box and documentation</li>
+    </ul>
+
+apple_watch_extra_description:
+  record: apple_watch_series_10 (Raffle)
+  name: extra_description
+  body: |
+    <blockquote>
+      Won this in a corporate raffle but already have the previous model. Retail price is $799 plus tax.
+    </blockquote>
+    
+    <p><strong>Apple Care eligible:</strong> Can be activated immediately upon receipt. Includes full manufacturer warranty starting from your purchase date.</p>
+    
+    <p><em>Free shipping within the US. Can provide purchase receipt for warranty purposes.</em></p>
+
+dyson_comb_general_description:
+  record: dyson_comb (Raffle)
+  name: general_description
+  body: |
+    <h1>Dyson Airwrap Complete - Long</h1>
+    <p>Brand new <strong>Dyson Airwrap Complete styling set</strong> in the Long barrel version. Perfect for styling longer hair with multiple attachments for curls, waves, and smooth blow-outs. Uses Coanda effect to style without extreme heat.</p>
+    
+    <h2>Technology:</h2>
+    <ul>
+      <li>Coanda styling - attracts and wraps hair</li>
+      <li>Intelligent heat control prevents extreme temperatures</li>
+      <li>13-blade impeller generates powerful airflow</li>
+      <li>3 precise airflow speeds, 3 heat settings</li>
+      <li>Cold shot to set your style</li>
+    </ul>
+
+dyson_comb_condition_description:
+  record: dyson_comb (Raffle)
+  name: condition_description
+  body: |
+    <p>10/10 - Brand new in sealed retail packaging. Never opened, never used. Still has factory seals intact.</p>
+
+dyson_comb_whats_included_description:
+  record: dyson_comb (Raffle)
+  name: whats_included_description
+  body: |
+    <ul>
+      <li>Dyson Airwrap Complete styler unit</li>
+      <li>30mm Airwrap long barrel (curls/waves)</li>
+      <li>40mm Airwrap long barrel (loose curls/waves)</li>
+      <li>Soft smoothing brush</li>
+      <li>Firm smoothing brush</li>
+      <li>Round volumizing brush</li>
+      <li>Coanda smoothing dryer</li>
+      <li>Filter cleaning brush</li>
+      <li>Presentation case for storage</li>
+      <li>2-year Dyson warranty</li>
+    </ul>
+
+dyson_comb_extra_description:
+  record: dyson_comb (Raffle)
+  name: extra_description
+  body: |
+    <blockquote>
+      Received as a gift but prefer my existing styling tools. This retails for $599 at Dyson.com and major retailers.
+    </blockquote>
+    
+    <p><strong>Warranty included:</strong> Full 2-year manufacturer warranty. Can provide gift receipt for warranty activation.</p>
+    
+    <p><em>Free shipping. Popular model that's frequently sold out. Perfect for creating salon-quality hairstyles at home.</em></p>
+
+dyson_hair_dryer_general_description:
+  record: dyson_hair_dryer (Raffle)
+  name: general_description
+  body: |
+    <h1>Dyson Supersonic Hair Dryer</h1>
+    <p>Brand new <strong>Dyson Supersonic hair dryer</strong> in Prussian Blue/Rich Copper. Fast drying, controlled styling with intelligent heat control to protect hair from extreme heat damage.</p>
+    
+    <h2>Technology:</h2>
+    <ul>
+      <li>Dyson digital motor V9 - small, powerful</li>
+      <li>Air Multiplier technology produces high-velocity jet of air</li>
+      <li>Intelligent heat control measures air temperature 40 times per second</li>
+      <li>4 precise heat settings, 3 speed settings</li>
+      <li>Cold shot to set your style</li>
+      <li>Acoustic silencer for quieter operation</li>
+    </ul>
+
+dyson_hair_dryer_condition_description:
+  record: dyson_hair_dryer (Raffle)
+  name: condition_description
+  body: |
+    <p>10/10 - Brand new, unopened in original retail packaging. Factory sealed with all original protective materials.</p>
+
+dyson_hair_dryer_whats_included_description:
+  record: dyson_hair_dryer (Raffle)
+  name: whats_included_description
+  body: |
+    <ul>
+      <li>Dyson Supersonic hair dryer</li>
+      <li>Styling concentrator attachment</li>
+      <li>Diffuser attachment</li>
+      <li>Gentle air attachment</li>
+      <li>Wide-tooth comb attachment</li>
+      <li>Non-slip heat mat</li>
+      <li>2-year Dyson warranty</li>
+      <li>Original presentation box</li>
+    </ul>
+
+dyson_hair_dryer_extra_description:
+  record: dyson_hair_dryer (Raffle)
+  name: extra_description
+  body: |
+    <blockquote>
+      Purchased during holiday sale but received another one as a gift. Brand new, never used. Retails for $429.
+    </blockquote>
+    
+    <p><strong>Full warranty:</strong> Includes complete 2-year Dyson manufacturer warranty. Can provide purchase receipt.</p>
+    
+    <p><em>Fast, free shipping. Beautiful Prussian Blue/Rich Copper color. Professional-quality drying without extreme heat damage.</em></p>

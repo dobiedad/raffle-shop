@@ -17,3 +17,53 @@ ps5_bundle:
   category: Gaming
   condition: New
   end_date: <%= 5.days.from_now %>
+
+rolex_yacht_master:
+  user: leo
+  name: "ROLEX Yacht-Master 40mm Blue"
+  price: 18500.0
+  ticket_price: 12.0
+  status: active
+  category: Fashion
+  condition: Like New
+  end_date: <%= 10.days.from_now %>
+
+hublot_king_power:
+  user: jane
+  name: "Hublot King Power"
+  price: 25000.0
+  ticket_price: 15.0
+  status: active
+  category: Fashion
+  condition: Like New
+  end_date: <%= 14.days.from_now %>
+
+apple_watch_series_10:
+  user: leo
+  name: "Apple Watch Series 10"
+  price: 799.0
+  ticket_price: 4.5
+  status: active
+  category: Tech
+  condition: New
+  end_date: <%= 6.days.from_now %>
+
+dyson_comb:
+  user: jane
+  name: "Dyson Airwrap Complete"
+  price: 599.0
+  ticket_price: 4.0
+  status: active
+  category: Home
+  condition: New
+  end_date: <%= 8.days.from_now %>
+
+dyson_hair_dryer:
+  user: leo
+  name: "Dyson Supersonic Hair Dryer"
+  price: 429.0
+  ticket_price: 3.5
+  status: active
+  category: Home
+  condition: New
+  end_date: <%= 9.days.from_now %>

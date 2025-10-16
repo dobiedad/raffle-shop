@@ -9,3 +9,21 @@ ps5_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_one.jpg", 
 ps5_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_two.jpg", service_name: "test" %>
 
 ps5_image_three_blob: <%= ActiveStorage::FixtureSet.blob filename: "ps5_three.jpg", service_name: "test" %>
+
+rolex_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "rolex_one.jpg", service_name: "test" %>
+
+rolex_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "rolex_two.jpg", service_name: "test" %>
+
+hublot_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "hublot_one.jpg", service_name: "test" %>
+
+hublot_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "hublot_two.jpg", service_name: "test" %>
+
+apple_watch_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "apple_watch_one.jpg", service_name: "test" %>
+
+apple_watch_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "apple_watch_two.jpg", service_name: "test" %>
+
+dyson_comb_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_comb_one.jpg", service_name: "test" %>
+
+dyson_comb_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_comb_two.jpg", service_name: "test" %>
+
+dyson_hair_dryer_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_hair_dryer_one.jpg", service_name: "test" %>
