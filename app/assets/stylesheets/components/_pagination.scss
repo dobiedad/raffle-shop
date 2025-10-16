@@ -1,0 +1,22 @@
+// Pagination Component Styles
+
+.pagination {
+  a, span {
+    border-radius: 8px;
+  }
+
+  .pagination-link {
+    &.is-current {
+      background-color: #4f46e5;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      transform: scale(1.05);
+    }
+
+    &:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+    }
+  }
+}

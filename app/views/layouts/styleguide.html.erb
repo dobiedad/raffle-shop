@@ -8,20 +8,20 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    
+
     <style>
       body {
         margin: 0;
         padding: 0;
       }
-      
+
       .styleguide-container {
         display: flex;
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: #f5f5f5;
       }
-      
+
       .styleguide-sidebar {
         width: 250px;
         min-width: 250px;
@@ -31,17 +31,17 @@
         padding: 24px;
         overflow-y: auto;
       }
-      
+
       @media (max-width: 768px) {
         .styleguide-sidebar {
           display: none;
         }
       }
-      
+
       .styleguide-sidebar-header {
         margin-bottom: 16px;
       }
-      
+
       .styleguide-main {
         flex: 1;
         padding: 40px;
@@ -51,37 +51,37 @@
         margin-left: 0;
         transition: margin-left 0.3s ease;
       }
-      
+
       @media (max-width: 768px) {
         .styleguide-main {
           padding: 20px;
         }
       }
-      
+
       .styleguide-main h1 {
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 24px;
         color: #333;
       }
-      
+
       .styleguide-sidebar h2 {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 16px;
         color: #333;
       }
-      
+
       .styleguide-sidebar ul {
         list-style: none;
         padding: 0;
         margin: 0;
       }
-      
+
       .styleguide-sidebar li {
         margin-bottom: 4px;
       }
-      
+
       .styleguide-sidebar a {
         color: #666;
         text-decoration: none;
@@ -89,71 +89,68 @@
         padding: 4px 0;
         font-size: 14px;
       }
-      
+
       .styleguide-sidebar a:hover {
         color: #333;
       }
-      
+
       .styleguide-sidebar a.active {
         color: #4F46E5;
         font-weight: 500;
       }
-      
+
       .styleguide-sidebar .example-list {
         margin-left: 16px;
         margin-top: 4px;
       }
-      
+
       .styleguide-sidebar .example-list a {
         font-size: 13px;
         color: #999;
       }
-      
+
       .styleguide-sidebar .example-list a.active {
         color: #4F46E5;
         font-weight: 500;
       }
-      
+
       .styleguide-section {
         margin-bottom: 32px;
       }
-      
+
       .styleguide-section h2 {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 16px;
         color: #333;
       }
-      
+
       .styleguide-preview {
         background: #ffffff;
         padding: 24px;
         margin-bottom: 24px;
         border-radius: 8px;
         border: 1px solid #e0e0e0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
       }
-      
+
       .styleguide-code {
         margin-top: 24px;
       }
-      
+
       .styleguide-code-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 12px;
       }
-      
+
       .styleguide-code h3 {
         font-size: 16px;
         font-weight: 600;
         margin: 0;
         color: #333;
       }
-      
+
       .styleguide-copy-btn {
         background: #ffffff;
         border: 1px solid #e0e0e0;
@@ -165,17 +162,17 @@
         transition: all 0.2s;
         font-weight: 500;
       }
-      
+
       .styleguide-copy-btn:hover {
         background: #f5f5f5;
         border-color: #4F46E5;
         color: #333;
       }
-      
+
       .styleguide-copy-btn:active {
         transform: scale(0.98);
       }
-      
+
       .styleguide-code pre {
         background: #f3f4f6;
         border-radius: 6px;
@@ -186,13 +183,13 @@
         line-height: 1.5;
         border: 1px solid #e0e0e0;
       }
-      
+
       .styleguide-code code {
         font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
         font-size: 14px;
         color: #111827;
       }
-      
+
       /* CodeRay styles - light theme */
       .CodeRay {
         background-color: #f3f4f6;
@@ -205,23 +202,23 @@
         line-height: 1.5;
         border: 1px solid #e0e0e0;
       }
-      
+
       .CodeRay pre {
         margin: 0;
         color: #111827;
       }
-      
+
       .CodeRay * {
         color: #111827 !important;
       }
-      
+
       .styleguide-tabs {
         display: flex;
         margin-bottom: 24px;
         gap: 8px;
         flex-wrap: wrap;
       }
-      
+
       .styleguide-tab {
         padding: 8px 12px;
         background: #ffffff;
@@ -234,20 +231,20 @@
         font-weight: 500;
         transition: all 0.2s;
       }
-      
+
       .styleguide-tab:hover {
         background: #f5f5f5;
         color: #333;
         border-color: #4F46E5;
       }
-      
+
       .styleguide-tab.active {
         background: #4F46E5;
         border-color: #4F46E5;
         color: #ffffff;
         font-weight: 600;
       }
-      
+
       .styleguide-main p {
         color: #666;
         line-height: 1.6;
@@ -283,11 +280,11 @@
           <% end %>
         </ul>
       </div>
-      
+
       <div class="styleguide-main">
         <% if @preview.present? %>
           <h1><%= preview_label(@preview) %></h1>
-          
+
           <% if @preview.examples.length > 1 %>
             <div class="styleguide-tabs">
               <% @preview.examples.each do |example| %>
@@ -297,7 +294,7 @@
               <% end %>
             </div>
           <% end %>
-          
+
           <%= yield %>
         <% else %>
           <h1>Component Styleguide</h1>
@@ -307,4 +304,3 @@
     </div>
   </body>
 </html>
-

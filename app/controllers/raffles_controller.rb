@@ -5,17 +5,13 @@ class RafflesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    # Ransack search
     @q = Raffle.ransack(params[:q])
 
-    # Apply category filter if present
     @raffles_scope = @q.result(distinct: true)
     @raffles_scope = @raffles_scope.by_category(params[:category]) if params[:category].present?
 
-    # Order by most recent
     @raffles_scope = @raffles_scope.recent
 
-    # Pagy pagination (9 items per page)
     @pagy, @raffles = pagy(@raffles_scope, limit: 9)
 
     # Statistics for display

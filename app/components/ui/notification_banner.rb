@@ -2,12 +2,13 @@
 
 module UI
   class NotificationBanner < ApplicationViewComponent
-    attribute :message, required: true
+    attribute :message
     attribute :title
     attribute :icon
     attribute :type, default: 'info'
     attribute :light, default: true
     attribute :centered, default: true
+    attribute :dismissible, default: false
 
     def notification_classes
       classes = ['notification']
@@ -24,6 +25,14 @@ module UI
 
     def has_icon?
       icon.present?
+    end
+
+    def has_message?
+      message.present?
+    end
+
+    def has_content?
+      content?
     end
   end
 end

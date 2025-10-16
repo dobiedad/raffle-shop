@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div class="notification is-danger is-light mb-5" id="error_explanation" data-turbo-cache="false">
+  <%= render UI::NotificationBanner.new(type: 'danger', centered: false) do %>
     <div class="content">
       <p class="has-text-weight-bold">
         <%= I18n.t("errors.messages.not_saved",
@@ -13,5 +13,5 @@
         <% end %>
       </ul>
     </div>
-  </div>
+  <% end %>
 <% end %>

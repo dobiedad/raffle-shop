@@ -20,8 +20,8 @@
     <!-- Search Bar -->
     <%= search_form_for @q, html: { class: 'field has-addons has-addons-centered mb-6', style: 'margin: 0 auto;' } do |f| %>
       <div class="control is-expanded">
-        <%= f.search_field :name_cont, 
-            class: 'input is-medium', 
+        <%= f.search_field :name_cont,
+            class: 'input is-medium',
             placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)',
             value: params.dig(:q, :name_cont) %>
       </div>
@@ -32,15 +32,15 @@
 
     <!-- Category Filter Bar -->
     <div class="buttons are-small is-centered mb-6">
-      <%= link_to 'All', raffles_path, 
+      <%= link_to 'All', raffles_path,
           class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
-      <%= link_to 'Tech', raffles_path(category: 'Tech'), 
+      <%= link_to 'Tech', raffles_path(category: 'Tech'),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Tech'}" %>
-      <%= link_to 'Gaming', raffles_path(category: 'Gaming'), 
+      <%= link_to 'Gaming', raffles_path(category: 'Gaming'),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Gaming'}" %>
-      <%= link_to 'Fashion', raffles_path(category: 'Fashion'), 
+      <%= link_to 'Fashion', raffles_path(category: 'Fashion'),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Fashion'}" %>
-      <%= link_to 'Home', raffles_path(category: 'Home'), 
+      <%= link_to 'Home', raffles_path(category: 'Home'),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Home'}" %>
     </div>
 
@@ -72,9 +72,7 @@
     <% end %>
 
     <!-- Pagination -->
-    <% if @pagy.pages > 1 %>
-      <%= pagy_bulma_nav(@pagy) %>
-    <% end %>
+    <%= render UI::Pagination.new(pagy: @pagy) %>
 
     <!-- Pagination Info -->
     <% if @raffles.present? %>
@@ -92,7 +90,7 @@
 
     <!-- Floating Action Button -->
     <% if user_signed_in? %>
-      <%= link_to new_raffle_path, 
+      <%= link_to new_raffle_path,
           class: 'button is-primary is-medium',
           style: 'position: fixed; bottom: 2rem; right: 2rem; border-radius: 50%; width: 60px; height: 60px; padding: 0; font-size: 2rem; line-height: 60px;' do %>
         +
@@ -104,18 +102,18 @@
 
 <style>
   .button.is-primary:hover { filter: brightness(1.1); }
-  
+
   .raffle-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   }
-  
+
   .button.is-rounded.is-active {
     background-color: #4f46e5;
     color: #fff;
     font-weight: 600;
   }
-  
+
   .input.is-medium {
     border-radius: 9999px;
     border-color: #e5e7eb;
@@ -138,29 +136,13 @@
     background-color: #4338ca;
   }
 
-  .pagination a,
-  .pagination span {
-    border-radius: 8px;
-  }
-
-  .pagination-link.is-current {
-    background-color: #4f46e5;
-    border-color: #4f46e5;
-    color: #fff;
-    font-weight: 600;
-  }
-
-  .pagination-link:hover {
-    border-color: #4f46e5;
-    color: #4f46e5;
-  }
 
   .raffle-card {
     opacity: 0;
     transform: translateY(10px);
     animation: fadeUp 1s ease forwards;
   }
-  
+
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
   }

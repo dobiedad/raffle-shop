@@ -40,6 +40,48 @@ class NotificationBannerPreview < ComponentPreview
     )
   end
 
+  def dismissible
+    render UI::NotificationBanner.new(
+      type: 'info',
+      icon: '💡',
+      title: 'Dismissible:',
+      message: 'You can close this notification.',
+      dismissible: true,
+      centered: false
+    )
+  end
+
+  def with_html_content
+    render UI::NotificationBanner.new(type: 'danger', centered: false) do
+      content_tag(:div, class: 'content') do
+        content_tag(:p, '3 errors prevented saving:', class: 'has-text-weight-bold') +
+          content_tag(:ul) do
+            content_tag(:li, 'Name can\'t be blank') +
+              content_tag(:li, 'Price must be greater than 0') +
+              content_tag(:li, 'Ticket price must be between 2 and 100')
+          end
+      end
+    end
+  end
+
+  def flash_success
+    render UI::NotificationBanner.new(
+      type: 'success',
+      message: 'Raffle was successfully created.',
+      dismissible: true,
+      centered: false
+    )
+  end
+
+  def flash_error
+    render UI::NotificationBanner.new(
+      type: 'danger',
+      message: 'Unable to save your changes. Please try again.',
+      dismissible: true,
+      centered: false
+    )
+  end
+
   def without_icon
     render UI::NotificationBanner.new(
       type: 'info',

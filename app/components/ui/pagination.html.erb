@@ -1,0 +1,9 @@
+<% if render? %>
+  <nav class="<%= pagination_classes %>" role="navigation" aria-label="pagination">
+    <ul class="pagination-list">
+      <% (1..pagy.pages).each do |page| %>
+        <%= page_link(page).html_safe %>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>
