@@ -1,9 +1,9 @@
 <section class="section" style="background-color:#fafafa; min-height:100vh;" data-controller="raffle-preview">
   <div class="container">
-    <div class="mb-6 has-text-centered">
-      <h1 class="title is-3 mb-2">🎟️ Create a New Raffle</h1>
-      <p class="has-text-grey">Add your item details, pricing, and photos — your raffle page will be generated automatically.</p>
-    </div>
+    <%= render UI::PageHeader.new(
+      title: '🎟️ Create a New Raffle',
+      subtitle: 'Add your item details, pricing, and photos — your raffle page will be generated automatically.'
+    ) %>
 
     <div class="columns is-variable is-7">
       <!-- Main Form -->
