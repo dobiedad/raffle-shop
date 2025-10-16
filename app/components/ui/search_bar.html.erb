@@ -1,0 +1,11 @@
+<%= form_with url: url, method: :get, local: true, html: { class: form_classes, style: form_style } do |f| %>
+  <div class="control is-expanded">
+    <%= f.text_field :search, 
+        class: 'input is-medium',
+        placeholder: placeholder,
+        value: value %>
+  </div>
+  <div class="control">
+    <%= f.submit button_text, class: 'button is-medium is-primary', style: 'font-weight:600;' %>
+  </div>
+<% end %>

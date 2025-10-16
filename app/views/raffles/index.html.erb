@@ -18,17 +18,11 @@
     </div>
 
     <!-- Search Bar -->
-    <%= search_form_for @q, html: { class: 'field has-addons has-addons-centered mb-6', style: 'margin: 0 auto;' } do |f| %>
-      <div class="control is-expanded">
-        <%= f.search_field :name_cont,
-            class: 'input is-medium',
-            placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)',
-            value: params.dig(:q, :name_cont) %>
-      </div>
-      <div class="control">
-        <%= f.submit 'Search', class: 'button is-medium is-primary', style: 'font-weight:600;' %>
-      </div>
-    <% end %>
+    <%= render UI::SearchBar.new(
+      value: params[:search],
+      url: raffles_path,
+      placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)'
+    ) %>
 
     <!-- Category Filter Bar -->
     <div class="buttons are-small is-centered mb-6">
@@ -114,27 +108,6 @@
     font-weight: 600;
   }
 
-  .input.is-medium {
-    border-radius: 9999px;
-    border-color: #e5e7eb;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-  }
-
-  .input.is-medium:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 0.2em rgba(79,70,229,0.15);
-  }
-
-  .button.is-primary {
-    border-radius: 9999px;
-    background-color: #4f46e5;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .button.is-primary:hover {
-    background-color: #4338ca;
-  }
 
 
   .raffle-card {

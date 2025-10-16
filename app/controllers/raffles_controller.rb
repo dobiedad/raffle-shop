@@ -5,16 +5,14 @@ class RafflesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @q = Raffle.ransack(params[:q])
-
-    @raffles_scope = @q.result(distinct: true)
+    @raffles_scope = Raffle.all
+    @raffles_scope = @raffles_scope.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
     @raffles_scope = @raffles_scope.by_category(params[:category]) if params[:category].present?
 
     @raffles_scope = @raffles_scope.recent
 
     @pagy, @raffles = pagy(@raffles_scope, limit: 9)
 
-    # Statistics for display
     @total_raffles_count = Raffle.count
     @active_category = params[:category] || 'All'
   end
