@@ -1,12 +1,12 @@
 <nav class="navbar is-white has-shadow"
      role="navigation"
      aria-label="main navigation"
-     data-controller="bulma">
-
+     data-controller="bulma"
+     style="border-bottom: 1px solid #f1f5f9;">
   <div class="navbar-brand">
-    <%= link_to "Raffle Shop",
-                root_path,
-                class: "navbar-item has-text-weight-bold has-text-primary" %>
+    <%= link_to root_path, class: "navbar-item" do %>
+      <span class="has-text-weight-bold" style="color: #4f46e5;">🎟️ Raffle Shop</span>
+    <% end %>
 
     <a role="button"
        class="navbar-burger"
@@ -21,21 +21,19 @@
   </div>
 
   <div class="navbar-menu" data-bulma-target="menu">
+
     <div class="navbar-end">
       <% if user_signed_in? %>
+        <%= link_to "All Raffles", raffles_path, class: "navbar-item" %>
         <%= link_to "Edit Profile", edit_user_registration_path, class: "navbar-item" %>
         <%= button_to "Sign Out",
                       destroy_user_session_path,
                       method: :delete,
-                      class: "navbar-item button is-light",
+                      class: "button is-light is-small ml-3 mr-4",
                       form_class: "navbar-item" %>
       <% else %>
-        <%= link_to "Sign Up",
-                    new_user_registration_path,
-                    class: "navbar-item has-text-primary" %>
-        <%= link_to "Sign In",
-                    new_user_session_path,
-                    class: "navbar-item" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "navbar-item has-text-weight-semibold" %>
+        <%= link_to "Sign In", new_user_session_path, class: "navbar-item has-text-grey" %>
       <% end %>
     </div>
   </div>
