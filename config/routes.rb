@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get '/styleguide/*path', to: 'styleguide#previews', as: :styleguide_preview
   end
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   resource :profile, only: [:show], controller: 'users'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

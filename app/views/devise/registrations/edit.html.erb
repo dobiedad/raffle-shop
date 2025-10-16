@@ -13,13 +13,51 @@
         <h1 class="title">Edit Profile</h1>
         <p class="subtitle is-6 has-text-grey mb-5">Update your account settings</p>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+            <%= f.label :profile_image, "Profile Image", class: "label" %>
+            <div class="control">
+              <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
+                <div class="mb-3">
+                  <%= image_tag resource.profile_image.variant(resize_to_limit: [200, 200]), class: "image is-128x128", style: "border-radius: 50%; object-fit: cover;" %>
+                </div>
+              <% end %>
+              <div class="file has-name is-fullwidth">
+                <label class="file-label">
+                  <%= f.file_field :profile_image, class: "file-input", accept: "image/png,image/jpeg,image/gif,image/webp", id: "profile-image-input" %>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                  <span class="file-name" id="profile-image-name">
+                    <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
+                      <%= resource.profile_image.filename %>
+                    <% else %>
+                      No file selected
+                    <% end %>
+                  </span>
+                </label>
+              </div>
+              <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
+                <label class="checkbox mt-2">
+                  <%= f.check_box :remove_profile_image %>
+                  Remove current profile image
+                </label>
+              <% end %>
+              <p class="help">JPEG, PNG, GIF, or WebP (max 5MB)</p>
+            </div>
+          </div>
 
           <div class="field">
             <%= f.label :email, class: "label" %>
             <div class="control">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+              <%= f.email_field :email, autocomplete: "email", class: "input" %>
             </div>
           </div>
 
@@ -70,3 +108,20 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('profile-image-input');
+    const fileName = document.getElementById('profile-image-name');
+    
+    if (fileInput && fileName) {
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          fileName.textContent = e.target.files[0].name;
+        } else {
+          fileName.textContent = 'No file selected';
+        }
+      });
+    }
+  });
+</script>
