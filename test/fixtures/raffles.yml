@@ -4,8 +4,8 @@ iphone_giveaway:
   price: 1200.0
   ticket_price: 5.0
   status: active
-  category: Tech
-  condition: New
+  category: tech
+  condition: new
   end_date: <%= 7.days.from_now %>
 
 ps5_bundle:
@@ -14,8 +14,8 @@ ps5_bundle:
   price: 550.0
   ticket_price: 3.5
   status: active
-  category: Gaming
-  condition: New
+  category: gaming
+  condition: new
   end_date: <%= 5.days.from_now %>
 
 rolex_yacht_master:
@@ -24,8 +24,8 @@ rolex_yacht_master:
   price: 18500.0
   ticket_price: 12.0
   status: active
-  category: Fashion
-  condition: Like New
+  category: fashion
+  condition: like_new
   end_date: <%= 10.days.from_now %>
 
 hublot_king_power:
@@ -34,8 +34,8 @@ hublot_king_power:
   price: 25000.0
   ticket_price: 15.0
   status: active
-  category: Fashion
-  condition: Like New
+  category: fashion
+  condition: like_new
   end_date: <%= 14.days.from_now %>
 
 apple_watch_series_10:
@@ -44,8 +44,8 @@ apple_watch_series_10:
   price: 799.0
   ticket_price: 4.5
   status: active
-  category: Tech
-  condition: New
+  category: tech
+  condition: new
   end_date: <%= 6.days.from_now %>
 
 dyson_comb:
@@ -54,8 +54,8 @@ dyson_comb:
   price: 599.0
   ticket_price: 4.0
   status: active
-  category: Home
-  condition: New
+  category: home
+  condition: new
   end_date: <%= 8.days.from_now %>
 
 dyson_hair_dryer:
@@ -64,6 +64,6 @@ dyson_hair_dryer:
   price: 429.0
   ticket_price: 3.5
   status: active
-  category: Home
-  condition: New
+  category: home
+  condition: new
   end_date: <%= 9.days.from_now %>

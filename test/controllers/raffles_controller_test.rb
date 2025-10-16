@@ -16,7 +16,7 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index with search query' do
     raffle = raffles(:iphone_giveaway)
 
-    get raffles_url, params: { q: { name_cont: 'iPhone' }, category: 'Tech' }
+    get raffles_url, params: { q: { name_cont: 'iPhone' }, category: 'tech' }
 
     assert_response :success
     assert_text raffle.name
@@ -88,8 +88,8 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
       whats_included_description: '2 Keys',
       price: 50_000,
       ticket_price: 25.0,
-      category: 'Vehicles',
-      condition: 'Good',
+      category: 'vehicles',
+      condition: 'good',
       end_date: 7.days.from_now
     }
   end

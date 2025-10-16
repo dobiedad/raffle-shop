@@ -8,7 +8,12 @@ class Raffle < ApplicationRecord
   has_rich_text :whats_included_description
   has_rich_text :extra_description
 
+  CATEGORIES = %w[tech gaming fashion home vehicles other].freeze
+  CONDITIONS = %w[new like_new good fair].freeze
+
   enum :status, { active: 'active', completed: 'completed' }, default: :active
+  enum :category, CATEGORIES.index_by(&:itself)
+  enum :condition, CONDITIONS.index_by(&:itself), suffix: true
 
   validates :name, :general_description, :condition_description, :whats_included_description, :price, :ticket_price,
             :status, :category, :condition, presence: true
