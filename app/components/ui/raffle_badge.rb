@@ -12,31 +12,31 @@ module UI
     end
 
     def badge_classes
-      base_classes = "raffle-badge"
+      base_classes = 'raffle-badge'
       variant_classes = case variant
-                       when :success
-                         "raffle-badge--success"
-                       when :warning
-                         "raffle-badge--warning"
-                       when :danger
-                         "raffle-badge--danger"
-                       else
-                         "raffle-badge--default"
-                       end
-      
+                        when :success
+                          'raffle-badge--success'
+                        when :warning
+                          'raffle-badge--warning'
+                        when :danger
+                          'raffle-badge--danger'
+                        else
+                          'raffle-badge--default'
+                        end
+
       "#{base_classes} #{variant_classes}"
     end
 
     def icon
       case variant
       when :success
-        "✅"
+        '✅'
       when :warning
-        "⚠️"
+        '⚠️'
       when :danger
-        "❌"
+        '❌'
       else
-        "🎟️"
+        '🎟️'
       end
     end
   end

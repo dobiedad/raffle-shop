@@ -15,7 +15,7 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index shows other users raffles' do
     login_as bob
     # Use existing fixture raffle from leo
-    raffle = raffles(:iphone_giveaway)
+    raffles(:iphone_giveaway)
 
     get my_participating_raffles_url
 
@@ -53,13 +53,13 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index pagination' do
     login_as bob
     other_user = users(:leo)
-    
+
     # Create 8 raffles for other user
     8.times do |i|
       Raffle.create!(valid_raffle_params.merge(
-        user: other_user,
-        name: "Raffle #{i + 1}"
-      ))
+                       user: other_user,
+                       name: "Raffle #{i + 1}"
+                     ))
     end
 
     get my_participating_raffles_url
