@@ -21,26 +21,18 @@ module UI
     end
 
     def pagination_series
-      # Show max 7 page numbers (including ellipsis)
-      max_pages = 7
+      max_pages = 4
       total_pages = pagy.pages
       current_page = pagy.page
 
       if total_pages <= max_pages
-        # Show all pages if total is small
         (1..total_pages).to_a
       elsif current_page <= 4
-        # Show smart pagination with ellipsis
-
-        # Near the beginning: 1 2 3 4 5 ... last
-        (1..5).to_a + ['...', total_pages]
+        (1..2).to_a + ['...', total_pages]
       elsif current_page >= total_pages - 3
-        # Near the end: 1 ... (last-4) (last-3) (last-2) (last-1) last
         [1, '...'] + ((total_pages - 4)..total_pages).to_a
       else
-        # In the middle: 1 ... (current-1) current (current+1) ... last
         [1, '...', current_page - 1, current_page, current_page + 1, '...', total_pages]
-
       end
     end
   end

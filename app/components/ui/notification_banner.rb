@@ -30,9 +30,5 @@ module UI
     def message?
       message.present?
     end
-
-    def content?
-      content?
-    end
   end
 end

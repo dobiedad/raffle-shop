@@ -9,7 +9,6 @@
 <div class="section raffles-index" style="background-color: #f9fafb;">
   <div class="container">
 
-    <!-- Hero Header -->
     <div class="has-text-centered mb-6">
       <h1 class="title is-2 mb-6">🎟️ Current Raffles</h1>
       <p class="subtitle is-5 has-text-grey">
@@ -17,7 +16,6 @@
       </p>
     </div>
 
-    <!-- Search Bar -->
     <%= render UI::SearchBar.new(
       value: params.dig(:q, :name_cont),
       url: raffles_path,
@@ -26,7 +24,6 @@
       preserve_params: ['category']
     ) %>
 
-    <!-- Category Filter Bar -->
     <div class="buttons are-small is-centered mb-6">
       <%= link_to 'All', raffles_path(params.permit(:q, :category).except(:category)),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
@@ -40,7 +37,6 @@
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Home'}" %>
     </div>
 
-    <!-- Raffle Grid -->
     <% if @raffles.present? %>
       <div class="columns is-multiline">
         <% @raffles.each do |raffle| %>
@@ -50,7 +46,6 @@
         <% end %>
       </div>
     <% else %>
-      <!-- Empty State -->
       <div class="has-text-centered py-6">
         <p class="is-size-5 has-text-grey-dark mb-2">No raffles available right now</p>
         <p class="is-size-6 has-text-grey">Check back soon — new items are added daily.</p>
@@ -60,31 +55,26 @@
       </div>
     <% end %>
 
-    <!-- Statistics Above Pagination -->
     <% if @raffles.present? %>
       <p class="has-text-centered is-size-6 has-text-grey mt-5">
         Over <strong><%= @total_raffles_count %></strong> active raffles · <strong>2,300</strong> tickets sold today
       </p>
     <% end %>
 
-    <!-- Pagination -->
     <%= render UI::Pagination.new(pagy: @pagy) %>
 
-    <!-- Pagination Info -->
     <% if @raffles.present? %>
       <p class="has-text-centered is-size-7 has-text-grey mt-2">
         Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
       </p>
     <% end %>
 
-    <!-- Platform Statistics -->
     <div class="has-text-centered mt-6">
       <p class="is-size-7 has-text-grey">
         Platform total: <strong>$12,430 raised</strong> · <strong>5,300 tickets</strong> sold across all raffles
       </p>
     </div>
 
-    <!-- Floating Action Button -->
     <% if user_signed_in? %>
       <%= link_to new_raffle_path,
           class: 'button is-primary is-medium',
@@ -109,7 +99,6 @@
     color: #fff;
     font-weight: 600;
   }
-
 
 
   .raffle-card {

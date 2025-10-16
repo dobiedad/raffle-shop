@@ -3,7 +3,6 @@
 module PagyHelper
   include Pagy::Frontend
 
-  # Custom Bulma pagination renderer
   def pagy_bulma_nav(pagy)
     html = +%(<nav class="pagination is-centered mt-6" role="navigation" aria-label="pagination">)
     html << %(<ul class="pagination-list">)

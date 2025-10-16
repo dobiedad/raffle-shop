@@ -1,7 +1,6 @@
 <% if render? %>
   <nav class="<%= pagination_classes %>" role="navigation" aria-label="pagination">
     <ul class="pagination-list">
-      <!-- Previous button -->
       <li>
         <% if pagy.prev %>
           <%= link_to "←", url_for(page: pagy.prev), class: "pagination-arrow pagination-prev", 'aria-label': "Go to previous page" %>
@@ -10,7 +9,6 @@
         <% end %>
       </li>
 
-      <!-- Page numbers -->
       <% pagination_series.each do |item| %>
         <% if item.is_a?(Integer) %>
           <%= page_link(item).html_safe %>
@@ -19,7 +17,6 @@
         <% end %>
       <% end %>
 
-      <!-- Next button -->
       <li>
         <% if pagy.next %>
           <%= link_to "→", url_for(page: pagy.next), class: "pagination-arrow pagination-next", 'aria-label': "Go to next page" %>
