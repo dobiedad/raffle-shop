@@ -1,0 +1,34 @@
+.profile-image-container {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-image {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4f46e5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.profile-image-input {
+  display: none;
+}

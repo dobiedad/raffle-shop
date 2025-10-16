@@ -3,7 +3,7 @@
 
     <div class="box has-text-centered" style="padding:3rem 2rem; border-radius:14px;">
       <div class="mb-3" style="display: inline-block;">
-        <%= image_tag user_avatar_url(@user), alt: "Profile photo", style: "width: 128px; height: 128px; border-radius: 50%; border: 3px solid #4f46e5; object-fit: cover;" %>
+        <%= image_tag user_avatar_url(@user), alt: "Profile photo", class: "profile-image" %>
       </div>
 
       <h1 class="title is-4 mb-1"><%= @user.email %></h1>
