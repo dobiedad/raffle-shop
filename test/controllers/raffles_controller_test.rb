@@ -89,7 +89,7 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
       price: 50_000,
       ticket_price: 25.0,
       category: 'vehicles',
-      condition: 'Good',
+      condition: 'good',
       end_date: 7.days.from_now
     }
   end

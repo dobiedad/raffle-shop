@@ -68,7 +68,7 @@
         <div class="control">
           <div class="select is-medium is-fullwidth">
             <%= form.select :condition,
-                options_for_select(['New', 'Like New', 'Good', 'Fair'], raffle.condition),
+                options_for_select(Raffle::CONDITIONS.map { |c| [c.humanize, c] }, raffle.condition),
                 { prompt: 'Select condition' },
                 class: "select is-medium" %>
           </div>
