@@ -55,7 +55,7 @@
         <div class="control">
           <div class="select is-medium is-fullwidth">
             <%= form.select :category,
-                options_for_select(['Tech', 'Gaming', 'Fashion', 'Home', 'Vehicles', 'Other'], raffle.category),
+                options_for_select(Raffle::CATEGORIES.map { |c| [c.humanize, c] }, raffle.category),
                 { prompt: 'Select a category' },
                 class: "select is-medium" %>
           </div>
