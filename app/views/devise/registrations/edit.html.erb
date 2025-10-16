@@ -1,125 +1,145 @@
-<section class="section">
+<section class="section user-profile" style="background-color:#f8f9fb; min-height:100vh;">
   <div class="container">
+
+    <nav class="breadcrumb mb-5" aria-label="breadcrumbs">
+      <ul>
+        <li><%= link_to "Profile", profile_path %></li>
+        <li class="is-active"><a href="#" aria-current="page">Edit</a></li>
+      </ul>
+    </nav>
+
     <div class="columns is-centered">
-      <div class="column">
+      <div class="column is-two-thirds-tablet is-half-desktop">
 
-        <nav class="breadcrumb mb-5" aria-label="breadcrumbs">
-          <ul>
-            <li><%= link_to "Profile", profile_path %></li>
-            <li class="is-active"><a href="#" aria-current="page">Edit</a></li>
-          </ul>
-        </nav>
+        <div class="box" style="border-radius:14px; padding:2.5rem;">
+          <h1 class="title is-4 mb-2">Edit Profile</h1>
+          <p class="is-size-7 has-text-grey mb-5">Update your account settings and personal information</p>
 
-        <h1 class="title">Edit Profile</h1>
-        <p class="subtitle is-6 has-text-grey mb-5">Update your account settings</p>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-
-          <div class="field">
-            <%= f.label :profile_image, "Profile Image", class: "label" %>
-            <div class="control">
-              <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
-                <div class="mb-3">
-                  <%= image_tag resource.profile_image.variant(resize_to_limit: [200, 200]), class: "image is-128x128", style: "border-radius: 50%; object-fit: cover;" %>
-                </div>
-              <% end %>
-              <div class="file has-name is-fullwidth">
-                <label class="file-label">
-                  <%= f.file_field :profile_image, class: "file-input", accept: "image/png,image/jpeg,image/gif,image/webp", id: "profile-image-input" %>
-                  <span class="file-cta">
-                    <span class="file-icon">
-                      <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
-                      Choose a file…
-                    </span>
-                  </span>
-                  <span class="file-name" id="profile-image-name">
+            <div class="field">
+              <div class="control">
+                <div class="has-text-centered mb-3">
+                  <div id="profile-image-container" style="display: inline-block; cursor: pointer; position: relative;">
                     <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
-                      <%= resource.profile_image.filename %>
+                      <%= image_tag resource.profile_image.variant(resize_to_limit: [200, 200]),
+                          alt: "Profile photo",
+                          id: "profile-image",
+                          style: "width: 128px; height: 128px; object-fit: cover; border-radius: 50%; border: 3px solid #4f46e5; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" %>
                     <% else %>
-                      No file selected
+                      <img id="profile-image"
+                           src="https://i.pravatar.cc/150?img=<%= resource.id % 70 %>"
+                           alt="Profile photo"
+                           style="width: 128px; height: 128px; object-fit: cover; border-radius: 50%; border: 3px solid #4f46e5; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <% end %>
-                  </span>
-                </label>
+                    <div id="image-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 0.8rem; text-align: center;">
+                      Click to change
+                    </div>
+                  </div>
+                </div>
+                <%= f.file_field :profile_image,
+                    id: "profile-image-input",
+                    style: "display: none;",
+                    accept: "image/png,image/jpeg,image/gif,image/webp" %>
+                <p class="help is-size-7 has-text-centered">Click the image above to change your profile photo</p>
               </div>
-              <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
-                <label class="checkbox mt-2">
-                  <%= f.check_box :remove_profile_image %>
-                  Remove current profile image
-                </label>
-              <% end %>
-              <p class="help">JPEG, PNG, GIF, or WebP (max 5MB)</p>
             </div>
-          </div>
 
-          <div class="field">
-            <%= f.label :email, class: "label" %>
-            <div class="control">
-              <%= f.email_field :email, autocomplete: "email", class: "input" %>
+            <hr class="my-5">
+
+            <div class="field">
+              <%= f.label :email, class: "label is-size-6" %>
+              <div class="control">
+                <%= f.email_field :email, autocomplete: "email", class: "input" %>
+              </div>
             </div>
-          </div>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <%= render UI::NotificationBanner.new(
-              type: 'info',
-              message: "Currently waiting confirmation for: #{resource.unconfirmed_email}",
-              centered: false
-            ) %>
-          <% end %>
-
-          <div class="field">
-            <%= f.label :password, "New Password", class: "label" %>
-            <p class="help">Leave blank if you don't want to change it</p>
-            <div class="control">
-              <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
-            </div>
-            <% if @minimum_password_length %>
-              <p class="help"><%= @minimum_password_length %> characters minimum</p>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <%= render UI::NotificationBanner.new(
+                type: 'info',
+                message: "Currently waiting confirmation for: #{resource.unconfirmed_email}",
+                centered: false
+              ) %>
             <% end %>
-          </div>
 
-          <div class="field">
-            <%= f.label :password_confirmation, "Confirm New Password", class: "label" %>
-            <div class="control">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-            </div>
-          </div>
+            <hr class="my-5">
 
-          <div class="field">
-            <%= f.label :current_password, class: "label" %>
-            <p class="help">We need your current password to confirm your changes</p>
-            <div class="control">
-              <%= f.password_field :current_password, autocomplete: "current-password", class: "input", required: true %>
-            </div>
-          </div>
+            <p class="has-text-weight-semibold mb-4 is-size-6">Change Password</p>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.submit "Update Profile", class: "button is-primary" %>
+            <div class="field">
+              <%= f.label :password, "New Password", class: "label is-size-6" %>
+              <p class="help is-size-7 mb-2">Leave blank if you don't want to change it</p>
+              <div class="control">
+                <%= f.password_field :password, autocomplete: "new-password", class: "input", placeholder: "Enter new password" %>
+              </div>
+              <% if @minimum_password_length %>
+                <p class="help is-size-7"><%= @minimum_password_length %> characters minimum</p>
+              <% end %>
             </div>
-            <div class="control">
-              <%= link_to "Cancel", profile_path, class: "button is-light" %>
+
+            <div class="field">
+              <%= f.label :password_confirmation, "Confirm New Password", class: "label is-size-6" %>
+              <div class="control">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: "Confirm new password" %>
+              </div>
             </div>
-          </div>
-        <% end %>
+
+            <hr class="my-5">
+
+            <div class="field">
+              <%= f.label :current_password, class: "label is-size-6" %>
+              <p class="help is-size-7 mb-2">We need your current password to confirm your changes</p>
+              <div class="control">
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "input", required: true, placeholder: "Enter current password" %>
+              </div>
+            </div>
+
+            <div class="field is-grouped mt-5">
+              <div class="control">
+                <%= f.submit "Update Profile", class: "button is-primary" %>
+              </div>
+              <div class="control">
+                <%= link_to "Cancel", profile_path, class: "button is-light" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
       </div>
     </div>
+
   </div>
 </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('profile-image-input');
-    const fileName = document.getElementById('profile-image-name');
-    
-    if (fileInput && fileName) {
-      fileInput.addEventListener('change', function(e) {
+    const profileImageContainer = document.getElementById('profile-image-container');
+    const profileImageInput = document.getElementById('profile-image-input');
+    const profileImage = document.getElementById('profile-image');
+    const imageOverlay = document.getElementById('image-overlay');
+
+    if (profileImageContainer && profileImageInput) {
+      profileImageContainer.addEventListener('click', function() {
+        profileImageInput.click();
+      });
+
+      profileImageContainer.addEventListener('mouseenter', function() {
+        imageOverlay.style.display = 'flex';
+      });
+
+      profileImageContainer.addEventListener('mouseleave', function() {
+        imageOverlay.style.display = 'none';
+      });
+
+      profileImageInput.addEventListener('change', function(e) {
         if (e.target.files.length > 0) {
-          fileName.textContent = e.target.files[0].name;
-        } else {
-          fileName.textContent = 'No file selected';
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            profileImage.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
         }
       });
     }

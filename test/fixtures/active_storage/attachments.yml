@@ -72,3 +72,18 @@ dyson_hair_dryer_image_one:
   name: images
   blob: dyson_hair_dryer_image_one_blob
   record: dyson_hair_dryer (Raffle)
+
+leo_profile_image:
+  name: profile_image
+  blob: leo_profile_image_blob
+  record: leo (User)
+
+jane_profile_image:
+  name: profile_image
+  blob: jane_profile_image_blob
+  record: jane (User)
+
+bob_profile_image:
+  name: profile_image
+  blob: bob_profile_image_blob
+  record: bob (User)

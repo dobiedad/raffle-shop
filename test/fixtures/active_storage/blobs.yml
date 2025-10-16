@@ -27,3 +27,9 @@ dyson_comb_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_c
 dyson_comb_image_two_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_comb_two.jpg", service_name: "test" %>
 
 dyson_hair_dryer_image_one_blob: <%= ActiveStorage::FixtureSet.blob filename: "dyson_hair_dryer_one.jpg", service_name: "test" %>
+
+leo_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "leo.jpg", service_name: "test" %>
+
+jane_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "jane.jpg", service_name: "test" %>
+
+bob_profile_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "bob.jpeg", service_name: "test" %>

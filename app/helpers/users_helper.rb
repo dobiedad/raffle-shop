@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 module UsersHelper
+  # :nocov:
   def user_avatar_url(user)
-    "https://i.pravatar.cc/150?img=#{user.id % 70}"
+    if user.profile_image.attached?
+      user.profile_image.variant(resize_to_limit: [150, 150])
+    else
+      "https://i.pravatar.cc/150?img=#{user.id % 70}"
+    end
   end
+  # :nocov:
 
   def render_achievements(_user)
     achievements = []
