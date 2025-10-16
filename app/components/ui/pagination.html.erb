@@ -1,9 +1,32 @@
 <% if render? %>
   <nav class="<%= pagination_classes %>" role="navigation" aria-label="pagination">
     <ul class="pagination-list">
-      <% (1..pagy.pages).each do |page| %>
-        <%= page_link(page).html_safe %>
+      <!-- Previous button -->
+      <li>
+        <% if pagy.prev %>
+          <%= link_to "←", url_for(page: pagy.prev), class: "pagination-arrow pagination-prev", 'aria-label': "Go to previous page" %>
+        <% else %>
+          <span class="pagination-arrow pagination-prev disabled">←</span>
+        <% end %>
+      </li>
+
+      <!-- Page numbers -->
+      <% pagination_series.each do |item| %>
+        <% if item.is_a?(Integer) %>
+          <%= page_link(item).html_safe %>
+        <% elsif item == '...' %>
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <% end %>
       <% end %>
+
+      <!-- Next button -->
+      <li>
+        <% if pagy.next %>
+          <%= link_to "→", url_for(page: pagy.next), class: "pagination-arrow pagination-next", 'aria-label': "Go to next page" %>
+        <% else %>
+          <span class="pagination-arrow pagination-next disabled">→</span>
+        <% end %>
+      </li>
     </ul>
   </nav>
 <% end %>
