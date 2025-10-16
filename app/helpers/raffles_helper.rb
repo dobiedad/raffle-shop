@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RafflesHelper
   def status_tag_class(raffle)
     { active: 'is-success is-light', completed: 'is-info is-light', cancelled: 'is-danger is-light' }
