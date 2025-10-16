@@ -16,22 +16,22 @@ module UI
     def badge_classes
       base_classes = 'badge'
       variant_classes = case variant
-                       when :success
-                         'badge--success'
-                       when :warning
-                         'badge--warning'
-                       when :danger
-                         'badge--danger'
-                       else
-                         'badge--default'
-                       end
-      
-      position_classes = case position
-                        when :absolute
-                          'badge--absolute'
+                        when :success
+                          'badge--success'
+                        when :warning
+                          'badge--warning'
+                        when :danger
+                          'badge--danger'
                         else
-                          'badge--inline'
+                          'badge--default'
                         end
+
+      position_classes = case position
+                         when :absolute
+                           'badge--absolute'
+                         else
+                           'badge--inline'
+                         end
 
       "#{base_classes} #{variant_classes} #{position_classes}"
     end
