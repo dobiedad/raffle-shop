@@ -1,72 +1,115 @@
-<section class="section">
+<section class="section user-profile" style="background-color:#f8f9fb; min-height:100vh;">
   <div class="container">
+
+    <nav class="breadcrumb mb-5" aria-label="breadcrumbs">
+      <ul>
+        <li><%= link_to "Profile", profile_path %></li>
+        <li class="is-active"><a href="#" aria-current="page">Edit</a></li>
+      </ul>
+    </nav>
+
     <div class="columns is-centered">
-      <div class="column">
+      <div class="column is-two-thirds-tablet is-half-desktop">
 
-        <nav class="breadcrumb mb-5" aria-label="breadcrumbs">
-          <ul>
-            <li><%= link_to "Profile", profile_path %></li>
-            <li class="is-active"><a href="#" aria-current="page">Edit</a></li>
-          </ul>
-        </nav>
+        <div class="box" style="border-radius:14px; padding:2.5rem;">
+          <h1 class="title is-4 mb-2">Edit Profile</h1>
+          <p class="is-size-7 has-text-grey mb-5">Update your account settings and personal information</p>
 
-        <h1 class="title">Edit Profile</h1>
-        <p class="subtitle is-6 has-text-grey mb-5">Update your account settings</p>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-
-          <div class="field">
-            <%= f.label :email, class: "label" %>
-            <div class="control">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+            <div class="field">
+              <%= f.label :profile_image, "Profile Image", class: "label is-size-6" %>
+              <div class="control">
+                <div class="has-text-centered mb-3" data-controller="profile-image">
+                  <div class="profile-image-container" data-profile-image-target="container">
+                    <% if resource.profile_image.attached? && resource.profile_image.persisted? %>
+                      <%= image_tag resource.profile_image.variant(resize_to_limit: [200, 200]), 
+                          alt: "Profile photo", 
+                          class: "profile-image",
+                          data: { profile_image_target: "image" } %>
+                    <% else %>
+                      <img class="profile-image" 
+                           data-profile-image-target="image" 
+                           src="https://i.pravatar.cc/150?img=<%= resource.id % 70 %>" 
+                           alt="Profile photo">
+                    <% end %>
+                    <div class="profile-image-overlay" data-profile-image-target="overlay">
+                      Click to change
+                    </div>
+                  </div>
+                  <%= f.file_field :profile_image, 
+                      class: "profile-image-input",
+                      data: { profile_image_target: "input" },
+                      accept: "image/png,image/jpeg,image/gif,image/webp" %>
+                </div>
+                <p class="help is-size-7 has-text-centered">Click the image above to change your profile photo</p>
+              </div>
             </div>
-          </div>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <%= render UI::NotificationBanner.new(
-              type: 'info',
-              message: "Currently waiting confirmation for: #{resource.unconfirmed_email}",
-              centered: false
-            ) %>
-          <% end %>
+            <hr class="my-5">
 
-          <div class="field">
-            <%= f.label :password, "New Password", class: "label" %>
-            <p class="help">Leave blank if you don't want to change it</p>
-            <div class="control">
-              <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+            <div class="field">
+              <%= f.label :email, class: "label is-size-6" %>
+              <div class="control">
+                <%= f.email_field :email, autocomplete: "email", class: "input" %>
+              </div>
             </div>
-            <% if @minimum_password_length %>
-              <p class="help"><%= @minimum_password_length %> characters minimum</p>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <%= render UI::NotificationBanner.new(
+                type: 'info',
+                message: "Currently waiting confirmation for: #{resource.unconfirmed_email}",
+                centered: false
+              ) %>
             <% end %>
-          </div>
 
-          <div class="field">
-            <%= f.label :password_confirmation, "Confirm New Password", class: "label" %>
-            <div class="control">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-            </div>
-          </div>
+            <hr class="my-5">
 
-          <div class="field">
-            <%= f.label :current_password, class: "label" %>
-            <p class="help">We need your current password to confirm your changes</p>
-            <div class="control">
-              <%= f.password_field :current_password, autocomplete: "current-password", class: "input", required: true %>
-            </div>
-          </div>
+            <p class="has-text-weight-semibold mb-4 is-size-6">Change Password</p>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.submit "Update Profile", class: "button is-primary" %>
+            <div class="field">
+              <%= f.label :password, "New Password", class: "label is-size-6" %>
+              <p class="help is-size-7 mb-2">Leave blank if you don't want to change it</p>
+              <div class="control">
+                <%= f.password_field :password, autocomplete: "new-password", class: "input", placeholder: "Enter new password" %>
+              </div>
+              <% if @minimum_password_length %>
+                <p class="help is-size-7"><%= @minimum_password_length %> characters minimum</p>
+              <% end %>
             </div>
-            <div class="control">
-              <%= link_to "Cancel", profile_path, class: "button is-light" %>
+
+            <div class="field">
+              <%= f.label :password_confirmation, "Confirm New Password", class: "label is-size-6" %>
+              <div class="control">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: "Confirm new password" %>
+              </div>
             </div>
-          </div>
-        <% end %>
+
+            <hr class="my-5">
+
+            <div class="field">
+              <%= f.label :current_password, class: "label is-size-6" %>
+              <p class="help is-size-7 mb-2">We need your current password to confirm your changes</p>
+              <div class="control">
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "input", required: true, placeholder: "Enter current password" %>
+              </div>
+            </div>
+
+            <div class="field is-grouped mt-5">
+              <div class="control">
+                <%= f.submit "Update Profile", class: "button is-primary" %>
+              </div>
+              <div class="control">
+                <%= link_to "Cancel", profile_path, class: "button is-light" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
       </div>
     </div>
+
   </div>
 </section>
+
