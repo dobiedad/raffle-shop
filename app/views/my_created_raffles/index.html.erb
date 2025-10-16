@@ -24,13 +24,7 @@
         </li>
       </ul>
     </div>
-
-    <div class="has-text-centered mb-5">
-      <p class="is-size-6 has-text-grey">
-        <strong><%= @raffles.count %></strong> <%= 'raffle'.pluralize(@raffles.count) %> created
-      </p>
-    </div>
-
+    
     <% if @raffles.present? %>
       <div class="columns is-multiline" style="margin-top: 1rem;">
         <% @raffles.each do |raffle| %>

@@ -15,9 +15,11 @@
 // Import component-specific stylesheets
 @import "components/raffle_gallery";
 @import "components/raffle_card";
+@import "components/raffle_badge";
+@import "components/raffle_animations";
+@import "components/tabs";
 @import "components/pagination";
 @import "components/search_bar";
-@import "components/my_raffles";
 
 .section {
   max-width: 1300px;
