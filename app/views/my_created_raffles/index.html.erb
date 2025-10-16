@@ -1,12 +1,10 @@
 <div class="section raffles-index" style="background-color: #f9fafb;">
   <div class="container">
 
-    <div class="has-text-centered mb-6" style="margin-top: 2rem;">
-      <h1 class="title is-2 mb-4">🎫 My Raffles</h1>
-      <p class="subtitle is-5 has-text-grey">
-        Manage your created raffles and track raffles you're participating in
-      </p>
-    </div>
+    <%= render UI::PageHeader.new(
+      title: '🎫 My Raffles',
+      subtitle: "Manage your created raffles and track raffles you're participating in"
+    ) %>
 
     <div class="tabs is-centered is-boxed is-medium mb-6">
       <ul>
@@ -24,7 +22,7 @@
         </li>
       </ul>
     </div>
-    
+
     <% if @raffles.present? %>
       <div class="columns is-multiline" style="margin-top: 1rem;">
         <% @raffles.each do |raffle| %>
