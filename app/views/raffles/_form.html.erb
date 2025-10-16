@@ -77,16 +77,40 @@
     </div>
   </div>
 
-  <!-- DESCRIPTION -->
+  <!-- GENERAL DESCRIPTION -->
   <div class="field mb-6">
-    <%= form.label :description, "Description", class: "label has-text-weight-medium" %>
-    <p class="help mb-2">Describe your item, its condition, and what's included.</p>
-    <%= form.rich_text_area :description, 
+    <%= form.label :general_description, "General Description", class: "label has-text-weight-medium" %>
+    <p class="help mb-2">Describe your item in detail.</p>
+    <%= form.rich_text_area :general_description, 
         placeholder: "Describe your raffle in detail...",
         data: { 
           raffle_preview_target: "description",
           action: "trix-change->raffle-preview#updateDescription"
         } %>
+  </div>
+
+  <!-- CONDITION DESCRIPTION -->
+  <div class="field mb-6">
+    <%= form.label :condition_description, "Condition Description", class: "label has-text-weight-medium" %>
+    <p class="help mb-2">Detail the condition of the item.</p>
+    <%= form.rich_text_area :condition_description, 
+        placeholder: "Describe the condition..." %>
+  </div>
+
+  <!-- WHAT'S INCLUDED DESCRIPTION -->
+  <div class="field mb-6">
+    <%= form.label :whats_included_description, "What's Included", class: "label has-text-weight-medium" %>
+    <p class="help mb-2">List everything that comes with the item.</p>
+    <%= form.rich_text_area :whats_included_description, 
+        placeholder: "List what's included..." %>
+  </div>
+
+  <!-- EXTRA DESCRIPTION -->
+  <div class="field mb-6">
+    <%= form.label :extra_description, "Extra Information", class: "label has-text-weight-medium" %>
+    <p class="help mb-2">Any additional information you'd like to share.</p>
+    <%= form.rich_text_area :extra_description, 
+        placeholder: "Add any extra details..." %>
   </div>
 
   <!-- IMAGES -->

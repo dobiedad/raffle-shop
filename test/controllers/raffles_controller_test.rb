@@ -24,17 +24,8 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#index pagination' do
-    15.times do |i|
-      Raffle.create!(
-        name: "Test Raffle #{i}",
-        description: "Description #{i}",
-        price: 100,
-        ticket_price: 5,
-        category: 'Tech',
-        condition: 'New',
-        end_date: 7.days.from_now,
-        user: users(:leo)
-      )
+    15.times do
+      Raffle.create!(valid_raffle_params.merge(user: users(:bob)))
     end
 
     get raffles_url
@@ -92,7 +83,9 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   def valid_raffle_params
     {
       name: 'BMW X6',
-      description: 'My Beloved BMW X6, 2012 100k Miles',
+      general_description: 'My Beloved BMW X6, 2012 100k Miles',
+      condition_description: 'Recently serviced',
+      whats_included_description: '2 Keys',
       price: 50_000,
       ticket_price: 25.0,
       category: 'Vehicles',

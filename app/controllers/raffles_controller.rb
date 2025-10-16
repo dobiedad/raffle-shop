@@ -33,7 +33,7 @@ class RafflesController < ApplicationController
     current_user.raffles.build(
       name: 'Sample Raffle',
       ticket_price: 3.50,
-      description: 'Add details to see your preview...'
+      general_description: 'Add details to see your preview...'
     )
   end
 
@@ -41,7 +41,10 @@ class RafflesController < ApplicationController
     params.expect(
       raffle: [
         :name,
-        :description,
+        :general_description,
+        :condition_description,
+        :whats_included_description,
+        :extra_description,
         :price,
         :ticket_price,
         :category,

@@ -17,7 +17,7 @@ module UI
     end
 
     def truncated_description
-      truncate(raffle.description.to_plain_text, length: 80)
+      truncate(raffle.general_description.to_plain_text, length: 80)
     end
 
     delegate :tickets_sold_count, to: :raffle

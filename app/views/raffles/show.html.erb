@@ -18,7 +18,33 @@
               <h1 class="title is-2"><%= @raffle.name %></h1>
 
               <div class="content">
-                <%= @raffle.description %>
+                <% if @raffle.general_description.present? %>
+                  <div class="mb-5">
+                    <h3 class="title is-4">Description</h3>
+                    <%= @raffle.general_description %>
+                  </div>
+                <% end %>
+
+                <% if @raffle.condition_description.present? %>
+                  <div class="mb-5">
+                    <h3 class="title is-4">Condition</h3>
+                    <%= @raffle.condition_description %>
+                  </div>
+                <% end %>
+
+                <% if @raffle.whats_included_description.present? %>
+                  <div class="mb-5">
+                    <h3 class="title is-4">What's Included</h3>
+                    <%= @raffle.whats_included_description %>
+                  </div>
+                <% end %>
+
+                <% if @raffle.extra_description.present? %>
+                  <div class="mb-5">
+                    <h3 class="title is-4">Extra Information</h3>
+                    <%= @raffle.extra_description %>
+                  </div>
+                <% end %>
               </div>
 
             <div class="columns">

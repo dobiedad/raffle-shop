@@ -5,7 +5,9 @@ require 'test_helper'
 class RaffleTest < ActiveSupport::TestCase
   test 'validations' do
     assert_invalid "can't be blank", name: nil
-    assert_invalid "can't be blank", description: nil
+    assert_invalid "can't be blank", general_description: nil
+    assert_invalid "can't be blank", condition_description: nil
+    assert_invalid "can't be blank", whats_included_description: nil
     assert_invalid "can't be blank", 'is not a number', price: nil
     assert_invalid "can't be blank", 'is not a number', ticket_price: nil
     assert_invalid 'must be greater than 0', price: 0
@@ -41,7 +43,7 @@ class RaffleTest < ActiveSupport::TestCase
   test 'rejects non-image files' do
     raffle = Raffle.new(
       name: 'Test',
-      description: 'Test',
+      general_description: 'Test',
       price: 100,
       ticket_price: 5,
       user: users(:leo)
@@ -60,7 +62,7 @@ class RaffleTest < ActiveSupport::TestCase
   test 'rejects images larger than 10MB' do
     raffle = Raffle.new(
       name: 'Test',
-      description: 'Test',
+      general_description: 'Test',
       price: 100,
       ticket_price: 5,
       user: users(:leo)
