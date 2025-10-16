@@ -19,8 +19,5 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:profile_image])
   end
 
-  def after_update_path_for(_resource)
-    profile_path
-  end
   # :nocov:
 end
