@@ -83,4 +83,16 @@ class RaffleTest < ActiveSupport::TestCase
     assert_includes tech_raffles, raffles(:iphone_giveaway)
     assert_not_includes tech_raffles, raffles(:ps5_bundle)
   end
+
+  test '#tickets_sold_count' do
+    raffle = raffles(:iphone_giveaway)
+
+    assert_equal 0, raffle.tickets_sold_count
+  end
+
+  test '#days_remaining' do
+    raffle = raffles(:iphone_giveaway)
+
+    assert_equal 7, raffle.days_remaining
+  end
 end
