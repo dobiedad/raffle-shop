@@ -8,7 +8,7 @@
       <% end %>
     </figure>
     <% if badge? %>
-      <%= render UI::RaffleBadge.new(text: badge_text) %>
+      <%= render UI::Badge.new(text: badge_text, position: :absolute) %>
     <% end %>
   </div>
 

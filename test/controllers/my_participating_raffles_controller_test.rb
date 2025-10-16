@@ -82,7 +82,7 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
     get my_participating_raffles_url
 
     assert_response :success
-    assert_select '.raffle-badge'
+    assert_select '.badge'
   end
 
   private
