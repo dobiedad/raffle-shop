@@ -19,21 +19,20 @@ module UI
       classes.join(' ')
     end
 
-    def has_title?
+    def title?
       title.present?
     end
 
-    def has_icon?
+    def icon?
       icon.present?
     end
 
-    def has_message?
+    def message?
       message.present?
     end
 
-    def has_content?
+    def content?
       content?
     end
   end
 end
-

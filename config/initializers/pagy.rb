@@ -12,4 +12,3 @@ Pagy::DEFAULT[:overflow] = :last_page
 
 # Optionally set max items per page
 Pagy::DEFAULT[:max_limit] = 100
-

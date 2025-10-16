@@ -82,29 +82,6 @@ class NotificationBannerPreview < ComponentPreview
     )
   end
 
-  def without_icon
-    render UI::NotificationBanner.new(
-      type: 'info',
-      title: 'Note:',
-      message: 'This notification has no icon.'
-    )
-  end
-
-  def without_title
-    render UI::NotificationBanner.new(
-      type: 'info',
-      icon: '💡',
-      message: 'This notification has no title, just an icon and message.'
-    )
-  end
-
-  def message_only
-    render UI::NotificationBanner.new(
-      type: 'info',
-      message: 'This notification has only a message.'
-    )
-  end
-
   def not_centered
     render UI::NotificationBanner.new(
       type: 'info',
@@ -125,4 +102,3 @@ class NotificationBannerPreview < ComponentPreview
     )
   end
 end
-

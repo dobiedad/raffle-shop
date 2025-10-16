@@ -19,22 +19,24 @@
 
     <!-- Search Bar -->
     <%= render UI::SearchBar.new(
-      value: params[:search],
+      value: params.dig(:q, :name_cont),
       url: raffles_path,
-      placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)'
+      param_name: 'q[name_cont]',
+      placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)',
+      preserve_params: ['category']
     ) %>
 
     <!-- Category Filter Bar -->
     <div class="buttons are-small is-centered mb-6">
-      <%= link_to 'All', raffles_path,
+      <%= link_to 'All', raffles_path(params.permit(:q, :category).except(:category)),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
-      <%= link_to 'Tech', raffles_path(category: 'Tech'),
+      <%= link_to 'Tech', raffles_path(params.permit(:q, :category).merge(category: 'Tech')),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Tech'}" %>
-      <%= link_to 'Gaming', raffles_path(category: 'Gaming'),
+      <%= link_to 'Gaming', raffles_path(params.permit(:q, :category).merge(category: 'Gaming')),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Gaming'}" %>
-      <%= link_to 'Fashion', raffles_path(category: 'Fashion'),
+      <%= link_to 'Fashion', raffles_path(params.permit(:q, :category).merge(category: 'Fashion')),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Fashion'}" %>
-      <%= link_to 'Home', raffles_path(category: 'Home'),
+      <%= link_to 'Home', raffles_path(params.permit(:q, :category).merge(category: 'Home')),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'Home'}" %>
     </div>
 

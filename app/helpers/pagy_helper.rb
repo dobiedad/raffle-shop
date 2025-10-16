@@ -17,7 +17,7 @@ module PagyHelper
     end
 
     html << %(</ul></nav>)
-    html.html_safe
+    html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   private
@@ -30,4 +30,3 @@ module PagyHelper
     end
   end
 end
-

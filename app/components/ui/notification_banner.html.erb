@@ -2,18 +2,17 @@
   <% if dismissible %>
     <button class="delete" data-bulma-target="alertCloseButton" data-action="click->bulma#closeAlert"></button>
   <% end %>
-  <% if has_content? %>
+  <% if content? %>
     <%= content %>
   <% else %>
-    <% if has_icon? %>
+    <% if icon? %>
       <%= icon %>
     <% end %>
-    <% if has_title? %>
+    <% if title? %>
       <strong><%= title %></strong>
     <% end %>
-    <% if has_message? %>
+    <% if message? %>
       <%= message %>
     <% end %>
   <% end %>
 </div>
-

@@ -16,7 +16,7 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   test '#index with search query' do
     raffle = raffles(:iphone_giveaway)
 
-    get raffles_url, params: { search: 'iPhone' }
+    get raffles_url, params: { q: { name_cont: 'iPhone' } }
 
     assert_response :success
     assert_text raffle.name

@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_to_last_page(exception)
-    redirect_to url_for(page: exception.pagy.last), notice: "Page number too high, showing last page instead."
+    redirect_to url_for(page: exception.pagy.last), notice: 'Page number too high, showing last page instead.'
   end
 end
