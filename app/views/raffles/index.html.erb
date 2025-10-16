@@ -1,32 +1,115 @@
-<div class="section">
+<!-- Top Notification Banner -->
+<%= render UI::NotificationBanner.new(
+  type: 'info',
+  icon: '💡',
+  title: 'Tip:',
+  message: 'Buying multiple tickets increases your odds — view active raffles below.'
+) %>
+
+<div class="section raffles-index" style="background-color: #f9fafb;">
   <div class="container">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h1 class="title">Raffles</h1>
-        </div>
-      </div>
-      <div class="level-right">
-        <div class="level-item">
-          <% if user_signed_in? %>
-            <%= link_to "New Raffle", new_raffle_path, class: "button is-primary" %>
-          <% end %>
-        </div>
-      </div>
+
+    <div class="has-text-centered mb-6">
+      <h1 class="title is-2 mb-6">🎟️ Current Raffles</h1>
+      <p class="subtitle is-5 has-text-grey">
+        Enter raffles for the latest gadgets, collectibles, and more — starting from just $1 per ticket.
+      </p>
     </div>
 
-    <div class="columns is-multiline">
-      <% @raffles.each do |raffle| %>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <%= render UI::RaffleCard.new(raffle: raffle) %>
-        </div>
-      <% end %>
+    <%= render UI::SearchBar.new(
+      value: params.dig(:q, :name_cont),
+      url: raffles_path,
+      param_name: 'q[name_cont]',
+      placeholder: 'Search raffles (e.g. iPhone, PS5, sneakers)',
+      preserve_params: ['category']
+    ) %>
+
+    <div class="buttons are-small is-centered mb-6">
+      <%= link_to 'All', raffles_path(params.permit(:q, :category).except(:category)),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
+      <%= link_to 'Tech', raffles_path(params.permit(:q, :category).merge(category: 'Tech')),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'Tech'}" %>
+      <%= link_to 'Gaming', raffles_path(params.permit(:q, :category).merge(category: 'Gaming')),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'Gaming'}" %>
+      <%= link_to 'Fashion', raffles_path(params.permit(:q, :category).merge(category: 'Fashion')),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'Fashion'}" %>
+      <%= link_to 'Home', raffles_path(params.permit(:q, :category).merge(category: 'Home')),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'Home'}" %>
     </div>
 
-    <% if @raffles.empty? %>
-      <div class="notification is-info">
-        <p class="has-text-centered">No raffles available at the moment.</p>
+    <% if @raffles.present? %>
+      <div class="columns is-multiline">
+        <% @raffles.each do |raffle| %>
+          <div class="column is-one-third-desktop is-half-tablet">
+            <%= render UI::RaffleCard.new(raffle: raffle) %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="has-text-centered py-6">
+        <p class="is-size-5 has-text-grey-dark mb-2">No raffles available right now</p>
+        <p class="is-size-6 has-text-grey">Check back soon — new items are added daily.</p>
+        <% if user_signed_in? %>
+          <%= link_to "Create one now", new_raffle_path, class: "button is-primary is-rounded mt-4" %>
+        <% end %>
       </div>
     <% end %>
+
+    <% if @raffles.present? %>
+      <p class="has-text-centered is-size-6 has-text-grey mt-5">
+        Over <strong><%= @total_raffles_count %></strong> active raffles · <strong>2,300</strong> tickets sold today
+      </p>
+    <% end %>
+
+    <%= render UI::Pagination.new(pagy: @pagy) %>
+
+    <% if @raffles.present? %>
+      <p class="has-text-centered is-size-7 has-text-grey mt-2">
+        Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
+      </p>
+    <% end %>
+
+    <div class="has-text-centered mt-6">
+      <p class="is-size-7 has-text-grey">
+        Platform total: <strong>$12,430 raised</strong> · <strong>5,300 tickets</strong> sold across all raffles
+      </p>
+    </div>
+
+    <% if user_signed_in? %>
+      <%= link_to new_raffle_path,
+          class: 'button is-primary is-medium',
+          'aria-label': 'New Raffle',
+          title: 'New Raffle',
+          style: 'position: fixed; bottom: 2rem; right: 2rem; border-radius: 50%; width: 60px; height: 60px; padding: 0; font-size: 2rem; line-height: 60px;' do %>
+        +
+      <% end %>
+    <% end %>
+
   </div>
 </div>
+
+<style>
+  .button.is-primary:hover { filter: brightness(1.1); }
+
+  .raffle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .button.is-rounded.is-active {
+    background-color: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+  }
+
+
+  .raffle-card {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 1s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

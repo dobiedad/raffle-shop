@@ -20,10 +20,21 @@ class Raffle < ApplicationRecord
             limit: { max: 10,
                      message: 'cannot be more than 10 images' }
 
-  scope :by_category, ->(category) { where(category: category) }
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name category price ticket_price created_at]
+  end
 
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user]
+  end
+
+  # Helper methods for stats
   def tickets_sold_count
-    0
+    0 # TODO: Implement when Ticket model exists
+  end
+
+  def amount_raised
+    0.0 # TODO: Implement when Ticket model exists
   end
 
   def days_remaining

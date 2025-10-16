@@ -5,7 +5,10 @@ class RafflesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @raffles = Raffle.order(created_at: :desc)
+    @q = Raffle.ransack(search_params)
+    @pagy, @raffles = pagy(@q.result(distinct: true).order(created_at: :desc))
+    @total_raffles_count = Raffle.count
+    @active_category = params[:category] || 'All'
   end
 
   def show
@@ -47,5 +50,9 @@ class RafflesController < ApplicationController
         { images: [] }
       ]
     )
+  end
+
+  def search_params
+    (params[:q] || {}).merge(category_cont: params[:category])
   end
 end

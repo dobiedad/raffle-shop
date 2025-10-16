@@ -77,13 +77,6 @@ class RaffleTest < ActiveSupport::TestCase
     assert_includes raffle.errors[:images], 'must be less than 10MB'
   end
 
-  test 'by_category scope filters correctly' do
-    tech_raffles = Raffle.by_category('Tech')
-
-    assert_includes tech_raffles, raffles(:iphone_giveaway)
-    assert_not_includes tech_raffles, raffles(:ps5_bundle)
-  end
-
   test '#tickets_sold_count' do
     raffle = raffles(:iphone_giveaway)
 
@@ -94,5 +87,19 @@ class RaffleTest < ActiveSupport::TestCase
     raffle = raffles(:iphone_giveaway)
 
     assert_equal 7, raffle.days_remaining
+  end
+
+  test '#amount_raised' do
+    raffle = raffles(:iphone_giveaway)
+
+    assert_equal 0, raffle.amount_raised
+  end
+
+  test 'self.ransackable_attributes' do
+    assert_equal %w[name category price ticket_price created_at], subject.class.ransackable_attributes
+  end
+
+  test 'self.ransackable_associations' do
+    assert_equal %w[user], subject.class.ransackable_associations
   end
 end

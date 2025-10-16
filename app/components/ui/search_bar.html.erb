@@ -1,0 +1,14 @@
+<%= form_with url: url, method: :get, local: true, html: { class: form_classes, style: form_style } do |f| %>
+  <% preserve_params.each do |param| %>
+    <%= hidden_field_tag param, params[param] if params[param].present? %>
+  <% end %>
+  <div class="control is-expanded">
+    <%= f.text_field param_name, 
+        class: 'input is-medium',
+        placeholder: placeholder,
+        value: value %>
+  </div>
+  <div class="control">
+    <%= f.submit button_text, class: 'button is-medium is-primary', style: 'font-weight:600;' %>
+  </div>
+<% end %>

@@ -1,13 +1,15 @@
-<div data-controller="bulma">
-  <% flash.each do |type, message| %>
-    <% next if message.blank? %>
-    <div
-      class="notification is-light
-             <%= 'is-success' if type.to_s == 'notice' %>
-             <%= 'is-danger' if type.to_s == 'alert' %>
-             <%= 'is-info' if type.to_s == 'info' %>">
-      <button class="delete" data-bulma-target="alertCloseButton" data-action="click->bulma#closeAlert"></button>
-      <%= message %>
-    </div>
-  <% end %>
-</div>
+<% flash.each do |type, message| %>
+  <% next if message.blank? %>
+  <% notification_type = case type.to_s
+                         when 'notice' then 'success'
+                         when 'alert' then 'danger'
+                         when 'info' then 'info'
+                         else 'info'
+                         end %>
+  <%= render UI::NotificationBanner.new(
+    type: notification_type,
+    message: message,
+    dismissible: true,
+    centered: false
+  ) %>
+<% end %>

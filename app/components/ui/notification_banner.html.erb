@@ -1,0 +1,18 @@
+<div class="<%= notification_classes %>" data-controller="<%= 'bulma' if dismissible %>">
+  <% if dismissible %>
+    <button class="delete" data-bulma-target="alertCloseButton" data-action="click->bulma#closeAlert"></button>
+  <% end %>
+  <% if content? %>
+    <%= content %>
+  <% else %>
+    <% if icon? %>
+      <%= icon %>
+    <% end %>
+    <% if title? %>
+      <strong><%= title %></strong>
+    <% end %>
+    <% if message? %>
+      <%= message %>
+    <% end %>
+  <% end %>
+</div>

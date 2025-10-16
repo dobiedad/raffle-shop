@@ -54,5 +54,7 @@ end
 module ActionDispatch
   class SystemTestCase
     include Devise::Test::IntegrationHelpers
+
+    Capybara.enable_aria_label = true
   end
 end

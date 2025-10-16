@@ -15,9 +15,11 @@
           </div>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div class="notification is-info is-light">
-              Currently waiting confirmation for: <%= resource.unconfirmed_email %>
-            </div>
+            <%= render UI::NotificationBanner.new(
+              type: 'info',
+              message: "Currently waiting confirmation for: #{resource.unconfirmed_email}",
+              centered: false
+            ) %>
           <% end %>
 
           <div class="field">

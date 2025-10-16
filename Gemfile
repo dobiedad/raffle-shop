@@ -83,10 +83,8 @@ gem 'rubocop-minitest', '~> 0.38.2'
 gem 'rubocop-rails', '~> 2.33'
 
 gem 'active_storage_validations', '~> 3.0'
-
-# View Components
-gem 'view_component'
-
-# Syntax highlighting for styleguide
 gem 'coderay'
 gem 'method_source'
+gem 'pagy', '~> 9.0'
+gem 'ransack'
+gem 'view_component'

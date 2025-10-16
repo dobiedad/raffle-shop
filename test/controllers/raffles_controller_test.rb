@@ -13,6 +13,36 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test '#index with search query' do
+    raffle = raffles(:iphone_giveaway)
+
+    get raffles_url, params: { q: { name_cont: 'iPhone' }, category: 'Tech' }
+
+    assert_response :success
+    assert_text raffle.name
+    assert_select '.button.is-active', text: 'Tech'
+  end
+
+  test '#index pagination' do
+    15.times do |i|
+      Raffle.create!(
+        name: "Test Raffle #{i}",
+        description: "Description #{i}",
+        price: 100,
+        ticket_price: 5,
+        category: 'Tech',
+        condition: 'New',
+        end_date: 7.days.from_now,
+        user: users(:leo)
+      )
+    end
+
+    get raffles_url
+
+    assert_response :success
+    assert_select '.pagination'
+  end
+
   test '#show' do
     get raffle_url(iphone_giveaway)
 
