@@ -22,3 +22,7 @@
   max-width: 1300px;
   margin: auto;
 }
+
+.box:not(:last-child) {
+  margin-bottom: 0px;
+}

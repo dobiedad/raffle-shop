@@ -1,73 +1,138 @@
-<div class="section">
+<div class="section raffle-show">
   <div class="container">
-    <div class="columns">
-      <div class="column is-8 is-offset-2">
-        <div class="card">
-          <% if @raffle.images.attached? %>
-            <%= render UI::ImageGallery.new(images: @raffle.images, alt_prefix: @raffle.name) %>
-          <% else %>
-            <div class="raffle-gallery">
-              <div class="gallery-main">
-                <div class="main-image-container">
-                  <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg", alt: @raffle.name, class: "main-raffle-image" %>
-                </div>
-              </div>
+
+    <div class="raffle-meta has-background-white-bis p-4 mb-5 is-flex is-align-items-center is-justify-content-space-between">
+      <div>
+        <p class="is-size-7 has-text-grey">Raffle ID #<%= @raffle.id %></p>
+        <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.email %></strong></p>
+      </div>
+      <div>
+        <span class="tag <%= status_tag_class(@raffle) %>"><%= @raffle.status.titleize %></span>
+      </div>
+    </div>
+
+    <div class="columns is-variable is-6">
+
+      <div class="column is-half">
+        <% if @raffle.images.attached? %>
+          <%= render UI::ImageGallery.new(images: @raffle.images, alt_prefix: @raffle.name) %>
+        <% else %>
+          <figure class="image is-3by2">
+            <%= image_tag "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg",
+                          alt: @raffle.name,
+                          class: "main-raffle-image" %>
+          </figure>
+        <% end %>
+      </div>
+
+      <div class="column is-half">
+        <div class="raffle-details">
+
+          <h1 class="title is-3 mb-4"><%= @raffle.name %></h1>
+
+          <div class="tags mt-2 mb-4">
+            <% if @raffle.new_condition? %>
+              <span class="tag is-light is-info">Brand New</span>
+            <% end %>
+            <% if trusted_seller?(@raffle.user) %>
+              <span class="tag is-light is-warning">Trusted Seller</span>
+            <% end %>
+          </div>
+
+          <div class="is-flex mb-5" style="gap: 1rem;">
+            <div class="box has-text-centered is-flex-grow-1">
+              <p class="heading has-text-grey">Price Target</p>
+              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
             </div>
-          <% end %>
-            <div class="card-content">
-              <h1 class="title is-2"><%= @raffle.name %></h1>
-
-              <div class="content">
-                <% if @raffle.general_description.present? %>
-                  <div class="mb-5">
-                    <h3 class="title is-4">Description</h3>
-                    <%= @raffle.general_description %>
-                  </div>
-                <% end %>
-
-                <% if @raffle.condition_description.present? %>
-                  <div class="mb-5">
-                    <h3 class="title is-4">Condition</h3>
-                    <%= @raffle.condition_description %>
-                  </div>
-                <% end %>
-
-                <% if @raffle.whats_included_description.present? %>
-                  <div class="mb-5">
-                    <h3 class="title is-4">What's Included</h3>
-                    <%= @raffle.whats_included_description %>
-                  </div>
-                <% end %>
-
-                <% if @raffle.extra_description.present? %>
-                  <div class="mb-5">
-                    <h3 class="title is-4">Extra Information</h3>
-                    <%= @raffle.extra_description %>
-                  </div>
-                <% end %>
-              </div>
-
-            <div class="columns">
-              <div class="column">
-                <div class="box has-background-light">
-                  <p class="heading">Price Target</p>
-                  <p class="title is-4">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
-                </div>
-              </div>
-              <div class="column">
-                <div class="box has-background-light">
-                  <p class="heading">Ticket Price</p>
-                  <p class="title is-4">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-grouped">
-              <%= link_to "Back to Raffles", raffles_path, class: "button is-light" %>
+            <div class="box has-text-centered is-flex-grow-1">
+              <p class="heading has-text-grey">Ticket Price</p>
+              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
             </div>
           </div>
+
+          <div class="mb-5">
+            <p class="is-size-6 has-text-grey-dark">
+              Tickets sold: <strong><%= tickets_sold_display(@raffle) %></strong> / <%= @raffle.max_tickets %>
+            </p>
+            <progress class="progress is-primary"
+                      value="<%= @raffle.tickets_sold_count %>"
+                      max="<%= @raffle.max_tickets || 500 %>">
+              <%= progress_percentage(@raffle) %>%
+            </progress>
+
+            <p class="is-size-6 mt-2">
+              💰 <strong>$<%= number_with_precision(@raffle.amount_raised, precision: 2) %></strong>
+              raised of $<%= number_with_precision(@raffle.price, precision: 2) %> goal
+            </p>
+
+            <p class="is-size-7 has-text-grey mt-3">
+              👀 <%= pluralize(5, 'person') %> viewed this raffle today
+            </p>
+          </div>
+
+          <div data-controller="ticket-purchase" data-ticket-price="<%= @raffle.ticket_price %>">
+            <div class="field has-addons mt-4">
+              <div class="control">
+                <input class="input"
+                       type="number"
+                       value="1"
+                       min="1"
+                       max="10"
+                       style="width:80px;"
+                       id="ticket-quantity"
+                       data-ticket-purchase-target="quantity"
+                       data-action="input->ticket-purchase#updateTotal">
+              </div>
+              <div class="control">
+                <button class="button is-primary"
+                        onclick="alert('Purchase functionality coming soon!')">
+                  Buy Tickets
+                </button>
+              </div>
+            </div>
+            <p class="is-size-7 has-text-grey mt-2">
+              $<%= number_with_precision(@raffle.ticket_price, precision: 2) %> per ticket —
+              total <span data-ticket-purchase-target="total">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></span>
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <div class="raffle-description mt-6">
+      <div class="content">
+
+        <% if @raffle.general_description.present? %>
+          <h2 class="title is-4 mb-3">🧾 Description</h2>
+          <div class="mb-5">
+            <%= @raffle.general_description %>
+          </div>
+        <% end %>
+
+        <% if @raffle.condition_description.present? %>
+          <h2 class="title is-4 mb-3">⚙️ Condition</h2>
+          <div class="mb-5">
+            <%= @raffle.condition_description %>
+          </div>
+        <% end %>
+
+        <% if @raffle.whats_included_description.present? %>
+          <h2 class="title is-4 mb-3">🎁 What's Included</h2>
+          <div class="mb-5">
+            <%= @raffle.whats_included_description %>
+          </div>
+        <% end %>
+
+        <% if @raffle.extra_description.present? %>
+          <h2 class="title is-4 mb-3">➕ Extras</h2>
+          <div class="mb-5">
+            <%= @raffle.extra_description %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
   </div>
 </div>

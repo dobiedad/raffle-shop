@@ -11,7 +11,7 @@ class Raffle < ApplicationRecord
   CATEGORIES = %w[tech gaming fashion home vehicles other].freeze
   CONDITIONS = %w[new like_new good fair].freeze
 
-  enum :status, { active: 'active', completed: 'completed' }, default: :active
+  enum :status, { active: 'active', completed: 'completed', cancelled: 'cancelled' }, default: :active
   enum :category, CATEGORIES.index_by(&:itself)
   enum :condition, CONDITIONS.index_by(&:itself), suffix: true
 
@@ -50,5 +50,9 @@ class Raffle < ApplicationRecord
     return nil if end_date.nil?
 
     [(end_date.to_date - Date.current).to_i, 0].max
+  end
+
+  def max_tickets
+    (price / ticket_price).ceil
   end
 end
