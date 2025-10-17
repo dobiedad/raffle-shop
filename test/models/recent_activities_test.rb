@@ -7,7 +7,7 @@ class RecentActivitiesTest < ActiveSupport::TestCase
     leo.wallet.add(100_000.0, 'Test deposit', transaction_type: :deposit)
 
     # TODO: add a fixture where someone has won a raffle already
-    assert dyson_comb.buy_ticket(buyer: leo, quantity: dyson_comb.max_tickets)
+    assert dyson_comb.buy_tickets(buyer: leo, quantity: dyson_comb.max_tickets)
     dyson_comb.draw_winner!
 
     recent_activities = RecentActivities.build(leo)

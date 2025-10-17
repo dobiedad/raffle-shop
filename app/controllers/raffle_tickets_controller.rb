@@ -10,7 +10,7 @@ class RaffleTicketsController < ApplicationController
   def create
     @raffle = Raffle.find(params[:raffle_id])
 
-    if @raffle.buy_ticket(buyer: current_user, quantity: quantity)
+    if @raffle.buy_tickets(buyer: current_user, quantity: quantity)
       redirect_to @raffle, notice: "You have purchased #{quantity} ticket."
     else
       redirect_to @raffle, alert: @raffle.errors.full_messages.join(',')

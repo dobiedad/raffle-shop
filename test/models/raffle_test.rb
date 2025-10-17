@@ -146,67 +146,67 @@ class RaffleTest < ActiveSupport::TestCase
     assert_equal 35, subject.max_tickets
   end
 
-  test '#buy_ticket is false if quantity is not greater than one' do
+  test '#buy_tickets is false if quantity is not greater than one' do
     raffle = raffles(:iphone_giveaway)
 
-    assert_not raffle.buy_ticket(buyer: leo, quantity: 0)
+    assert_not raffle.buy_tickets(buyer: leo, quantity: 0)
 
     assert_equal ['Quantity must be greater than 0'], raffle.errors.full_messages
   end
 
-  test '#buy_ticket is false if user does not have enough funds' do
+  test '#buy_tickets is false if user does not have enough funds' do
     raffle = raffles(:iphone_giveaway)
 
     leo.wallet.update!(balance: raffle.ticket_price - 1)
 
-    assert_not raffle.buy_ticket(buyer: leo, quantity: 1)
+    assert_not raffle.buy_tickets(buyer: leo, quantity: 1)
 
     assert_equal ['Insufficient funds'], raffle.errors.full_messages
   end
 
-  test '#buy_ticket is false the raffle has already ended' do
+  test '#buy_tickets is false the raffle has already ended' do
     raffle = raffles(:iphone_giveaway)
 
     raffle.completed!
 
-    assert_not raffle.buy_ticket(buyer: leo, quantity: 1)
+    assert_not raffle.buy_tickets(buyer: leo, quantity: 1)
 
     assert_equal ['Raffle is no longer active'], raffle.errors.full_messages
   end
 
-  test '#buy_ticket is false the raffle is cancelled' do
+  test '#buy_tickets is false the raffle is cancelled' do
     raffle = raffles(:iphone_giveaway)
 
     raffle.cancelled!
 
-    assert_not raffle.buy_ticket(buyer: leo, quantity: 1)
+    assert_not raffle.buy_tickets(buyer: leo, quantity: 1)
 
     assert_equal ['Raffle is no longer active'], raffle.errors.full_messages
   end
 
-  test '#buy_ticket is false the maximum amount of tickets is already bought' do
+  test '#buy_tickets is false the maximum amount of tickets is already bought' do
     raffle = raffles(:iphone_giveaway)
 
-    assert raffle.buy_ticket(buyer: bob, quantity: 1)
+    assert raffle.buy_tickets(buyer: bob, quantity: 1)
 
     Raffle.stub_any_instance :max_tickets, 1 do
-      assert_not raffle.buy_ticket(buyer: bob, quantity: 1)
+      assert_not raffle.buy_tickets(buyer: bob, quantity: 1)
       assert_equal ['Maximum amount of tickets have already been bought'], raffle.errors.full_messages
     end
   end
 
-  test '#buy_ticket is false for users trying to buy a ticket for their own raffle' do
+  test '#buy_tickets is false for users trying to buy a ticket for their own raffle' do
     raffle = raffles(:iphone_giveaway)
 
-    assert_not raffle.buy_ticket(buyer: raffle.user, quantity: 1)
+    assert_not raffle.buy_tickets(buyer: raffle.user, quantity: 1)
     assert_equal ['You cannot buy a ticket for your own raffle'], raffle.errors.full_messages
   end
 
-  test '#buy_ticket' do
+  test '#buy_tickets' do
     bob.wallet.update!(balance: 100.0)
 
     raffle = raffles(:iphone_giveaway)
-    tickets = raffle.buy_ticket(buyer: bob, quantity: 10)
+    tickets = raffle.buy_tickets(buyer: bob, quantity: 10)
 
     assert_equal 10, tickets.count
     assert_equal 10, raffle.raffle_tickets.count
@@ -228,7 +228,7 @@ class RaffleTest < ActiveSupport::TestCase
 
     assert_equal 0, raffle.amount_raised
 
-    assert raffle.buy_ticket(buyer: bob, quantity: 2)
+    assert raffle.buy_tickets(buyer: bob, quantity: 2)
 
     assert_equal raffle.ticket_price * 2, raffle.reload.amount_raised
   end
@@ -255,7 +255,7 @@ class RaffleTest < ActiveSupport::TestCase
     assert_not raffle.eligible_for_draw?
 
     bob.wallet.update!(balance: 100_000.0)
-    raffle.buy_ticket(buyer: bob, quantity: raffle.max_tickets)
+    raffle.buy_tickets(buyer: bob, quantity: raffle.max_tickets)
 
     assert_predicate raffle, :eligible_for_draw?
   end
@@ -264,7 +264,7 @@ class RaffleTest < ActiveSupport::TestCase
     raffle = raffles(:iphone_giveaway)
 
     bob.wallet.update!(balance: 100_000.0)
-    raffle.buy_ticket(buyer: bob, quantity: raffle.max_tickets)
+    raffle.buy_tickets(buyer: bob, quantity: raffle.max_tickets)
 
     seller = raffle.user
     initial_seller_balance = seller.wallet.balance
@@ -289,7 +289,7 @@ class RaffleTest < ActiveSupport::TestCase
     raffle = raffles(:iphone_giveaway)
     initial_balance = bob.wallet.balance
 
-    raffle.buy_ticket(buyer: bob, quantity: raffle.max_tickets - 1)
+    raffle.buy_tickets(buyer: bob, quantity: raffle.max_tickets - 1)
 
     assert_not_equal initial_balance, bob.wallet.balance
 
@@ -324,7 +324,7 @@ class RaffleTest < ActiveSupport::TestCase
     raffle = raffles(:iphone_giveaway)
 
     bob.wallet.update!(balance: 100_000)
-    raffle.buy_ticket(buyer: bob, quantity: raffle.max_tickets)
+    raffle.buy_tickets(buyer: bob, quantity: raffle.max_tickets)
 
     assert_includes Raffle.eligible_for_draw, raffle
 
@@ -338,7 +338,7 @@ class RaffleTest < ActiveSupport::TestCase
 
     assert_equal raffle.max_tickets, raffle.tickets_remaining
 
-    raffle.buy_ticket(buyer: bob, quantity: 1)
+    raffle.buy_tickets(buyer: bob, quantity: 1)
 
     assert_equal raffle.max_tickets - 1, raffle.tickets_remaining
   end

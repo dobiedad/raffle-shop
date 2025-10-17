@@ -58,9 +58,8 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     %w[user]
   end
 
-  # TODO: rename to buy_tickets
-  def buy_ticket(buyer:, quantity: 1)
-    return false unless can_actually_buy_ticket?(buyer: buyer, quantity: quantity)
+  def buy_tickets(buyer:, quantity: 1)
+    return false unless can_actually_buy_tickets?(buyer: buyer, quantity: quantity)
 
     ActiveRecord::Base.transaction do
       tickets = Array.new(quantity) do
@@ -137,7 +136,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   private
 
-  def can_actually_buy_ticket?(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  def can_actually_buy_tickets?(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     return add_buy_error('Quantity must be greater than 0') if quantity.nil? || quantity.zero? || quantity.negative?
     return add_buy_error('Insufficient funds') unless buyer.wallet.sufficient_funds?(ticket_price * quantity)
     return add_buy_error('Raffle is no longer active') unless active?
