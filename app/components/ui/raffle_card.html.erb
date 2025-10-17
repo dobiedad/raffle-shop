@@ -1,35 +1,33 @@
-<div class="raffle-card card p-0" style="transition: all 0.2s ease-in-out;">
-  <div class="card-image" style="position: relative;">
-    <figure class="image is-3by2">
-      <% if image? %>
-        <%= image_tag url_for(first_image), alt: raffle.name %>
-      <% else %>
-        <%= image_tag default_image_url, alt: raffle.name %>
+<%= link_to raffle.persisted? ? raffle_path(raffle) : '#', class: "raffle-card-link" do %>
+  <div class="raffle-card card p-0" style="transition: all 0.2s ease-in-out;">
+    <div class="card-image" style="position: relative;">
+      <figure class="image is-3by2">
+        <% if image? %>
+          <%= image_tag url_for(first_image), alt: raffle.name %>
+        <% else %>
+          <%= image_tag default_image_url, alt: raffle.name %>
+        <% end %>
+      </figure>
+      <% if badge? %>
+        <%= render UI::Badge.new(text: badge_text, position: :absolute) %>
       <% end %>
-    </figure>
-    <% if badge? %>
-      <%= render UI::Badge.new(text: badge_text, position: :absolute) %>
-    <% end %>
-  </div>
-
-  <div class="card-content">
-    <p class="title is-5 mb-1"><%= raffle.name %></p>
-    <p class="has-text-weight-semibold is-size-6 mb-2">$<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket</p>
-    <p class="is-size-7 has-text-grey mb-4">
-      <%= truncated_description %>
-    </p>
-
-    <div class="level is-mobile mb-2">
-      <div class="level-left">
-        <p class="is-size-7 has-text-grey">🎟️ <%= tickets_sold_count %> sold</p>
-      </div>
-      <div class="level-right">
-        <p class="is-size-7 has-text-grey">⏰ <%= days_remaining_text %></p>
-      </div>
     </div>
 
-    <%= link_to "View Details", raffle.persisted? ? raffle_path(raffle) : '#',
-                class: "button is-light is-fullwidth mt-2",
-                style: "color:#4f46e5; font-weight:600;" %>
+    <div class="card-content">
+      <p class="title is-5 mb-1"><%= raffle.name %></p>
+      <p class="has-text-weight-semibold is-size-6 mb-2">$<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket</p>
+      <p class="is-size-7 has-text-grey mb-4">
+        <%= truncated_description %>
+      </p>
+
+      <div class="level is-mobile mb-2">
+        <div class="level-left">
+          <p class="is-size-7 has-text-grey">🎟️ <%= tickets_sold_count %> sold</p>
+        </div>
+        <div class="level-right">
+          <p class="is-size-7 has-text-grey">⏰ <%= days_remaining_text %></p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
