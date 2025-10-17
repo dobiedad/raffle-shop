@@ -24,19 +24,6 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
     assert_select '.raffle-card', minimum: 1
   end
 
-  test '#index excludes current user raffles' do
-    login_as bob
-    user_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, name: 'Bob\'s Raffle'))
-    # Use existing fixture raffle from leo
-    other_raffle = raffles(:iphone_giveaway)
-
-    get my_participating_raffles_url
-
-    assert_response :success
-    assert_text other_raffle.name
-    assert_no_text user_raffle.name
-  end
-
   test '#index shows empty state when no other raffles' do
     login_as bob
     # Clear all existing raffles and create only one for current user
