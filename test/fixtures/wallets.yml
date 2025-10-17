@@ -1,0 +1,11 @@
+leo_wallet:
+  user: leo
+  balance: 220.00
+
+jane_wallet:
+  user: jane
+  balance: 488.00
+
+bob_wallet:
+  user: bob
+  balance: 134.00

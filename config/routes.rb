@@ -18,7 +18,12 @@ Rails.application.routes.draw do
 
   root 'raffles#index'
 
-  resources :raffles, only: %i[index show new create]
+  resources :raffles, only: %i[index show new create] do
+    resources :raffle_tickets, only: [:create], path: 'tickets'
+  end
+
+  resource :wallet, only: [:show]
   resources :my_created_raffles, only: [:index]
   resources :my_participating_raffles, only: [:index]
+  resources :my_tickets, only: [:index], controller: 'raffle_tickets'
 end

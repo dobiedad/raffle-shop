@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_14_103407) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_17_105441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_103407) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "raffle_tickets", force: :cascade do |t|
+    t.bigint "raffle_id", null: false
+    t.bigint "user_id", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.datetime "purchased_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["raffle_id", "user_id"], name: "index_raffle_tickets_on_raffle_id_and_user_id"
+    t.index ["raffle_id"], name: "index_raffle_tickets_on_raffle_id"
+    t.index ["user_id"], name: "index_raffle_tickets_on_user_id"
+  end
+
   create_table "raffles", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2
@@ -63,7 +75,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_103407) do
     t.string "category", null: false
     t.string "condition", null: false
     t.datetime "end_date", null: false
+    t.bigint "winner_id"
+    t.datetime "drawn_at"
+    t.datetime "completed_at"
+    t.decimal "platform_fee_percent"
     t.index ["user_id"], name: "index_raffles_on_user_id"
+    t.index ["winner_id"], name: "index_raffles_on_winner_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "wallet_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "direction", null: false
+    t.string "transaction_type", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "related_type"
+    t.bigint "related_id"
+    t.index ["created_at"], name: "index_transactions_on_created_at"
+    t.index ["related_type", "related_id"], name: "index_transactions_on_related"
+    t.index ["transaction_type"], name: "index_transactions_on_transaction_type"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,7 +111,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_103407) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "balance", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "raffle_tickets", "raffles"
+  add_foreign_key "raffle_tickets", "users"
   add_foreign_key "raffles", "users"
+  add_foreign_key "raffles", "users", column: "winner_id"
+  add_foreign_key "transactions", "wallets"
+  add_foreign_key "wallets", "users"
 end

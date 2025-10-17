@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class RafflesTest < ApplicationSystemTestCase
-  test 'creating a new raffle a new raffle' do
+  test 'creating a new raffle' do
     login_as(bob)
 
     visit raffles_path
@@ -25,5 +25,19 @@ class RafflesTest < ApplicationSystemTestCase
 
     assert_text 'Raffle was successfully created'
     assert_text 'MacBook Pro Giveaway'
+  end
+
+  test 'entering a raffle' do
+    raffle = raffles(:iphone_giveaway)
+
+    login_as(bob)
+
+    visit root_url
+
+    click_link raffle.name
+
+    click_button 'Buy 1 Ticket'
+
+    assert_text 'You have purchased 1 ticket.'
   end
 end

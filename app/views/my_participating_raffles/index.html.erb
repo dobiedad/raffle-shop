@@ -5,7 +5,7 @@
       subtitle: "Manage your created raffles and track raffles you're participating in"
     ) %>
 
-    <div class="tabs is-centered is-boxed is-medium mb-6">
+    <div class="tabs is-centered is-boxed mb-6">
       <ul>
         <li>
           <%= link_to my_created_raffles_path do %>
@@ -26,8 +26,7 @@
         <% @raffles.each_with_index do |raffle, index| %>
           <div class="column is-one-third-desktop is-half-tablet">
             <%
-              # Simulate ticket counts for demo (1-8 tickets)
-              ticket_count = (index % 8) + 1
+              ticket_count = raffle.raffle_tickets.where(user: current_user).count
               badge_text = "#{ticket_count} ticket#{'s' if ticket_count > 1}"
             %>
             <%= render UI::RaffleCard.new(raffle: raffle, badge_text: badge_text) %>

@@ -30,6 +30,7 @@ if coverage_mode
       add_filter 'app/lib'
       add_filter 'lib/application_responder'
       add_filter 'app/jobs/'
+      add_filter 'app/models/concerns/status_enum'
     when 'controllers'
       add_filter 'app/models/'
       add_filter 'app/jobs/'

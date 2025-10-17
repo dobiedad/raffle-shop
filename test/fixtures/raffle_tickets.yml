@@ -1,0 +1,29 @@
+bob_rolex_ticket:
+  raffle: rolex_yacht_master
+  user: bob
+  price: 12.00
+  purchased_at: <%= 2.days.ago %>
+
+jane_rolex_ticket:
+  raffle: rolex_yacht_master
+  user: jane
+  price: 12.00
+  purchased_at: <%= 2.days.ago %>
+
+leo_hublot_ticket_one:
+  raffle: hublot_king_power
+  user: leo
+  price: 15.00
+  purchased_at: <%= 4.days.ago %>
+
+leo_hublot_ticket_two:
+  raffle: hublot_king_power
+  user: leo
+  price: 15.00
+  purchased_at: <%= 4.days.ago %>
+
+bob_dyson_airwrap_ticket:
+  raffle: dyson_comb
+  user: bob
+  price: 4.00
+  purchased_at: <%= 1.day.ago %>

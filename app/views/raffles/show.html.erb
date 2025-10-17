@@ -12,7 +12,6 @@
     </div>
 
     <div class="columns is-variable is-6">
-
       <div class="column is-half">
         <% if @raffle.images.attached? %>
           <%= render UI::ImageGallery.new(images: @raffle.images, alt_prefix: @raffle.name) %>
@@ -70,31 +69,34 @@
             </p>
           </div>
 
-          <div data-controller="ticket-purchase" data-ticket-price="<%= @raffle.ticket_price %>">
-            <div class="field has-addons mt-4">
-              <div class="control">
-                <input class="input"
-                       type="number"
-                       value="1"
-                       min="1"
-                       max="10"
-                       style="width:80px;"
-                       id="ticket-quantity"
-                       data-ticket-purchase-target="quantity"
-                       data-action="input->ticket-purchase#updateTotal">
-              </div>
-              <div class="control">
-                <button class="button is-primary"
-                        onclick="alert('Purchase functionality coming soon!')">
-                  Buy Tickets
-                </button>
-              </div>
-            </div>
-            <p class="is-size-7 has-text-grey mt-2">
-              $<%= number_with_precision(@raffle.ticket_price, precision: 2) %> per ticket —
-              total <span data-ticket-purchase-target="total">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></span>
-            </p>
-          </div>
+          <% if @raffle.completed? %>
+            <%= render UI::NotificationBanner.new(
+                  type: 'info',
+                  icon: '🎉',
+                  title: 'Raffle Completed!',
+                  message: (
+                    if @raffle.winner
+                      winner_text = @raffle.winner == current_user ? 'You won!' : @raffle.winner.email
+                      "Winner: #{winner_text}. Drawn on #{@raffle.drawn_at.strftime('%B %d, %Y at %I:%M %p')}."
+                    else
+                      'This raffle has concluded.'
+                    end
+                  )
+                ) %>
+          <% elsif user_signed_in? %>
+            <%= render 'raffles/ticket_purchase_form', raffle: @raffle %>
+          <% else %>
+            <%= render UI::NotificationBanner.new(
+                  type: 'info',
+                  icon: '🔑',
+                  message: (
+                    link_to('Sign in', new_user_session_path, class: 'has-text-weight-bold') +
+                    ' or ' +
+                    link_to('Create account', new_user_registration_path, class: 'has-text-weight-bold') +
+                    ' to purchase tickets.'
+                  )
+                ) %>
+          <% end %>
 
         </div>
       </div>
@@ -102,35 +104,25 @@
 
     <div class="raffle-description mt-6">
       <div class="content">
-
         <% if @raffle.general_description.present? %>
           <h2 class="title is-4 mb-3">🧾 Description</h2>
-          <div class="mb-5">
-            <%= @raffle.general_description %>
-          </div>
+          <div class="mb-5"><%= @raffle.general_description %></div>
         <% end %>
 
         <% if @raffle.condition_description.present? %>
           <h2 class="title is-4 mb-3">⚙️ Condition</h2>
-          <div class="mb-5">
-            <%= @raffle.condition_description %>
-          </div>
+          <div class="mb-5"><%= @raffle.condition_description %></div>
         <% end %>
 
         <% if @raffle.whats_included_description.present? %>
           <h2 class="title is-4 mb-3">🎁 What's Included</h2>
-          <div class="mb-5">
-            <%= @raffle.whats_included_description %>
-          </div>
+          <div class="mb-5"><%= @raffle.whats_included_description %></div>
         <% end %>
 
         <% if @raffle.extra_description.present? %>
           <h2 class="title is-4 mb-3">➕ Extras</h2>
-          <div class="mb-5">
-            <%= @raffle.extra_description %>
-          </div>
+          <div class="mb-5"><%= @raffle.extra_description %></div>
         <% end %>
-
       </div>
     </div>
 

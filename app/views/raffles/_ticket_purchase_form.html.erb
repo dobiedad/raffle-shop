@@ -1,0 +1,49 @@
+<div class="box" data-controller="ticket-purchase" data-ticket-price="<%= raffle.ticket_price %>">
+  <% if current_user.balance && current_user.balance > 0 %>
+    <p class="mb-3">
+      💰 Your Balance:
+      <strong class="has-text-primary">
+        $<%= number_with_precision(current_user.balance, precision: 2) %>
+      </strong>
+    </p>
+  <% end %>
+
+  <% if current_user.raffle_tickets.where(raffle: raffle).count.positive? %>
+    <p class="mb-3 has-text-success">
+      🎟️ You have
+      <strong><%= pluralize(RaffleTicket.where(raffle: raffle).count, 'ticket') %></strong>
+      for this raffle
+    </p>
+  <% end %>
+
+  <%= form_with url: raffle_raffle_tickets_path(raffle), method: :post, local: true do |f| %>
+    <div class="field has-addons mt-4">
+      <div class="control">
+        <% max_allowed = raffle.tickets_remaining %>
+        <%= f.number_field :quantity,
+                           value: 1,
+                           min: 1,
+                           max: max_allowed,
+                           class: 'input',
+                           style: 'width:80px;',
+                           data: {
+                             ticket_purchase_target: 'quantity',
+                             action: 'input->ticket-purchase#updateTotal'
+                           } %>
+      </div>
+      <div class="control is-expanded">
+        <%= f.submit 'Buy Tickets',
+                     class: 'button is-primary is-fullwidth',
+                     data: { ticket_purchase_target: 'button' } %>
+      </div>
+    </div>
+
+    <p class="is-size-7 has-text-grey mt-2">
+      $<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket —
+      total
+      <span data-ticket-purchase-target="total" class="has-text-weight-bold">
+        $<%= number_with_precision(raffle.ticket_price, precision: 2) %>
+      </span>
+    </p>
+  <% end %>
+</div>

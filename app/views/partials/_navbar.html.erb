@@ -26,6 +26,7 @@
       <% if user_signed_in? %>
         <%= link_to "All Raffles", raffles_path, class: "navbar-item" %>
         <%= link_to "My Raffles", my_created_raffles_path, class: "navbar-item" %>
+        <%= link_to "My Tickets", my_tickets_path, class: "navbar-item" %>
         <%= link_to "My Profile", profile_path, class: "navbar-item" %>
         <%= button_to "Sign Out",
                       destroy_user_session_path,

@@ -9,6 +9,8 @@ require_relative 'support/controller_test_helper'
 require_relative 'support/vcr'
 require_relative 'validate_assertions'
 require 'minitest/mock'
+require 'minitest/stub_const'
+require 'minitest/stub_any_instance'
 
 module ActiveSupport
   class TestCase
@@ -38,8 +40,16 @@ module ActiveSupport
       users(:leo)
     end
 
+    def jane
+      users(:jane)
+    end
+
     def iphone_giveaway
       raffles(:iphone_giveaway)
+    end
+
+    def dyson_comb
+      raffles(:dyson_comb)
     end
   end
 end
