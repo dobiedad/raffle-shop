@@ -7,7 +7,7 @@ class MyCreatedRafflesController < ApplicationController
     @status_filter = params[:status] || 'active'
 
     raffles_scope = if @status_filter == 'completed'
-                      current_user.raffles.where(status: [:completed, :cancelled])
+                      current_user.raffles.where(status: %i[completed cancelled])
                     else
                       current_user.raffles.where(status: :active)
                     end

@@ -26,11 +26,13 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
 
   test '#index with status=completed shows only completed raffles user participated in' do
     login_as bob
-    bob.wallet.update!(balance: 10000)
+    bob.wallet.update!(balance: 10_000)
 
     active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
-    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed, completed_at: 1.day.ago, name: 'Completed Test'))
-    cancelled_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :cancelled, completed_at: 2.days.ago, name: 'Cancelled Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
+    cancelled_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :cancelled,
+                                                                completed_at: 2.days.ago, name: 'Cancelled Test'))
 
     active_raffle.buy_tickets(buyer: bob, quantity: 1)
     bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
@@ -46,10 +48,11 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
 
   test '#index with status=active shows only active raffles user is participating in' do
     login_as bob
-    bob.wallet.update!(balance: 10000)
+    bob.wallet.update!(balance: 10_000)
 
     active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
-    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed, completed_at: 1.day.ago, name: 'Completed Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
 
     active_raffle.buy_tickets(buyer: bob, quantity: 1)
     bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
@@ -63,10 +66,11 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
 
   test '#index defaults to active status' do
     login_as bob
-    bob.wallet.update!(balance: 10000)
+    bob.wallet.update!(balance: 10_000)
 
     active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
-    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed, completed_at: 1.day.ago, name: 'Completed Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
 
     active_raffle.buy_tickets(buyer: bob, quantity: 1)
     bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
@@ -80,16 +84,16 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
 
   test '#index with status=completed shows won raffles' do
     login_as bob
-    bob.wallet.update!(balance: 10000)
+    bob.wallet.update!(balance: 10_000)
 
     won_raffle = Raffle.create!(valid_raffle_params.merge(
-      user: users(:leo),
-      status: :completed,
-      completed_at: 1.day.ago,
-      winner_id: bob.id,
-      drawn_at: 1.day.ago,
-      name: 'Won Raffle'
-    ))
+                                  user: users(:leo),
+                                  status: :completed,
+                                  completed_at: 1.day.ago,
+                                  winner_id: bob.id,
+                                  drawn_at: 1.day.ago,
+                                  name: 'Won Raffle'
+                                ))
     bob.raffle_tickets.create!(raffle: won_raffle, price: won_raffle.ticket_price, purchased_at: 2.days.ago)
 
     get my_participating_raffles_url, params: { status: 'completed' }

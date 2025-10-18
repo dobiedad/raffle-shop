@@ -12,7 +12,7 @@ class RafflesController < ApplicationController
   end
 
   def completed
-    @q = Raffle.where(status: [:completed, :cancelled]).ransack(search_params)
+    @q = Raffle.where(status: %i[completed cancelled]).ransack(search_params)
     @pagy, @raffles = pagy(@q.result(distinct: true).order(completed_at: :desc), limit: 6)
     @active_category = params[:category] || 'All'
   end

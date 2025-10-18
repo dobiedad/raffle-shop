@@ -10,7 +10,7 @@ class MyParticipatingRafflesController < ApplicationController
 
     raffles_scope = if @status_filter == 'completed'
                       Raffle.where(id: participated_raffle_ids)
-                            .where(status: [:completed, :cancelled])
+                            .where(status: %i[completed cancelled])
                             .order(completed_at: :desc)
                     else
                       current_user.raffles_entered.active.distinct.order(created_at: :desc)
