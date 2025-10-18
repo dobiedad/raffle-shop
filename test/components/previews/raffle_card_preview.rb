@@ -2,7 +2,6 @@
 
 require_relative '../../../app/components/ui/raffle_card'
 
-# This preview allows you to see the component in different states during development
 class RaffleCardPreview < ComponentPreview
   def default
     raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
@@ -10,22 +9,45 @@ class RaffleCardPreview < ComponentPreview
     render UI::RaffleCard.new(raffle: raffle)
   end
 
-  def with_default_image
+  def with_ticket_badge
+    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+
+    render UI::RaffleCard.new(raffle: raffle, badge_text: '3 tickets')
+  end
+
+  def with_won_badge
+    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+
+    render UI::RaffleCard.new(raffle: raffle, badge_text: '🏆 You Won!')
+  end
+
+  def with_winner_badge
+    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+
+    render UI::RaffleCard.new(raffle: raffle, badge_text: 'Winner: john')
+  end
+
+  def with_cancelled_badge
+    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+
+    render UI::RaffleCard.new(raffle: raffle, badge_text: '❌ Cancelled')
+  end
+
+  def without_image
     raffle = Raffle.find_by!(name: 'PS5 Console + Extra Controller')
 
     render UI::RaffleCard.new(raffle: raffle)
   end
 
-  def long_description
-    # Create a raffle with a long description for testing truncation
-    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+  def high_ticket_price
+    raffle = Raffle.find_by!(name: 'ROLEX Yacht-Master 40mm Blue')
 
     render UI::RaffleCard.new(raffle: raffle)
   end
 
-  def with_badge
-    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
+  def different_category
+    raffle = Raffle.find_by!(name: 'Dyson Airwrap Complete')
 
-    render UI::RaffleCard.new(raffle: raffle, badge_text: '5 tickets')
+    render UI::RaffleCard.new(raffle: raffle)
   end
 end

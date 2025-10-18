@@ -15,6 +15,7 @@
 // Import component-specific stylesheets
 @import "components/image_gallery";
 @import "components/raffle_card";
+@import "components/raffle_ticket";
 @import "components/badge";
 @import "components/tabs";
 @import "components/pagination";
@@ -45,4 +46,12 @@ body {
 
 .u-mb {
   margin-bottom: 30px !important;
+}
+
+.u-mbXL {
+  margin-bottom: 50px !important;
+}
+
+.u-mrXS {
+  margin-right: 5px;
 }

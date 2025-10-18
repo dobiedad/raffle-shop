@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-class Raffle < ApplicationRecord
+class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :user
+  belongs_to :winner, class_name: 'User', optional: true, inverse_of: :raffles_won
+  has_many :raffle_tickets, dependent: :destroy
+  has_many :ticket_holders, through: :raffle_tickets, source: :user
   has_many_attached :images
   has_rich_text :general_description
   has_rich_text :condition_description
@@ -10,6 +13,7 @@ class Raffle < ApplicationRecord
 
   CATEGORIES = %w[tech gaming fashion home vehicles other].freeze
   CONDITIONS = %w[new like_new good fair].freeze
+  PLATFORM_FEE_PERCENTAGE = 20
 
   enum :status, { active: 'active', completed: 'completed', cancelled: 'cancelled' }, default: :active
   enum :category, CATEGORIES.index_by(&:itself)
@@ -18,8 +22,10 @@ class Raffle < ApplicationRecord
   validates :name, :general_description, :condition_description, :whats_included_description, :price, :ticket_price,
             :status, :category, :condition, presence: true
   validates :price, numericality: { greater_than: 0 }
+  # TODO: do we actually want a max ticket price of 100 ?
   validates :ticket_price, numericality: { greater_than: 2, less_than: 100 }
-  validates :end_date, comparison: { greater_than: -> { Time.current } }, allow_nil: true
+  validates :end_date, comparison: { greater_than: -> { Time.current } }, allow_nil: true, on: :create
+  validates :platform_fee_percent, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 
   validates :images,
             content_type: { in: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
@@ -29,6 +35,21 @@ class Raffle < ApplicationRecord
             limit: { max: 10,
                      message: 'cannot be more than 10 images' }
 
+  after_initialize -> { self.platform_fee_percent = PLATFORM_FEE_PERCENTAGE }, if: :new_record?
+
+  attr_readonly :platform_fee_percent, :ticket_price
+
+  # TODO: this can easily be simplifed if max_tickets becomes a column instead of a dynamic method
+  scope :eligible_for_draw, lambda {
+    left_joins(:raffle_tickets)
+      .where(status: 'active', winner_id: nil)
+      .group(:id)
+      .having(<<~SQL.squish, Time.current)
+        COUNT(raffle_tickets.id) >= CEIL((raffles.price * (1 + (raffles.platform_fee_percent / 100.0))) / raffles.ticket_price)
+        OR raffles.end_date <= ?
+      SQL
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[name category price ticket_price created_at]
   end
@@ -37,13 +58,70 @@ class Raffle < ApplicationRecord
     %w[user]
   end
 
-  # Helper methods for stats
+  def buy_tickets(buyer:, quantity: 1)
+    return false unless can_actually_buy_tickets?(buyer: buyer, quantity: quantity)
+
+    ActiveRecord::Base.transaction do
+      tickets = Array.new(quantity) do
+        raffle_tickets.create!(
+          user: buyer,
+          price: ticket_price,
+          purchased_at: Time.current
+        )
+      end
+
+      ticket_numbers = tickets.map(&:ticket_number).join(', ')
+      description = if quantity == 1
+                      "#{name} - Ticket ##{ticket_numbers}"
+                    else
+                      "#{name} - #{quantity} tickets (##{ticket_numbers})"
+                    end
+
+      buyer.wallet.deduct(ticket_price * quantity, description, transaction_type: :ticket_purchase)
+
+      tickets
+    end
+  end
+
+  def draw_winner!
+    raise 'Raffle is not eligible for draw' unless eligible_for_draw?
+
+    ActiveRecord::Base.transaction do
+      unless enough_tickets_sold?
+        cancel_and_refund!
+        return nil
+      end
+
+      winning_ticket = raffle_tickets.order('RANDOM()').first
+      update!(
+        winner: winning_ticket.user,
+        drawn_at: Time.current,
+        completed_at: Time.current,
+        status: :completed
+      )
+
+      distribute_funds!
+      winner
+    end
+  end
+
+  def eligible_for_draw?
+    return false unless active?
+    return false if winner.present?
+
+    Time.current >= end_date || enough_tickets_sold?
+  end
+
   def tickets_sold_count
-    0 # TODO: Implement when Ticket model exists
+    raffle_tickets.count
+  end
+
+  def tickets_remaining
+    [max_tickets - tickets_sold_count, 0].max
   end
 
   def amount_raised
-    0.0 # TODO: Implement when Ticket model exists
+    raffle_tickets.sum(:price)
   end
 
   def days_remaining
@@ -53,6 +131,51 @@ class Raffle < ApplicationRecord
   end
 
   def max_tickets
-    (price / ticket_price).ceil
+    ((price * (1 + (platform_fee_percent.to_f / 100))) / ticket_price).ceil
+  end
+
+  def enough_tickets_sold?
+    raffle_tickets.count >= max_tickets
+  end
+
+  private
+
+  def can_actually_buy_tickets?(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    return add_buy_error('Quantity must be greater than 0') if quantity.nil? || quantity.zero? || quantity.negative?
+    return add_buy_error('Insufficient funds') unless buyer.wallet.sufficient_funds?(ticket_price * quantity)
+    return add_buy_error('Raffle is no longer active') unless active?
+    return add_buy_error('Maximum amount of tickets have already been bought') if tickets_sold_count >= max_tickets
+    return add_buy_error('You cannot buy a ticket for your own raffle') if user == buyer
+
+    true
+  end
+
+  def add_buy_error(error_message) # rubocop:disable Naming/PredicateMethod
+    errors.add(:base, error_message)
+    false
+  end
+
+  def cancel_and_refund!
+    raffle_tickets.find_each do |ticket|
+      ticket.user.wallet.add(
+        ticket.price,
+        "Refund for ticket ##{ticket.ticket_number} - raffle cancelled: #{name}",
+        transaction_type: :refund
+      )
+    end
+
+    self.status = :cancelled
+    self.completed_at = Time.current
+    save!
+  end
+
+  def distribute_funds!
+    return if winner.nil?
+
+    user.wallet.add(
+      price,
+      "Payout for raffle: #{name}",
+      transaction_type: :seller_payout
+    )
   end
 end

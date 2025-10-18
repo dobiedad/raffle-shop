@@ -4,6 +4,14 @@ class MyCreatedRafflesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pagy, @raffles = pagy(current_user.raffles.order(created_at: :desc), limit: 6)
+    @status_filter = params[:status] || 'active'
+
+    raffles_scope = if @status_filter == 'completed'
+                      current_user.raffles.where(status: %i[completed cancelled])
+                    else
+                      current_user.raffles.where(status: :active)
+                    end
+
+    @pagy, @raffles = pagy(raffles_scope.order(created_at: :desc), limit: 6)
   end
 end

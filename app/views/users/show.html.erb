@@ -17,8 +17,9 @@
       </div>
 
       <div class="buttons is-centered">
-        <%= link_to "Edit Profile", edit_user_registration_path, class: "button is-primary is-small" %>
-        <%= link_to "My Raffles", my_created_raffles_path, class: "button is-light is-small" %>
+        <%= link_to "My Raffles", my_created_raffles_path, class: "button is-primary is-small" %>
+        <%= link_to "My Tickets", my_tickets_path, class: "button is-success is-small" %>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "button is-light is-small" %>
       </div>
     </div>
 
@@ -84,7 +85,7 @@
                 <% end %>
               </tbody>
             </table>
-            <%= link_to "View Full History", "#", class: "has-text-link is-size-7" %>
+            <%= link_to "View Full History →", wallet_path, class: "has-text-link is-size-7" %>
           <% else %>
             <div class="has-text-centered py-5">
               <p class="has-text-grey">No recent activity</p>

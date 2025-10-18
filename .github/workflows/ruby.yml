@@ -13,8 +13,7 @@ jobs:
     services:
       postgres:
         image: postgres:11
-        ports:
-          - 5432:5432
+        ports: [ "5432:5432" ]
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -26,6 +25,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+
+      - name: Install system deps (libvips for ActiveStorage)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips || sudo apt-get install -y libvips42 || sudo apt-get install -y libvips44
+          sudo apt-get install -y libvips-tools
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -81,7 +86,6 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          # If you run headless, set HEADLESS=1 in your app's test config
         run: JS=1 bundle exec rails test:system
 
       - name: Upload screenshots

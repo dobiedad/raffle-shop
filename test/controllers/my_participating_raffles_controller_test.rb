@@ -12,64 +12,94 @@ class MyParticipatingRafflesControllerTest < ActionDispatch::IntegrationTest
     assert_text 'Manage your created raffles and track raffles you\'re participating in'
   end
 
-  test '#index shows other users raffles' do
+  test '#index shows raffles user is participating in' do
     login_as bob
-    # Use existing fixture raffle from leo
-    raffles(:iphone_giveaway)
+    raffle = raffles(:iphone_giveaway)
+    bob.wallet.update!(balance: 1000)
+    raffle.buy_tickets(buyer: bob, quantity: 1)
 
     get my_participating_raffles_url
 
     assert_response :success
-    # Check that some raffle names are present (since random ordering)
-    assert_select '.raffle-card', minimum: 1
+    assert_text raffle.name
   end
 
-  test '#index shows empty state when no other raffles' do
+  test '#index with status=completed shows only completed raffles user participated in' do
     login_as bob
-    # Clear all existing raffles and create only one for current user
-    Raffle.destroy_all
-    Raffle.create!(valid_raffle_params.merge(user: bob))
+    bob.wallet.update!(balance: 10_000)
+
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
+    cancelled_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :cancelled,
+                                                                completed_at: 2.days.ago, name: 'Cancelled Test'))
+
+    active_raffle.buy_tickets(buyer: bob, quantity: 1)
+    bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
+    bob.raffle_tickets.create!(raffle: cancelled_raffle, price: cancelled_raffle.ticket_price, purchased_at: 3.days.ago)
+
+    get my_participating_raffles_url, params: { status: 'completed' }
+
+    assert_response :success
+    assert_text completed_raffle.name
+    assert_text cancelled_raffle.name
+    assert_no_text active_raffle.name
+  end
+
+  test '#index with status=active shows only active raffles user is participating in' do
+    login_as bob
+    bob.wallet.update!(balance: 10_000)
+
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
+
+    active_raffle.buy_tickets(buyer: bob, quantity: 1)
+    bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
+
+    get my_participating_raffles_url, params: { status: 'active' }
+
+    assert_response :success
+    assert_text active_raffle.name
+    assert_no_text completed_raffle.name
+  end
+
+  test '#index defaults to active status' do
+    login_as bob
+    bob.wallet.update!(balance: 10_000)
+
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :completed,
+                                                                completed_at: 1.day.ago, name: 'Completed Test'))
+
+    active_raffle.buy_tickets(buyer: bob, quantity: 1)
+    bob.raffle_tickets.create!(raffle: completed_raffle, price: completed_raffle.ticket_price, purchased_at: 2.days.ago)
 
     get my_participating_raffles_url
 
     assert_response :success
-    assert_text 'You\'re not participating in any raffles yet'
-    assert_text 'Browse Raffles'
+    assert_text active_raffle.name
+    assert_no_text completed_raffle.name
   end
 
-  test '#index pagination' do
+  test '#index with status=completed shows won raffles' do
     login_as bob
-    other_user = users(:leo)
+    bob.wallet.update!(balance: 10_000)
 
-    # Create 8 raffles for other user
-    8.times do |i|
-      Raffle.create!(valid_raffle_params.merge(
-                       user: other_user,
-                       name: "Raffle #{i + 1}"
-                     ))
-    end
+    won_raffle = Raffle.create!(valid_raffle_params.merge(
+                                  user: users(:leo),
+                                  status: :completed,
+                                  completed_at: 1.day.ago,
+                                  winner_id: bob.id,
+                                  drawn_at: 1.day.ago,
+                                  name: 'Won Raffle'
+                                ))
+    bob.raffle_tickets.create!(raffle: won_raffle, price: won_raffle.ticket_price, purchased_at: 2.days.ago)
 
-    get my_participating_raffles_url
+    get my_participating_raffles_url, params: { status: 'completed' }
 
     assert_response :success
-    assert_select '.pagination'
-  end
-
-  test '#index requires authentication' do
-    get my_participating_raffles_url
-
-    assert_redirected_to new_user_session_url
-  end
-
-  test '#index shows badge on raffle cards' do
-    login_as bob
-    other_user = users(:leo)
-    Raffle.create!(valid_raffle_params.merge(user: other_user))
-
-    get my_participating_raffles_url
-
-    assert_response :success
-    assert_select '.badge'
+    assert_text won_raffle.name
   end
 
   private

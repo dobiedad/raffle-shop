@@ -2,12 +2,18 @@
 
 class RafflesController < ApplicationController
   # TODO: make this the default and skip where we dont need it
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show completed]
 
   def index
-    @q = Raffle.ransack(search_params)
+    @q = Raffle.where(status: :active).ransack(search_params)
     @pagy, @raffles = pagy(@q.result(distinct: true).order(created_at: :desc), limit: 6)
-    @total_raffles_count = Raffle.count
+    @total_raffles_count = Raffle.where(status: :active).count
+    @active_category = params[:category] || 'All'
+  end
+
+  def completed
+    @q = Raffle.where(status: %i[completed cancelled]).ransack(search_params)
+    @pagy, @raffles = pagy(@q.result(distinct: true).order(completed_at: :desc), limit: 6)
     @active_category = params[:category] || 'All'
   end
 

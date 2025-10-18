@@ -5,30 +5,49 @@
       subtitle: "Manage your created raffles and track raffles you're participating in"
     ) %>
 
-    <div class="tabs is-centered is-boxed is-medium mb-6">
+    <div class="tabs is-centered is-boxed mb-6">
       <ul>
         <li>
-          <%= link_to my_created_raffles_path do %>
+          <%= link_to my_created_raffles_path(status: @status_filter) do %>
             <span class="icon is-small">📝</span>
             <span>Created by Me</span>
           <% end %>
         </li>
         <li class="is-active">
-          <%= link_to my_participating_raffles_path do %>
+          <%= link_to my_participating_raffles_path(status: @status_filter) do %>
             <span class="icon is-small">🎟️</span>
             <span>Participating In</span>
           <% end %>
         </li>
       </ul>
     </div>
+
+    <div class="buttons are-small is-centered mb-6">
+      <%= link_to 'Active', my_participating_raffles_path(status: 'active'),
+          class: "button is-light is-rounded #{'is-active' if @status_filter == 'active'}" %>
+      <%= link_to 'Completed', my_participating_raffles_path(status: 'completed'),
+          class: "button is-light is-rounded #{'is-active' if @status_filter == 'completed'}" %>
+    </div>
     <% if @raffles.present? %>
       <div class="columns is-multiline" style="margin-top: 1rem;">
         <% @raffles.each_with_index do |raffle, index| %>
           <div class="column is-one-third-desktop is-half-tablet">
-            <%
-              # Simulate ticket counts for demo (1-8 tickets)
-              ticket_count = (index % 8) + 1
-              badge_text = "#{ticket_count} ticket#{'s' if ticket_count > 1}"
+            <% 
+              ticket_count = raffle.raffle_tickets.where(user: current_user).count
+              
+              if @status_filter == 'active'
+                badge_text = "#{ticket_count} ticket#{'s' if ticket_count > 1}"
+              elsif @status_filter == 'completed'
+                if raffle.winner_id == current_user.id
+                  badge_text = "🏆 You Won!"
+                elsif raffle.cancelled?
+                  badge_text = "❌ Cancelled"
+                elsif raffle.winner
+                  badge_text = "Winner: #{raffle.winner.email.split('@').first}"
+                else
+                  badge_text = "Completed"
+                end
+              end
             %>
             <%= render UI::RaffleCard.new(raffle: raffle, badge_text: badge_text) %>
           </div>
@@ -42,12 +61,27 @@
       </p>
     <% else %>
       <div class="has-text-centered py-6" style="margin-top: 2rem;">
-        <p class="is-size-4 mb-4">🎟️</p>
-        <p class="is-size-5 has-text-grey-dark mb-3">You're not participating in any raffles yet</p>
-        <p class="is-size-6 has-text-grey mb-5">Browse active raffles and buy tickets to get started</p>
-        <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-rounded" %>
+        <% if @status_filter == 'active' %>
+          <p class="is-size-4 mb-4">🎟️</p>
+          <p class="is-size-5 has-text-grey-dark mb-3">You're not participating in any active raffles</p>
+          <p class="is-size-6 has-text-grey mb-5">Browse active raffles and buy tickets to get started</p>
+          <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-rounded" %>
+        <% elsif @status_filter == 'completed' %>
+          <p class="is-size-4 mb-4">🏁</p>
+          <p class="is-size-5 has-text-grey-dark mb-3">No completed raffles yet</p>
+          <p class="is-size-6 has-text-grey mb-5">Raffles you participate in will show here once they're completed.</p>
+          <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-rounded" %>
+        <% end %>
       </div>
     <% end %>
 
   </div>
 </div>
+
+<style>
+  .button.is-rounded.is-active {
+    background-color: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+  }
+</style>

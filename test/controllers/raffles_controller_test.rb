@@ -40,6 +40,43 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test '#completed' do
+    get completed_raffles_url
+
+    assert_response :success
+  end
+
+  test '#completed shows only completed and cancelled raffles' do
+    active_raffle = raffles(:iphone_giveaway)
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:bob), status: :completed,
+                                                                completed_at: 1.day.ago))
+    cancelled_raffle = Raffle.create!(valid_raffle_params.merge(user: users(:leo), status: :cancelled,
+                                                                completed_at: 2.days.ago, name: 'Cancelled Test'))
+
+    get completed_raffles_url
+
+    assert_response :success
+    assert_text completed_raffle.name
+    assert_text cancelled_raffle.name
+    assert_no_text active_raffle.name
+  end
+
+  test '#completed with search query' do
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(
+                                        user: users(:bob),
+                                        status: :completed,
+                                        completed_at: 1.day.ago,
+                                        name: 'Completed iPhone Test',
+                                        category: 'tech'
+                                      ))
+
+    get completed_raffles_url, params: { q: { name_cont: 'iPhone' }, category: 'tech' }
+
+    assert_response :success
+    assert_text completed_raffle.name
+    assert_select '.button.is-active', text: 'Tech'
+  end
+
   test '#new' do
     login_as bob
     get new_raffle_url

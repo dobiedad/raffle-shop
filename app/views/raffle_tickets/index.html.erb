@@ -1,0 +1,52 @@
+<section class="section" style="background-color:#f8f9fb; min-height:100vh;">
+  <div class="container">
+    <h1 class="title is-3 has-text-centered mb-5">🎟️ My Tickets</h1>
+
+    <% if @raffle_tickets.any? %>
+      <% grouped = @raffle_tickets.group_by(&:raffle) %>
+
+      <% grouped.each do |raffle, tickets| %>
+        <div class="box mb-6" style="border-radius:12px;">
+          <div class="is-flex is-align-items-center">
+            <div class="u-mrXS">
+              <h2 class="title is-5 mb-1">
+                <%= link_to raffle.name, raffle, class: "has-text-dark" %>
+              </h2>
+              <p class="is-size-7 has-text-grey">
+                <%= truncate(strip_tags(raffle.general_description.to_s), length: 100) %>
+              </p>
+            </div>
+
+            <div class="ml-auto">
+              <%= link_to "View Raffle", raffle, class: "button is-small is-primary is-light" %>
+            </div>
+          </div>
+
+          <hr class="my-3">
+
+          <div class="tickets-list">
+            <% tickets.each do |ticket| %>
+              <%= render UI::RaffleTicket.new(ticket: ticket) %>
+            <% end %>
+          </div>
+
+
+          <div class="has-text-right mt-4">
+            <p class="is-size-7 has-text-grey">Total tickets:
+              <strong><%= tickets.count %></strong>
+            </p>
+            <p class="is-size-7 has-text-grey">Total spent:
+              <strong>$<%= number_with_precision(tickets.sum(&:price), precision: 2) %></strong>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="box has-text-centered">
+        <p class="title is-4 mb-2">No Tickets Yet</p>
+        <p class="subtitle is-6 has-text-grey">You haven’t purchased any raffle tickets.</p>
+        <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-medium mt-3" %>
+      </div>
+    <% end %>
+  </div>
+</section>

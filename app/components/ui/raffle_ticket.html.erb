@@ -1,0 +1,15 @@
+<div class="ticket-stub">
+  <div class="ticket-main">
+    <h4 class="ticket-title">🎟️ Ticket #<%= ticket_number %></h4>
+    <p class="is-size-7 has-text-grey mb-1">
+      Purchased <%= purchased_time_ago %>
+    </p>
+    <% if show_raffle_name %>
+      <p class="is-size-7 has-text-grey-light">Raffle: <%= raffle.name %></p>
+    <% end %>
+  </div>
+  <div class="ticket-side">
+    <span class="ticket-code"><%= ticket_code %></span>
+  </div>
+</div>
+

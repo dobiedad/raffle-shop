@@ -1,0 +1,80 @@
+.tickets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.ticket-stub {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 375px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.15s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #f8f9fb;
+    border-radius: 50%;
+    left: calc(100% - 90px - 11px);
+  }
+
+  &::before {
+    top: -11px;
+  }
+
+  &::after {
+    bottom: -11px;
+  }
+}
+
+.ticket-main {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #fafafa, #f3f3f9);
+  position: relative;
+}
+
+.ticket-side {
+  width: 90px;
+  background: repeating-linear-gradient(
+    45deg,
+    #f6f6fa,
+    #f6f6fa 4px,
+    #ededf5 4px,
+    #ededf5 8px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 2px dashed #d3d3e0;
+  position: relative;
+}
+
+.ticket-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2c2c2c;
+}
+
+.ticket-code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #5c5c7a;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+}
+

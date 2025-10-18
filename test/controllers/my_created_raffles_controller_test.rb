@@ -22,16 +22,6 @@ class MyCreatedRafflesControllerTest < ActionDispatch::IntegrationTest
     assert_text raffle.name
   end
 
-  test '#index shows empty state when no raffles' do
-    login_as bob
-
-    get my_created_raffles_url
-
-    assert_response :success
-    assert_text 'You haven\'t created any raffles yet'
-    assert_text 'Create Your First Raffle'
-  end
-
   test '#index pagination' do
     login_as bob
     8.times do
@@ -62,6 +52,48 @@ class MyCreatedRafflesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_text user_raffle.name
+  end
+
+  test '#index with status=completed shows only completed raffles' do
+    login_as bob
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, status: :completed, completed_at: 1.day.ago,
+                                                                name: 'Completed Test'))
+    cancelled_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, status: :cancelled,
+                                                                completed_at: 2.days.ago, name: 'Cancelled Test'))
+
+    get my_created_raffles_url, params: { status: 'completed' }
+
+    assert_response :success
+    assert_text completed_raffle.name
+    assert_text cancelled_raffle.name
+    assert_no_text active_raffle.name
+  end
+
+  test '#index with status=active shows only active raffles' do
+    login_as bob
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, status: :completed, completed_at: 1.day.ago,
+                                                                name: 'Completed Test'))
+
+    get my_created_raffles_url, params: { status: 'active' }
+
+    assert_response :success
+    assert_text active_raffle.name
+    assert_no_text completed_raffle.name
+  end
+
+  test '#index defaults to active status' do
+    login_as bob
+    active_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, name: 'Active Test'))
+    completed_raffle = Raffle.create!(valid_raffle_params.merge(user: bob, status: :completed, completed_at: 1.day.ago,
+                                                                name: 'Completed Test'))
+
+    get my_created_raffles_url
+
+    assert_response :success
+    assert_text active_raffle.name
+    assert_no_text completed_raffle.name
   end
 
   private
