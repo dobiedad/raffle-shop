@@ -17,20 +17,6 @@ class RaffleTicketPreview < ComponentPreview
     render UI::RaffleTicket.new(ticket: ticket, show_raffle_name: false)
   end
 
-  def recently_purchased
-    raffle = Raffle.find_by!(name: 'iPhone 15 Pro Max')
-    ticket = raffle.raffle_tickets.first || create_sample_ticket(raffle, 1.hour.ago)
-
-    render UI::RaffleTicket.new(ticket: ticket)
-  end
-
-  def purchased_days_ago
-    raffle = Raffle.find_by!(name: 'PS5 Console + Extra Controller')
-    ticket = raffle.raffle_tickets.first || create_sample_ticket(raffle, 3.days.ago)
-
-    render UI::RaffleTicket.new(ticket: ticket)
-  end
-
   private
 
   def create_sample_ticket(raffle, purchased_at = Time.current)
