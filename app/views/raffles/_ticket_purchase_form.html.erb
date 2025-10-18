@@ -11,7 +11,7 @@
   <% if current_user.raffle_tickets.where(raffle: raffle).count.positive? %>
     <p class="mb-3 has-text-success">
       🎟️ You have
-      <strong><%= pluralize(RaffleTicket.where(raffle: raffle).count, 'ticket') %></strong>
+      <strong><%= pluralize(current_user.raffle_tickets.where(raffle: raffle).count, 'ticket') %></strong>
       for this raffle
     </p>
   <% end %>
