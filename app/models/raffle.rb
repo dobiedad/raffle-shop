@@ -134,6 +134,10 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     ((price * (1 + (platform_fee_percent.to_f / 100))) / ticket_price).ceil
   end
 
+  def enough_tickets_sold?
+    raffle_tickets.count >= max_tickets
+  end
+
   private
 
   def can_actually_buy_tickets?(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -173,9 +177,5 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
       "Payout for raffle: #{name}",
       transaction_type: :seller_payout
     )
-  end
-
-  def enough_tickets_sold?
-    raffle_tickets.count >= max_tickets
   end
 end

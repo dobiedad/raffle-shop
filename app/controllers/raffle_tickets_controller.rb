@@ -11,6 +11,7 @@ class RaffleTicketsController < ApplicationController
     @raffle = Raffle.find(params[:raffle_id])
 
     if @raffle.buy_tickets(buyer: current_user, quantity: quantity)
+      @raffle.draw_winner! if @raffle.enough_tickets_sold?
       redirect_to @raffle, notice: "You have purchased #{quantity} ticket."
     else
       redirect_to @raffle, alert: @raffle.errors.full_messages.join(',')

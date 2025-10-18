@@ -280,6 +280,8 @@ class RaffleTest < ActiveSupport::TestCase
 
     expected_payout = raffle.price
 
+    assert_equal 'Payout for raffle: iPhone 15 Pro Max', seller.wallet.transactions.last.description
+
     assert_in_delta expected_payout, seller.wallet.balance - initial_seller_balance
   end
 

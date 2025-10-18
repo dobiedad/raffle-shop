@@ -22,6 +22,20 @@ class RaffleTicketsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to raffle_url(iphone_giveaway)
   end
 
+  test '#create draws the raffle when enough tickets are sold' do
+    login_as bob
+    bob.wallet.update!(balance: 100)
+
+    assert_difference('RaffleTicket.count', 1) do
+      Raffle.stub_any_instance :enough_tickets_sold?, true do
+        post raffle_raffle_tickets_url(iphone_giveaway), params: { quantity: 1 }
+      end
+    end
+
+    assert_redirected_to raffle_url(iphone_giveaway)
+    assert_equal bob, iphone_giveaway.reload.winner
+  end
+
   test '#create fails' do
     login_as bob
     bob.wallet.update!(balance: 100)
