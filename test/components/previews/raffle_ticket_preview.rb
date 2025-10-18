@@ -46,4 +46,3 @@ class RaffleTicketPreview < ComponentPreview
     )
   end
 end
-
