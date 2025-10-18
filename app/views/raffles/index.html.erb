@@ -55,6 +55,15 @@
       </p>
     <% end %>
 
+    <div class="has-text-centered mt-5 mb-4">
+      <%= link_to completed_raffles_path, class: "button is-light is-rounded" do %>
+        <span class="icon">
+          <span>🏁</span>
+        </span>
+        <span>View Completed Raffles</span>
+      <% end %>
+    </div>
+
     <%= render UI::Pagination.new(pagy: @pagy) %>
 
     <% if @raffles.present? %>

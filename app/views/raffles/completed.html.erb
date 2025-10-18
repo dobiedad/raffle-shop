@@ -1,0 +1,99 @@
+<%= render UI::NotificationBanner.new(
+  type: 'info',
+  icon: '🏁',
+  title: 'Completed Raffles',
+  message: 'These raffles have ended. Check out the active raffles to participate!'
+) %>
+
+<div class="section raffles-index" style="background-color: #f9fafb;">
+  <div class="container">
+
+    <%= render UI::PageHeader.new(
+      title: '🏁 Completed Raffles',
+      subtitle: 'Browse past raffles and their winners'
+    ) %>
+
+    <div class="has-text-centered mb-5">
+      <%= link_to raffles_path, class: "button is-primary is-rounded" do %>
+        <span class="icon">
+          <span>🎟️</span>
+        </span>
+        <span>View Active Raffles</span>
+      <% end %>
+    </div>
+
+    <%= render UI::SearchBar.new(
+      value: params.dig(:q, :name_cont),
+      url: completed_raffles_path,
+      param_name: 'q[name_cont]',
+      placeholder: 'Search completed raffles',
+      preserve_params: ['category']
+    ) %>
+
+    <div class="buttons are-small is-centered mb-6">
+      <%= link_to 'All', completed_raffles_path(params.permit(:q, :category).except(:category)),
+          class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
+      <% Raffle::CATEGORIES.each do |category| %>
+        <%= link_to category.humanize, completed_raffles_path(params.permit(:q, :category).merge(category: category)),
+            class: "button is-light is-rounded #{'is-active' if @active_category == category}" %>
+      <% end %>
+    </div>
+
+    <% if @raffles.present? %>
+      <div class="columns is-multiline">
+        <% @raffles.each do |raffle| %>
+          <div class="column is-one-third-desktop is-half-tablet">
+            <% 
+              badge_text = if raffle.completed?
+                raffle.winner ? "🏆 Winner: #{raffle.winner.email.split('@').first}" : "Completed"
+              else
+                "❌ Cancelled"
+              end
+            %>
+            <%= render UI::RaffleCard.new(raffle: raffle, badge_text: badge_text) %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="has-text-centered py-6">
+        <p class="is-size-5 has-text-grey-dark mb-2">No completed raffles found</p>
+        <p class="is-size-6 has-text-grey">Try adjusting your search or filters.</p>
+      </div>
+    <% end %>
+
+    <%= render UI::Pagination.new(pagy: @pagy) %>
+
+    <% if @raffles.present? %>
+      <p class="has-text-centered is-size-7 has-text-grey mt-2">
+        Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> completed raffles
+      </p>
+    <% end %>
+
+  </div>
+</div>
+
+<style>
+  .button.is-primary:hover { filter: brightness(1.1); }
+
+  .raffle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .button.is-rounded.is-active {
+    background-color: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .raffle-card {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 1s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+

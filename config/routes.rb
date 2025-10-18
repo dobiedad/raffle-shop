@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   root 'raffles#index'
 
   resources :raffles, only: %i[index show new create] do
+    collection do
+      get :completed
+    end
     resources :raffle_tickets, only: [:create], path: 'tickets'
   end
 
