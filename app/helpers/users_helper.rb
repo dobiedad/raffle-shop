@@ -3,7 +3,7 @@
 module UsersHelper
   # :nocov:
   def user_avatar_url(user)
-    if user.profile_image.attached?
+    if user.profile_image&.attached?
       user.profile_image.variant(resize_to_limit: [150, 150])
     else
       "https://i.pravatar.cc/150?img=#{user.id % 70}"

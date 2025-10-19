@@ -1,33 +1,10 @@
-<div class="section" style="background-color: #f9fafb;">
-  <div class="container">
-    <%= render UI::PageHeader.new(
-      title: "#{@user.email}'s Following",
-      subtitle: "#{@user.followings.count} following"
-    ) %>
-
-    <% if @followings.present? %>
-      <div class="box">
-        <% @followings.each do |followed_user| %>
-          <div class="is-flex is-align-items-center is-justify-content-space-between mb-4 pb-4" style="border-bottom: 1px solid #f5f5f5;">
-            <div class="is-flex is-align-items-center" style="gap: 1rem;">
-              <%= image_tag user_avatar_url(followed_user), alt: followed_user.email, class: "u-borderRadius50", style: "width: 48px; height: 48px;" %>
-              <div>
-                <p class="has-text-weight-semibold"><%= followed_user.email %></p>
-                <p class="is-size-7 has-text-grey">
-                  <%= followed_user.followers.count %> followers · <%= followed_user.followings.count %> following
-                </p>
-              </div>
-            </div>
-            <%= follow_button_for(followed_user) %>
-          </div>
-        <% end %>
-      </div>
-
-      <%= render UI::Pagination.new(pagy: @pagy) %>
-    <% else %>
-      <%= render UI::EmptyState.new(
-        title: 'Not following anyone yet'
-      ) %>
-    <% end %>
-  </div>
-</div>
+<%= render UI::UserList.new(
+  title: "#{@user.email}'s Following",
+  subtitle: "#{@user.followings.count} following",
+  users: @followings,
+  pagy: @pagy,
+  show_follow_button: true,
+  empty_title: 'No follows yet',
+  empty_subtitle: 'Find creators you like and follow them to build your feed.',
+  empty_cta: link_to('Explore raffles', raffles_path, class: 'button is-primary is-light')
+) %>

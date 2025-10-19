@@ -1,32 +1,9 @@
-<div class="section" style="background-color: #f9fafb;">
-  <div class="container">
-    <%= render UI::PageHeader.new(
-      title: "#{@user.email}'s Followers",
-      subtitle: "<span id='followers-count-#{@user.id}'>#{@user.followers.count}</span> followers".html_safe
-    ) %>
-
-    <% if @followers.present? %>
-      <div class="box">
-        <% @followers.each do |follower| %>
-          <div class="is-flex is-align-items-center is-justify-content-space-between mb-4 pb-4" style="border-bottom: 1px solid #f5f5f5;">
-            <%= link_to user_path(follower), class: "is-flex is-align-items-center", style: "gap: 1rem; flex: 1;" do %>
-              <%= image_tag user_avatar_url(follower), alt: follower.email, class: "u-borderRadius50", style: "width: 48px; height: 48px;" %>
-              <div>
-                <p class="has-text-weight-semibold"><%= follower.email %></p>
-                <p class="is-size-7 has-text-grey">
-                  <span id="followers-count-<%= follower.id %>"><%= follower.followers.count %></span> followers · <span id="following-count-<%= follower.id %>"><%= follower.followings.count %></span> following
-                </p>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-      <%= render UI::Pagination.new(pagy: @pagy) %>
-    <% else %>
-      <%= render UI::EmptyState.new(
-        title: 'No followers yet'
-      ) %>
-    <% end %>
-  </div>
-</div>
+<%= render UI::UserList.new(
+  title: "#{@user.email}'s Followers",
+  subtitle: "#{@user.followers.count} followers",
+  users: @followers,
+  pagy: @pagy,
+  show_follow_button: false,
+  empty_title: 'No followers yet',
+  empty_subtitle: 'When people follow you, they will appear here.'
+) %>
