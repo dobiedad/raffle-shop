@@ -3,81 +3,10 @@
     title: '💰 My Wallet'
   ) %>
 
-      <div class="box has-background-primary-light">
-        <div class="has-text-centered">
-          <p class="heading">Current Balance</p>
-          <p class="title is-1 has-text-primary"><%= format_currency(@wallet.balance) %></p>
-        </div>
-      </div>
-
-      <div class="box mt-5">
-        <div class="is-flex is-justify-content-space-between is-align-items-center mb-4">
-          <h2 class="title is-4 mb-0">📋 Transaction History</h2>
-          <p class="has-text-grey is-size-7">
-            <%= @pagy.count %> total <%= 'transaction'.pluralize(@pagy.count) %>
-            <% if @pagy.pages > 1 %>
-              · Page <%= @pagy.page %> of <%= @pagy.pages %>
-            <% end %>
-          </p>
-        </div>
-
-        <% if @transactions.any? %>
-          <div class="table-container">
-            <table class="table is-fullwidth is-hoverable">
-              <thead>
-                <tr>
-                  <th class="has-text-grey is-size-7">Date & Time</th>
-                  <th class="has-text-grey is-size-7">Description</th>
-                  <th class="has-text-grey is-size-7">Type</th>
-                  <th class="has-text-right has-text-grey is-size-7">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @transactions.each do |transaction| %>
-                  <tr>
-                    <td class="is-size-7">
-                      <div><%= transaction.created_at.strftime('%b %d, %Y') %></div>
-                      <div class="has-text-grey"><%= transaction.created_at.strftime('%I:%M %p') %></div>
-                    </td>
-                    <td>
-                      <div class="is-size-6"><%= transaction.description %></div>
-                    </td>
-                    <td>
-                      <span class="tag is-light is-<%= transaction.transaction_type_display_type %>">
-                        <%= transaction.icon %> <%= transaction.transaction_type.humanize %>
-                      </span>
-                    </td>
-                    <td class="has-text-right">
-                      <span class="has-text-weight-semibold <%= transaction.credit? ? 'has-text-success' : 'has-text-danger' %>">
-                        <%= transaction.credit? ? '+' : '-' %><%= format_currency(transaction.amount) %>
-                      </span>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-
-          <%= render UI::Pagination.new(pagy: @pagy) %>
-
-          <% if @pagy.pages > 1 %>
-            <p class="has-text-centered is-size-7 has-text-grey mt-2">
-              Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %>
-            </p>
-          <% end %>
-        <% else %>
-          <%= render UI::EmptyState.new(
-            title: 'No transactions yet',
-            description: 'Your wallet activity will appear here.'
-          ) %>
-        <% end %>
-      </div>
-
-      <div class="notification is-warning is-light mt-4">
-        <p class="has-text-centered">
-          <strong>Note:</strong> Payment integration coming soon. For now, contact support to add funds to your wallet.
-        </p>
-      </div>
+  <div class="box has-background-primary-light">
+    <div class="has-text-centered">
+      <p class="heading">Current Balance</p>
+      <p class="title is-1 has-text-primary"><%= format_currency(@wallet.balance) %></p>
     </div>
   </div>
 
@@ -120,7 +49,7 @@
                 </td>
                 <td class="has-text-right">
                   <span class="has-text-weight-semibold <%= transaction.credit? ? 'has-text-success' : 'has-text-danger' %>">
-                    <%= transaction.credit? ? '+' : '-' %>$<%= number_with_precision(transaction.amount, precision: 2) %>
+                    <%= transaction.credit? ? '+' : '-' %><%= format_currency(transaction.amount) %>
                   </span>
                 </td>
               </tr>
