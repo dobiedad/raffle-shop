@@ -17,17 +17,12 @@ module UI
       ((sold.to_f / max) * 100).round
     end
 
-    def amount_raised
-      raffle.amount_raised
-    end
+    delegate :amount_raised, to: :raffle
 
     def price_goal
       raffle.price
     end
 
-    def max_tickets
-      raffle.max_tickets
-    end
+    delegate :max_tickets, to: :raffle
   end
 end
-
