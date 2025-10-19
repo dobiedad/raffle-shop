@@ -7,7 +7,7 @@
 ) %>
 
 <div class="section raffles-index" style="background-color: #f9fafb;">
-  <div class="container">
+  <div class="container is-max-widescreen">
 
     <%= render UI::PageHeader.new(
       title: '🎟️ Current Raffles',
@@ -40,13 +40,11 @@
         <% end %>
       </div>
     <% else %>
-      <div class="has-text-centered py-6">
-        <p class="is-size-5 has-text-grey-dark mb-2">No raffles available right now</p>
-        <p class="is-size-6 has-text-grey">Check back soon — new items are added daily.</p>
-        <% if user_signed_in? %>
-          <%= link_to "Create one now", new_raffle_path, class: "button is-primary is-rounded mt-4" %>
-        <% end %>
-      </div>
+      <%= render UI::EmptyState.new(
+        title: 'No raffles available right now',
+        description: 'Check back soon — new items are added daily.',
+        action: user_signed_in? ? link_to("Create one now", new_raffle_path, class: "button is-primary is-rounded").html_safe : nil
+      ) %>
     <% end %>
 
     <% if @raffles.present? %>

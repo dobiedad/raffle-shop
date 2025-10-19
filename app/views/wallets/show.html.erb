@@ -66,9 +66,10 @@
             </p>
           <% end %>
         <% else %>
-          <div class="notification is-info is-light">
-            <p class="has-text-centered">No transactions yet. Your wallet activity will appear here.</p>
-          </div>
+          <%= render UI::EmptyState.new(
+            title: 'No transactions yet',
+            description: 'Your wallet activity will appear here.'
+          ) %>
         <% end %>
       </div>
 

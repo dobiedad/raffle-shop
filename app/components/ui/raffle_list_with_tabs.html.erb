@@ -1,0 +1,70 @@
+<div class="section raffles-index" style="background-color: #f9fafb;">
+  <div class="container">
+
+    <% if show_avatar && user %>
+      <div class="has-text-centered mb-6">
+        <div class="mb-3" style="display: inline-block;">
+          <%= image_tag helpers.user_avatar_url(user), alt: user.email, class: "profile-image" %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render UI::PageHeader.new(
+      title: title,
+      subtitle: subtitle,
+      title_size: title_size
+    ) %>
+
+    <div class="tabs is-centered is-boxed mb-6">
+      <ul>
+        <% tabs.each do |tab| %>
+          <li class="<%= 'is-active' if tab_active?(tab[:name]) %>">
+            <%= link_to tab[:path] do %>
+              <span class="icon is-small"><%= tab[:icon] %></span>
+              <span><%= tab[:label] %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="buttons are-small is-centered mb-6">
+      <% tabs.each do |tab| %>
+        <% if tab_active?(tab[:name]) %>
+          <%= link_to 'Active', tab[:active_path],
+              class: "button is-light is-rounded #{'is-active' if status_active?('active')}" %>
+          <%= link_to 'Completed', tab[:completed_path],
+              class: "button is-light is-rounded #{'is-active' if status_active?('completed')}" %>
+          <% break %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if raffles.present? %>
+      <div class="columns is-multiline" style="margin-top: 1rem;">
+        <% raffles.each do |raffle| %>
+          <div class="column is-one-third-desktop is-half-tablet">
+            <%= render UI::RaffleCard.new(raffle: raffle, badge_text: badge_text_for(raffle)) %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= render UI::Pagination.new(pagy: pagy) %>
+
+      <p class="has-text-centered is-size-7 has-text-grey mt-2">
+        Showing <%= pagy.from %>–<%= pagy.to %> of <%= pagy.count %> raffles
+      </p>
+    <% else %>
+      <%= content %>
+    <% end %>
+
+  </div>
+</div>
+
+<style>
+  .button.is-rounded.is-active {
+    background-color: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+  }
+</style>

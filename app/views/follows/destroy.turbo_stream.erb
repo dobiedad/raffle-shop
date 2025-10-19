@@ -1,0 +1,29 @@
+<%= turbo_stream.replace "user-profile-actions-#{@user.id}" do %>
+  <%= turbo_frame_tag "user-profile-actions-#{@user.id}" do %>
+    <div class="is-flex is-justify-content-center is-align-items-center mb-4" style="gap: 1rem;">
+      <%= link_to followers_user_path(@user), class: "has-text-centered", data: { turbo: false } do %>
+        <p class="has-text-weight-semibold" id="followers-count-<%= @user.id %>"><%= @user.reload.followers.count %></p>
+        <p class="is-size-7 has-text-grey">Followers</p>
+      <% end %>
+      <%= link_to following_user_path(@user), class: "has-text-centered", data: { turbo: false } do %>
+        <p class="has-text-weight-semibold" id="following-count-<%= @user.id %>"><%= @user.reload.followings.count %></p>
+        <p class="is-size-7 has-text-grey">Following</p>
+      <% end %>
+    </div>
+
+    <div class="buttons is-centered">
+      <% if @user == current_user %>
+        <% action_buttons = [
+          { label: "Edit Profile", path: "#", class: "is-light" },
+          { label: "Settings", path: "#", class: "is-light" }
+        ] %>
+        <% action_buttons.each do |button| %>
+          <%= link_to button[:label], button[:path], class: "button #{button[:class]} is-small", data: { turbo: false } %>
+        <% end %>
+      <% else %>
+        <%= link_to "View Raffles", raffles_user_path(@user), class: "button is-primary is-small", data: { turbo: false } %>
+        <%= render partial: 'shared/follow_button', locals: { user: @user.reload, button_size: 'is-small', button_style: nil } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

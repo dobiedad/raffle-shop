@@ -42,11 +42,11 @@
         </div>
       <% end %>
     <% else %>
-      <div class="box has-text-centered">
-        <p class="title is-4 mb-2">No Tickets Yet</p>
-        <p class="subtitle is-6 has-text-grey">You haven’t purchased any raffle tickets.</p>
-        <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-medium mt-3" %>
-      </div>
+      <%= render UI::EmptyState.new(
+        title: 'No Tickets Yet',
+        description: "You haven't purchased any raffle tickets.",
+        action: link_to("Browse Raffles", raffles_path, class: "button is-primary is-medium").html_safe
+      ) %>
     <% end %>
   </div>
 </section>

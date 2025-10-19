@@ -1,0 +1,10 @@
+<%= render UI::UserList.new(
+  title: "#{@user.email}'s Following",
+  subtitle: "#{@user.followings.count} following",
+  users: @followings,
+  pagy: @pagy,
+  show_follow_button: true,
+  empty_title: 'No follows yet',
+  empty_subtitle: 'Find creators you like and follow them to build your feed.',
+  empty_cta: link_to('Explore raffles', raffles_path, class: 'button is-primary is-light')
+) %>

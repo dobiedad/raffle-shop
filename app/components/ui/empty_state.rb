@@ -6,5 +6,6 @@ module UI
     attribute :title, :string
     attribute :description, :string
     attribute :action
+    attribute :title_size, default: 5
   end
 end

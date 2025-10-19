@@ -1,0 +1,9 @@
+<%= render UI::UserList.new(
+  title: "#{@user.email}'s Followers",
+  subtitle: "#{@user.followers.count} followers",
+  users: @followers,
+  pagy: @pagy,
+  show_follow_button: false,
+  empty_title: 'No followers yet',
+  empty_subtitle: 'When people follow you, they will appear here.'
+) %>

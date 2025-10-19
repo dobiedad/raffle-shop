@@ -1,0 +1,39 @@
+<%= render UI::RaffleListWithTabs.new(
+  title: "🎫 #{@user.email}'s Raffles",
+  subtitle: "Created and  participating raffles",
+  title_size: 'is-2',
+  user: @user,
+  current_user: current_user,
+  raffles: @raffles,
+  pagy: @pagy,
+  tab_filter: @tab_filter,
+  status_filter: @status_filter,
+  show_avatar: true,
+  tabs: [
+    {
+      name: 'created',
+      label: "Created by #{@user.email.split('@').first}",
+      icon: '📝',
+      path: raffles_user_path(@user, tab: 'created', status: @status_filter),
+      active_path: raffles_user_path(@user, tab: 'created', status: 'active'),
+      completed_path: raffles_user_path(@user, tab: 'created', status: 'completed')
+    },
+    {
+      name: 'participating',
+      label: 'Participating In',
+      icon: '🎟️',
+      path: raffles_user_path(@user, tab: 'participating', status: @status_filter),
+      active_path: raffles_user_path(@user, tab: 'participating', status: 'active'),
+      completed_path: raffles_user_path(@user, tab: 'participating', status: 'completed')
+    }
+  ]
+) do %>
+  <%= render UI::EmptyState.new(
+    title: @status_filter == 'active' ? 'No active raffles' : 'No completed raffles',
+    description: if @tab_filter == 'participating'
+      @status_filter == 'active' ? "#{@user.email} isn't participating in any active raffles yet." : "#{@user.email} hasn't completed any raffles they participated in."
+    else
+      @status_filter == 'active' ? "#{@user.email} hasn't created any active raffles yet." : "#{@user.email} hasn't completed any raffles yet."
+    end
+  ) %>
+<% end %>

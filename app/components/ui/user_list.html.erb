@@ -1,0 +1,139 @@
+<div class="section rs-people-section">
+  <div class="container">
+    <header class="rs-hero">
+      <div class="rs-hero__content">
+        <h1 class="title is-spaced is-3 mb-1"><%= title %></h1>
+        <p class="subtitle is-6">
+          <%= render UI::Badge.new(text: "#{number_with_delimiter(users.size)} #{title.downcase.include?('following') ? 'following' : 'followers'}", variant: :default) %>
+        </p>
+      </div>
+    </header>
+
+    <% if users.present? %>
+      <div class="is-flex is-justify-content-space-between is-align-items-center mb-4">
+        <div class="is-flex is-align-items-center" style="gap:.75rem;">
+          <span class="tag is-info is-light">People</span>
+          <span class="has-text-grey is-size-7">
+            <%= defined?(pagy) && pagy ? number_with_delimiter(pagy.count) : number_with_delimiter(users.size) %> total
+          </span>
+        </div>
+      </div>
+
+      <div class="rs-card-list">
+        <% users.each do |u| %>
+          <% mutual = (defined?(current_user) && current_user.present?) ? (u.respond_to?(:following?) && u.following?(current_user)) : false %>
+
+          <article class="rs-person">
+            <div class="rs-person__left">
+              <%= link_to user_path(u), class: 'rs-avatar-wrap' do %>
+                <span class="rs-avatar-ring">
+                  <%= image_tag helpers.user_avatar_url(u), alt: u.email, class: "rs-avatar-img" %>
+                </span>
+              <% end %>
+
+              <div class="rs-person__meta">
+                <%= link_to user_path(u), class: 'rs-person__name' do %>
+                  <span class="has-text-weight-semibold"><%= u.email %></span>
+                <% end %>
+
+                <div class="rs-person__chips">
+                  <span class="tag is-light"><%= number_with_delimiter(u.followers.count) %> <%= 'follower'.pluralize(u.followers.count) %></span>
+                  <span class="tag is-light"><%= number_with_delimiter(u.followings.count) %> following</span>
+                  <% if mutual %>
+                    <span class="tag is-success is-light">Follows you</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <div class="rs-person__right">
+              <% if show_follow_button %>
+                <%= helpers.follow_button_for(u) %>
+              <% end %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+
+      <div class="mt-5">
+        <%= render(UI::Pagination.new(pagy: pagy)) if defined?(pagy) && pagy %>
+      </div>
+    <% else %>
+      <%= render UI::EmptyState.new(
+        title: empty_title,
+        description: empty_subtitle,
+        action: empty_cta
+      ) %>
+    <% end %>
+  </div>
+</div>
+
+<style media="screen">
+  /* Page bg */
+  .rs-people-section { background: #f9fafb; padding-top: 2.5rem; }
+
+  /* Gradient banner */
+  .rs-hero {
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 35%, #faf5ff 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .rs-hero__content { position: relative; z-index: 1; }
+  .rs-chip { border-radius: 999px; }
+
+  /* List grid */
+  .rs-card-list { display: grid; gap: 10px; }
+
+  /* Person row card */
+  .rs-person {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(18,18,18,.06);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .rs-person:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    background: rgba(255,255,255,.86);
+  }
+
+  /* Left cluster */
+  .rs-person__left { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; }
+
+  .rs-avatar-wrap { display: inline-block; text-decoration: none; }
+  .rs-avatar-ring {
+    display: inline-grid; place-items: center;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: conic-gradient(from 180deg at 50% 50%, #8b5cf6, #06b6d4, #f97316, #8b5cf6);
+    padding: 2px;
+  }
+  .rs-avatar-img {
+    width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: #fff;
+  }
+
+  /* Name + chips */
+  .rs-person__meta { min-width: 0; }
+  .rs-person__name { color: inherit; text-decoration: none; }
+  .rs-person__name:hover span { text-decoration: underline; }
+  .rs-person__chips { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* Right cluster (button) */
+  .rs-person__right .button { border-radius: 999px; }
+
+  /* Soft link */
+  .rs-link--soft { color: #6b7280; }
+  .rs-link--soft:hover { color: #374151; text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .rs-person { grid-template-columns: 1fr; gap: 10px; }
+    .rs-person__right { justify-self: start; }
+  }
+</style>

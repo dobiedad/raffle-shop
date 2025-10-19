@@ -10,7 +10,7 @@ class StyleguideControllerTest < ActionDispatch::IntegrationTest
       preview.examples.each do |example|
         get styleguide_preview_path("#{preview.preview_name}/#{example}")
 
-        assert_response :success
+        assert_response :success, "failed for #{preview.preview_name}/#{example}"
       end
     end
   end

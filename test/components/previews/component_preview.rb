@@ -8,7 +8,7 @@ class ComponentPreview < ViewComponent::Preview
     super.sort_by { |example| [example == 'default' ? 0 : 1, example] }
   end
 
-  def self.preview_source(example) # rubocop:disable Metrics/AbcSize
+  def self.preview_source(example)
     source = instance_method(example.to_sym).source.split("\n")
     return '' if source.size < 2
 

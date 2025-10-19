@@ -1,0 +1,22 @@
+<div id="follow-button-<%= user.id %>" class="follow-button-container">
+  <% if current_user.following?(user) %>
+    <%= button_to unfollow_user_path(user),
+        method: :delete,
+        class: "button is-light #{button_size}",
+        style: button_style,
+        data: { turbo_frame: "user-profile-actions-#{user.id}" },
+        aria_label: "Unfollow #{user.email}" do %>
+      Following
+    <% end %>
+  <% else %>
+    <%= button_to follow_user_path(user),
+        method: :post,
+        class: "button is-primary #{button_size}",
+        style: button_style,
+        data: { turbo_frame: "user-profile-actions-#{user.id}" },
+        aria_label: "Follow #{user.email}" do %>
+      Follow
+    <% end %>
+  <% end %>
+</div>
+

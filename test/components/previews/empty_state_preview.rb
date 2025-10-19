@@ -20,7 +20,7 @@ class EmptyStatePreview < ComponentPreview
           <a href="#" class="button is-primary is-light">Create Raffle</a>
           <a href="#" class="button is-link is-light">Browse Raffles</a>
         </div>
-      '.html_safe # rubocop:disable Rails/OutputSafety
+      '.html_safe
     )
   end
 end

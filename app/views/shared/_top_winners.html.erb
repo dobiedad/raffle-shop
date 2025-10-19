@@ -1,0 +1,30 @@
+<div class="box">
+  <h3 class="title is-6 mb-4">🏆 Top Winners (30 Days)</h3>
+  <% top_winners = User
+      .joins(:raffles_won)
+      .where(raffles: { status: 'completed', completed_at: 30.days.ago.. })
+      .where.not(id: current_user&.id)
+      .group('users.id')
+      .order(Arel.sql('COUNT(raffles.id) DESC'))
+      .limit(5) %>
+  <% if top_winners.present? %>
+    <% top_winners.each do |winner| %>
+      <div class="is-flex is-align-items-center is-justify-content-space-between mb-4">
+        <%= link_to user_path(winner), class: "is-flex is-align-items-center", style: "gap: 0.75rem; flex: 1;" do %>
+          <%= image_tag user_avatar_url(winner), alt: winner.email, class: "u-borderRadius50", style: "width: 40px; height: 40px;" %>
+          <div>
+            <p class="has-text-weight-semibold is-size-7"><%= winner.email %></p>
+            <p class="is-size-7 has-text-grey">
+              <%= winner.raffles_won.where(status: 'completed', completed_at: 30.days.ago..).count %> wins
+            </p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render UI::EmptyState.new(
+      title: 'No winners in the last 30 days',
+      title_size: 7,
+    ) %>
+  <% end %>
+</div>
