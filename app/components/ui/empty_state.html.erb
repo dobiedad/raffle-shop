@@ -1,0 +1,23 @@
+<div class="empty-state has-text-centered py-6">
+  <% if icon %>
+    <div class="empty-state-icon mb-4">
+      <span class="is-size-1"><%= icon %></span>
+    </div>
+  <% end %>
+
+  <p class="empty-state-title has-text-grey-dark mb-2 is-size-5 has-text-weight-medium">
+    <%= title %>
+  </p>
+
+  <% if description.present? %>
+    <p class="empty-state-description is-size-6 has-text-grey">
+      <%= description %>
+    </p>
+  <% end %>
+
+  <% if action.present? %>
+    <div class="mt-4">
+      <%= action %>
+    </div>
+  <% end %>
+</div>
