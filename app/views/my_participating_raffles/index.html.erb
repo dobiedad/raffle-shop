@@ -31,14 +31,14 @@
       icon: '🎟️',
       title: "You're not participating in any active raffles",
       description: 'Browse active raffles and buy tickets to get started',
-      action: link_to("Browse Raffles", raffles_path, class: "button is-primary is-rounded").html_safe
+      action: link_to("Browse Raffles", raffles_path, class: "button is-primary u-borderRadius50").html_safe
     ) %>
   <% elsif @status_filter == 'completed' %>
     <%= render UI::EmptyState.new(
       icon: '🏁',
       title: 'No completed raffles yet',
       description: "Raffles you participate in will show here once they're completed.",
-      action: link_to("Browse Raffles", raffles_path, class: "button is-primary is-rounded").html_safe
+      action: link_to("Browse Raffles", raffles_path, class: "button is-primary u-borderRadius50").html_safe
     ) %>
   <% end %>
 <% end %>

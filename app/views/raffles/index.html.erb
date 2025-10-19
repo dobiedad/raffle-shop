@@ -24,10 +24,10 @@
 
     <div class="buttons are-small is-centered mb-6">
       <%= link_to 'All', raffles_path(params.permit(:q, :category).except(:category)),
-          class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
+          class: "button is-light u-borderRadius50 #{'is-active' if @active_category == 'All'}" %>
       <% Raffle::CATEGORIES.each do |category| %>
         <%= link_to category.humanize, raffles_path(params.permit(:q, :category).merge(category: category)),
-            class: "button is-light is-rounded #{'is-active' if @active_category == category}" %>
+            class: "button is-light u-borderRadius50 #{'is-active' if @active_category == category}" %>
       <% end %>
     </div>
 
@@ -43,7 +43,7 @@
       <%= render UI::EmptyState.new(
         title: 'No raffles available right now',
         description: 'Check back soon — new items are added daily.',
-        action: user_signed_in? ? link_to("Create one now", new_raffle_path, class: "button is-primary is-rounded").html_safe : nil
+        action: user_signed_in? ? link_to("Create one now", new_raffle_path, class: "button is-primary u-borderRadius50").html_safe : nil
       ) %>
     <% end %>
 
@@ -54,7 +54,7 @@
     <% end %>
 
     <div class="has-text-centered mt-5 mb-4">
-      <%= link_to completed_raffles_path, class: "button is-light is-rounded" do %>
+      <%= link_to completed_raffles_path, class: "button is-light u-borderRadius50" do %>
         <span class="icon">
           <span>🏁</span>
         </span>
@@ -97,7 +97,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   }
 
-  .button.is-rounded.is-active {
+  .button.u-borderRadius50.is-active {
     background-color: #4f46e5;
     color: #fff;
     font-weight: 600;

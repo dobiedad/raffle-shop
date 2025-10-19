@@ -16,27 +16,29 @@
         <span class="tag is-light is-success">Active</span>
       </div>
 
-      <div class="is-flex is-justify-content-center is-align-items-center mb-4" style="gap: 1rem;">
-        <%= link_to helpers.followers_user_path(user), class: "has-text-centered" do %>
-          <p class="has-text-weight-semibold"><%= user.followers_count %></p>
-          <p class="is-size-7 has-text-grey">Followers</p>
-        <% end %>
-        <%= link_to helpers.following_user_path(user), class: "has-text-centered" do %>
-          <p class="has-text-weight-semibold"><%= user.followings_count %></p>
-          <p class="is-size-7 has-text-grey">Following</p>
-        <% end %>
-      </div>
-
-      <div class="buttons is-centered">
-        <% if own_profile? %>
-          <% action_buttons.each do |button| %>
-            <%= link_to button[:label], button[:path], class: "button #{button[:class]} is-small" %>
+      <%= helpers.turbo_frame_tag "user-profile-actions-#{user.id}" do %>
+        <div class="is-flex is-justify-content-center is-align-items-center mb-4" style="gap: 1rem;">
+          <%= link_to helpers.followers_user_path(user), class: "has-text-centered", data: { turbo: false } do %>
+            <p class="has-text-weight-semibold" id="followers-count-<%= user.id %>"><%= user.followers.count %></p>
+            <p class="is-size-7 has-text-grey">Followers</p>
           <% end %>
-        <% else %>
-          <%= link_to "View Raffles", helpers.raffles_user_path(user), class: "button is-primary is-small" %>
-          <%= helpers.follow_button_for(user, size: 'is-small') %>
-        <% end %>
-      </div>
+          <%= link_to helpers.following_user_path(user), class: "has-text-centered", data: { turbo: false } do %>
+            <p class="has-text-weight-semibold" id="following-count-<%= user.id %>"><%= user.followings.count %></p>
+            <p class="is-size-7 has-text-grey">Following</p>
+          <% end %>
+        </div>
+
+        <div class="buttons is-centered">
+          <% if own_profile? %>
+            <% action_buttons.each do |button| %>
+              <%= link_to button[:label], button[:path], class: "button #{button[:class]} is-small", data: { turbo: false } %>
+            <% end %>
+          <% else %>
+            <%= link_to "View Raffles", helpers.raffles_user_path(user), class: "button is-primary is-small", data: { turbo: false } %>
+            <%= helpers.follow_button_for(user, size: 'is-small') %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="columns is-multiline mt-6">
@@ -119,4 +121,3 @@
 
   </div>
 </section>
-

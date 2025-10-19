@@ -4,7 +4,7 @@
         method: :delete,
         class: "button is-light #{button_size}",
         style: button_style,
-        data: { turbo_stream: true },
+        data: { turbo_frame: "user-profile-actions-#{user.id}" },
         aria_label: "Unfollow #{user.email}" do %>
       Following
     <% end %>
@@ -13,7 +13,7 @@
         method: :post,
         class: "button is-primary #{button_size}",
         style: button_style,
-        data: { turbo_stream: true },
+        data: { turbo_frame: "user-profile-actions-#{user.id}" },
         aria_label: "Follow #{user.email}" do %>
       Follow
     <% end %>

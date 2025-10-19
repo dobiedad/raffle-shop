@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def following
-    @pagy, @following = pagy(@user.following.order(created_at: :desc), limit: 20)
+    @pagy, @followings = pagy(@user.followings.order(created_at: :desc), limit: 20)
   end
 
   def raffles

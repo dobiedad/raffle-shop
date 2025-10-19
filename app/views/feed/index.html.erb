@@ -10,14 +10,14 @@
             <table class="table is-fullwidth is-hoverable" style="font-size: 0.95rem;">
               <tbody>
                 <% @activities.each do |activity| %>
-                  <% 
+                  <%
                     icon = {
                       'created_raffle' => '🆕',
                       'entered_raffle' => '🎟️',
                       'won_raffle'     => '🏆',
                       'followed_user'  => '➕'
                     }.fetch(activity.activity_type, '•')
-                    
+
                     description = case activity.activity_type
                     when 'created_raffle'
                       if activity.subject
@@ -61,7 +61,7 @@
                 <% end %>
               </tbody>
             </table>
-            
+
             <div class="mt-4">
               <%= render UI::Pagination.new(pagy: @pagy) %>
             </div>
@@ -80,8 +80,6 @@
           <%= render 'shared/top_creators' %>
           <div class="mt-4"></div>
           <%= render 'shared/top_winners' %>
-          <div class="mt-4"></div>
-          <%= render 'shared/who_to_follow' %>
         </div>
       </div>
     </div>

@@ -41,7 +41,7 @@ class RaffleListWithTabsPreview < ComponentPreview
           <p class="is-size-4 mb-4">📭</p>
           <p class="is-size-5 has-text-grey-dark mb-3">You haven't created any active raffles</p>
           <p class="is-size-6 has-text-grey mb-5">Start a new raffle and reach thousands of potential participants</p>
-          <a href="/raffles/new" class="button is-primary is-rounded">Create Your First Raffle</a>
+          <a href="/raffles/new" class="button is-primary u-borderRadius50">Create Your First Raffle</a>
         </div>
       HTML
     end
@@ -85,7 +85,7 @@ class RaffleListWithTabsPreview < ComponentPreview
           <p class="is-size-4 mb-4">🎟️</p>
           <p class="is-size-5 has-text-grey-dark mb-3">You're not participating in any active raffles</p>
           <p class="is-size-6 has-text-grey mb-5">Browse active raffles and buy tickets to get started</p>
-          <a href="/raffles" class="button is-primary is-rounded">Browse Raffles</a>
+          <a href="/raffles" class="button is-primary u-borderRadius50">Browse Raffles</a>
         </div>
       HTML
     end

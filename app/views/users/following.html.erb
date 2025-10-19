@@ -2,19 +2,19 @@
   <div class="container">
     <%= render UI::PageHeader.new(
       title: "#{@user.email}'s Following",
-      subtitle: "#{@user.followings_count} following"
+      subtitle: "#{@user.followings.count} following"
     ) %>
 
-    <% if @following.present? %>
+    <% if @followings.present? %>
       <div class="box">
-        <% @following.each do |followed_user| %>
+        <% @followings.each do |followed_user| %>
           <div class="is-flex is-align-items-center is-justify-content-space-between mb-4 pb-4" style="border-bottom: 1px solid #f5f5f5;">
             <div class="is-flex is-align-items-center" style="gap: 1rem;">
-              <%= image_tag user_avatar_url(followed_user), alt: followed_user.email, class: "is-rounded", style: "width: 48px; height: 48px;" %>
+              <%= image_tag user_avatar_url(followed_user), alt: followed_user.email, class: "u-borderRadius50", style: "width: 48px; height: 48px;" %>
               <div>
                 <p class="has-text-weight-semibold"><%= followed_user.email %></p>
                 <p class="is-size-7 has-text-grey">
-                  <%= followed_user.followers_count %> followers · <%= followed_user.followings_count %> following
+                  <%= followed_user.followers.count %> followers · <%= followed_user.followings.count %> following
                 </p>
               </div>
             </div>
@@ -31,4 +31,3 @@
     <% end %>
   </div>
 </div>
-

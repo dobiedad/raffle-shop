@@ -11,7 +11,7 @@
     <% top_winners.each do |winner| %>
       <div class="is-flex is-align-items-center is-justify-content-space-between mb-4">
         <%= link_to user_path(winner), class: "is-flex is-align-items-center", style: "gap: 0.75rem; flex: 1;" do %>
-          <%= image_tag user_avatar_url(winner), alt: winner.email, class: "is-rounded", style: "width: 40px; height: 40px;" %>
+          <%= image_tag user_avatar_url(winner), alt: winner.email, class: "u-borderRadius50", style: "width: 40px; height: 40px;" %>
           <div>
             <p class="has-text-weight-semibold is-size-7"><%= winner.email %></p>
             <p class="is-size-7 has-text-grey">
@@ -19,7 +19,6 @@
             </p>
           </div>
         <% end %>
-        <%= follow_button_for(winner) %>
       </div>
     <% end %>
   <% else %>

@@ -50,9 +50,9 @@ class UserTest < ActiveSupport::TestCase
     leo.follow!(bob)
     leo.follow!(jane)
 
-    assert_equal 2, leo.following.count
-    assert_includes leo.following, bob
-    assert_includes leo.following, jane
+    assert_equal 2, leo.followings.count
+    assert_includes leo.followings, bob
+    assert_includes leo.followings, jane
   end
 
   test 'has many followers' do

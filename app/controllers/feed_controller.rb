@@ -4,7 +4,7 @@ class FeedController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    following_ids = current_user.following.pluck(:id)
+    following_ids = current_user.followings.pluck(:id)
 
     activities_query = UserActivity
                        .for_users(following_ids)

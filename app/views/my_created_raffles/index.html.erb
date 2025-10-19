@@ -31,7 +31,7 @@
       icon: '📭',
       title: "You haven't created any active raffles",
       description: 'Start a new raffle and reach thousands of potential participants',
-      action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-rounded").html_safe
+      action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary u-borderRadius50").html_safe
     ) %>
   <% elsif @status_filter == 'completed' %>
     <%= render UI::EmptyState.new(

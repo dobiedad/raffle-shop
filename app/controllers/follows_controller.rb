@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: root_path, notice: "You are now following #{@user.email}" }
+      format.html { redirect_to user_path(@user), notice: "You are now following #{@user.email}" }
     end
   end
 
@@ -18,7 +18,7 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: root_path, notice: "You unfollowed #{@user.email}" }
+      format.html { redirect_to user_path(@user), notice: "You unfollowed #{@user.email}" }
     end
   end
 

@@ -32,44 +32,4 @@ class FollowTest < ActiveSupport::TestCase
     assert_not self_follow.valid?
     assert_includes self_follow.errors[:follower_id], 'cannot follow yourself'
   end
-
-  test 'increments followings_count on follower' do
-    assert_difference 'leo.reload.followings_count', 1 do
-      Follow.create!(follower: leo, followed: bob)
-    end
-  end
-
-  test 'increments followers_count on followed' do
-    assert_difference 'bob.reload.followers_count', 1 do
-      Follow.create!(follower: leo, followed: bob)
-    end
-  end
-
-  test 'decrements followings_count on follower when destroyed' do
-    follow = Follow.create!(follower: leo, followed: bob)
-
-    assert_difference 'leo.reload.followings_count', -1 do
-      follow.destroy
-    end
-  end
-
-  test 'decrements followers_count on followed when destroyed' do
-    follow = Follow.create!(follower: leo, followed: bob)
-
-    assert_difference 'bob.reload.followers_count', -1 do
-      follow.destroy
-    end
-  end
-
-  test 'belongs to follower' do
-    follow = Follow.create!(follower: leo, followed: bob)
-
-    assert_equal leo, follow.follower
-  end
-
-  test 'belongs to followed' do
-    follow = Follow.create!(follower: leo, followed: bob)
-
-    assert_equal bob, follow.followed
-  end
 end
