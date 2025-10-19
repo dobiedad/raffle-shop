@@ -36,6 +36,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
                      message: 'cannot be more than 10 images' }
 
   after_initialize -> { self.platform_fee_percent = PLATFORM_FEE_PERCENTAGE }, if: :new_record?
+  after_create :create_raffle_activity
 
   attr_readonly :platform_fee_percent, :ticket_price
 
@@ -58,7 +59,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     %w[user]
   end
 
-  def buy_tickets(buyer:, quantity: 1)
+  def buy_tickets(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return false unless can_actually_buy_tickets?(buyer: buyer, quantity: quantity)
 
     ActiveRecord::Base.transaction do
@@ -78,6 +79,8 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
                     end
 
       buyer.wallet.deduct(ticket_price * quantity, description, transaction_type: :ticket_purchase)
+
+      UserActivity.create_entry_activity(buyer, self)
 
       tickets
     end
@@ -101,6 +104,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
       )
 
       distribute_funds!
+      create_win_activity
       winner
     end
   end
@@ -177,5 +181,15 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
       "Payout for raffle: #{name}",
       transaction_type: :seller_payout
     )
+  end
+
+  def create_raffle_activity
+    UserActivity.create_raffle_activity(user, self)
+  end
+
+  def create_win_activity
+    return if winner.blank?
+
+    UserActivity.create_win_activity(winner, self)
   end
 end

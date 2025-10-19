@@ -1,0 +1,89 @@
+<section class="section user-profile" style="background-color:#f8f9fb; min-height:100vh;">
+  <div class="container">
+    <div class="columns is-variable is-6">
+      <div class="column is-two-thirds-tablet is-three-quarters-desktop">
+        <div class="box" style="border-radius:12px;">
+          <h2 class="title is-4 mb-4">Your Feed</h2>
+          <p class="has-text-grey is-size-6 mb-5">Recent activity from people you follow</p>
+
+          <% if @activities.present? %>
+            <table class="table is-fullwidth is-hoverable" style="font-size: 0.95rem;">
+              <tbody>
+                <% @activities.each do |activity| %>
+                  <% 
+                    icon = {
+                      'created_raffle' => '🆕',
+                      'entered_raffle' => '🎟️',
+                      'won_raffle'     => '🏆',
+                      'followed_user'  => '➕'
+                    }.fetch(activity.activity_type, '•')
+                    
+                    description = case activity.activity_type
+                    when 'created_raffle'
+                      if activity.subject
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
+                      else
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle".html_safe
+                      end
+                    when 'entered_raffle'
+                      if activity.subject
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} entered #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
+                      else
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} entered a raffle".html_safe
+                      end
+                    when 'won_raffle'
+                      if activity.subject
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} won #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'} 🎉".html_safe
+                      else
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} won a raffle 🎉".html_safe
+                      end
+                    when 'followed_user'
+                      if activity.subject
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} followed #{link_to activity.subject.email, user_path(activity.subject), class: 'has-text-link'}".html_safe
+                      else
+                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} followed someone".html_safe
+                      end
+                    else
+                      "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} did something".html_safe
+                    end
+                  %>
+                  <tr>
+                    <td width="30" style="padding: 1rem 0.75rem;">
+                      <span class="icon">
+                        <%= icon %>
+                      </span>
+                    </td>
+                    <td style="padding: 1rem 0.75rem;"><%= description %></td>
+                    <td class="has-text-right has-text-grey" style="white-space: nowrap; padding: 1rem 0.75rem;">
+                      <%= time_ago_in_words(activity.created_at) %> ago
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            
+            <div class="mt-4">
+              <%= render UI::Pagination.new(pagy: @pagy) %>
+            </div>
+          <% else %>
+            <%= render UI::EmptyState.new(
+              title: 'No activity yet',
+              description: 'Follow people to see their activity here',
+              action: link_to("Browse Raffles", root_path, class: "button is-primary is-small").html_safe
+            ) %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="column is-one-third-tablet is-one-quarter-desktop">
+        <div class="is-hidden-mobile" style="position: sticky; top: 1rem;">
+          <%= render 'shared/top_creators' %>
+          <div class="mt-4"></div>
+          <%= render 'shared/top_winners' %>
+          <div class="mt-4"></div>
+          <%= render 'shared/who_to_follow' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

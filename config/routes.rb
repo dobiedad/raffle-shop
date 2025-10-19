@@ -9,7 +9,18 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
+  resources :users, only: [:show] do
+    member do
+      post :follow, to: 'follows#create'
+      delete :unfollow, to: 'follows#destroy'
+      get :followers
+      get :following
+      get :raffles
+    end
+  end
+
   resource :profile, only: [:show], controller: 'users'
+  get 'feed', to: 'feed#index', as: :feed
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

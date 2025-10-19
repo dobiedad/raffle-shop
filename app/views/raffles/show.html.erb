@@ -2,11 +2,15 @@
   <div class="container">
 
     <div class="raffle-meta has-background-white-bis p-4 mb-5 is-flex is-align-items-center is-justify-content-space-between">
-      <div>
-        <p class="is-size-7 has-text-grey">Raffle ID #<%= @raffle.id %></p>
-        <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.email %></strong></p>
-      </div>
-      <div>
+      <%= link_to user_path(@raffle.user), class: "is-flex is-align-items-center", style: "gap: 1rem;" do %>
+        <%= image_tag user_avatar_url(@raffle.user), alt: @raffle.user.email, class: "is-rounded", style: "width: 48px; height: 48px;" %>
+        <div>
+          <p class="is-size-7 has-text-grey">Raffle ID #<%= @raffle.id %></p>
+          <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.email %></strong></p>
+        </div>
+      <% end %>
+      <div class="is-flex is-align-items-center" style="gap: 1rem;">
+        <%= follow_button_for(@raffle.user) %>
         <span class="tag <%= status_tag_class(@raffle) %>"><%= @raffle.status.titleize %></span>
       </div>
     </div>

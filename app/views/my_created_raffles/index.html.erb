@@ -1,87 +1,43 @@
-<div class="section raffles-index" style="background-color: #f9fafb;">
-  <div class="container">
-
-    <%= render UI::PageHeader.new(
-      title: '🎫 My Raffles',
-      subtitle: "Manage your created raffles and track raffles you're participating in"
+<%= render UI::RaffleListWithTabs.new(
+  title: '🎫 My Raffles',
+  subtitle: "Manage your created raffles and track raffles you're participating in",
+  user: current_user,
+  current_user: current_user,
+  raffles: @raffles,
+  pagy: @pagy,
+  tab_filter: 'created',
+  status_filter: @status_filter,
+  tabs: [
+    {
+      name: 'created',
+      label: 'Created by Me',
+      icon: '📝',
+      path: my_created_raffles_path(status: @status_filter),
+      active_path: my_created_raffles_path(status: 'active'),
+      completed_path: my_created_raffles_path(status: 'completed')
+    },
+    {
+      name: 'participating',
+      label: 'Participating In',
+      icon: '🎟️',
+      path: my_participating_raffles_path(status: @status_filter),
+      active_path: my_participating_raffles_path(status: 'active'),
+      completed_path: my_participating_raffles_path(status: 'completed')
+    }
+  ]
+) do %>
+  <% if @status_filter == 'active' %>
+    <%= render UI::EmptyState.new(
+      icon: '📭',
+      title: "You haven't created any active raffles",
+      description: 'Start a new raffle and reach thousands of potential participants',
+      action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-rounded").html_safe
     ) %>
-
-    <div class="tabs is-centered is-boxed mb-6">
-      <ul>
-        <li class="is-active">
-          <%= link_to my_created_raffles_path(status: @status_filter) do %>
-            <span class="icon is-small">📝</span>
-            <span>Created by Me</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to my_participating_raffles_path(status: @status_filter) do %>
-            <span class="icon is-small">🎟️</span>
-            <span>Participating In</span>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-
-    <div class="buttons are-small is-centered mb-6">
-      <%= link_to 'Active', my_created_raffles_path(status: 'active'),
-          class: "button is-light is-rounded #{'is-active' if @status_filter == 'active'}" %>
-      <%= link_to 'Completed', my_created_raffles_path(status: 'completed'),
-          class: "button is-light is-rounded #{'is-active' if @status_filter == 'completed'}" %>
-    </div>
-
-    <% if @raffles.present? %>
-      <div class="columns is-multiline" style="margin-top: 1rem;">
-        <% @raffles.each do |raffle| %>
-          <div class="column is-one-third-desktop is-half-tablet">
-            <%
-              badge_text = if @status_filter == 'completed'
-                if raffle.completed? && raffle.winner
-                  "🏆 Winner: #{raffle.winner.email.split('@').first}"
-                elsif raffle.cancelled?
-                  "❌ Cancelled"
-                else
-                  "Completed"
-                end
-              else
-                nil
-              end
-            %>
-            <%= render UI::RaffleCard.new(raffle: raffle, badge_text: badge_text) %>
-          </div>
-        <% end %>
-      </div>
-
-      <%= render UI::Pagination.new(pagy: @pagy) %>
-
-      <p class="has-text-centered is-size-7 has-text-grey mt-2">
-        Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
-      </p>
-    <% else %>
-      <% if @status_filter == 'active' %>
-        <%= render UI::EmptyState.new(
-          icon: "📭",
-          title: "You haven't created any active raffles",
-          description: "Start a new raffle and reach thousands of potential participants",
-          action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-light")
-        ) %>
-      <% elsif @status_filter == 'completed' %>
-        <%= render UI::EmptyState.new(
-          icon: "🏁",
-          title: "No completed raffles yet",
-          description: "Raffles you create will show here once they're completed",
-          action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-light")
-        ) %>
-      <% end %>
-    <% end %>
-
-  </div>
-</div>
-
-<style>
-  .button.is-rounded.is-active {
-    background-color: #4f46e5;
-    color: #fff;
-    font-weight: 600;
-  }
-</style>
+  <% elsif @status_filter == 'completed' %>
+    <%= render UI::EmptyState.new(
+      icon: '🏁',
+      title: 'No completed raffles yet',
+      description: "Raffles you create will show here once they're completed"
+    ) %>
+  <% end %>
+<% end %>

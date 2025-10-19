@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+class Follow < ApplicationRecord
+  belongs_to :follower, class_name: 'User', counter_cache: :followings_count
+  belongs_to :followed, class_name: 'User', counter_cache: :followers_count
+
+  validates :follower_id, uniqueness: { scope: :followed_id }
+  validate :not_self_follow
+
+  after_create :create_follow_activity
+
+  private
+
+  def not_self_follow
+    errors.add(:follower_id, 'cannot follow yourself') if follower_id == followed_id
+  end
+
+  def create_follow_activity
+    UserActivity.create_follow_activity(follower, followed)
+  end
+end

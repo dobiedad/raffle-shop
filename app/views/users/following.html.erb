@@ -1,0 +1,34 @@
+<div class="section" style="background-color: #f9fafb;">
+  <div class="container">
+    <%= render UI::PageHeader.new(
+      title: "#{@user.email}'s Following",
+      subtitle: "#{@user.followings_count} following"
+    ) %>
+
+    <% if @following.present? %>
+      <div class="box">
+        <% @following.each do |followed_user| %>
+          <div class="is-flex is-align-items-center is-justify-content-space-between mb-4 pb-4" style="border-bottom: 1px solid #f5f5f5;">
+            <div class="is-flex is-align-items-center" style="gap: 1rem;">
+              <%= image_tag user_avatar_url(followed_user), alt: followed_user.email, class: "is-rounded", style: "width: 48px; height: 48px;" %>
+              <div>
+                <p class="has-text-weight-semibold"><%= followed_user.email %></p>
+                <p class="is-size-7 has-text-grey">
+                  <%= followed_user.followers_count %> followers · <%= followed_user.followings_count %> following
+                </p>
+              </div>
+            </div>
+            <%= follow_button_for(followed_user) %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= render UI::Pagination.new(pagy: @pagy) %>
+    <% else %>
+      <%= render UI::EmptyState.new(
+        title: 'Not following anyone yet'
+      ) %>
+    <% end %>
+  </div>
+</div>
+

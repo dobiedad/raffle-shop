@@ -22,4 +22,11 @@ module UsersHelper
 
     safe_join(achievements)
   end
+
+  def follow_button_for(user, size: 'is-small', style: nil)
+    return '' if user == current_user
+    return '' unless user_signed_in?
+
+    render partial: 'shared/follow_button', locals: { user: user, button_size: size, button_style: style }
+  end
 end

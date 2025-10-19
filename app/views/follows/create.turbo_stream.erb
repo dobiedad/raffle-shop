@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "follow-button-#{@user.id}" do %>
+  <%= render partial: 'shared/follow_button', locals: { user: @user, button_size: 'is-small', button_style: nil } %>
+<% end %>
+

@@ -1,0 +1,83 @@
+leo_created_iphone:
+  user: leo
+  activity_type: created_raffle
+  subject: iphone_giveaway (Raffle)
+  created_at: 2025-10-14 04:35:00 UTC
+
+bob_entered_iphone:
+  user: bob
+  activity_type: entered_raffle
+  subject: iphone_giveaway (Raffle)
+  created_at: 2025-10-15 04:35:00 UTC
+
+jane_won_ps5:
+  user: jane
+  activity_type: won_raffle
+  subject: ps5_bundle (Raffle)
+  created_at: 2025-10-16 04:35:00 UTC
+
+leo_entered_dyson_comb:
+  user: leo
+  activity_type: entered_raffle
+  subject: dyson_comb (Raffle)
+  created_at: 2025-10-17 04:35:00 UTC
+
+bob_created_rolex:
+  user: bob
+  activity_type: created_raffle
+  subject: rolex_yacht_master (Raffle)
+  created_at: 2025-10-18 04:35:00 UTC
+
+leo_entered_rolex:
+  user: leo
+  activity_type: entered_raffle
+  subject: rolex_yacht_master (Raffle)
+  created_at: 2025-10-18 16:35:00 UTC
+
+jane_entered_rolex:
+  user: jane
+  activity_type: entered_raffle
+  subject: rolex_yacht_master (Raffle)
+  created_at: 2025-10-18 20:35:00 UTC
+
+jane_created_hublot:
+  user: jane
+  activity_type: created_raffle
+  subject: hublot_king_power (Raffle)
+  created_at: 2025-10-18 22:35:00 UTC
+
+bob_entered_hublot:
+  user: bob
+  activity_type: entered_raffle
+  subject: hublot_king_power (Raffle)
+  created_at: 2025-10-19 00:35:00 UTC
+
+leo_entered_hublot:
+  user: leo
+  activity_type: entered_raffle
+  subject: hublot_king_power (Raffle)
+  created_at: 2025-10-19 02:35:00 UTC
+
+bob_followed_leo:
+  user: bob
+  activity_type: followed_user
+  subject: leo (User)
+  created_at: 2025-10-15 10:00:00 UTC
+
+jane_followed_leo:
+  user: jane
+  activity_type: followed_user
+  subject: leo (User)
+  created_at: 2025-10-16 14:30:00 UTC
+
+leo_followed_jane:
+  user: leo
+  activity_type: followed_user
+  subject: jane (User)
+  created_at: 2025-10-17 09:15:00 UTC
+
+bob_followed_jane:
+  user: bob
+  activity_type: followed_user
+  subject: jane (User)
+  created_at: 2025-10-18 16:45:00 UTC
