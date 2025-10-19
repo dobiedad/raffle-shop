@@ -60,19 +60,21 @@
         Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
       </p>
     <% else %>
-      <div class="has-text-centered py-6" style="margin-top: 2rem;">
-        <% if @status_filter == 'active' %>
-          <p class="is-size-4 mb-4">🎟️</p>
-          <p class="is-size-5 has-text-grey-dark mb-3">You're not participating in any active raffles</p>
-          <p class="is-size-6 has-text-grey mb-5">Browse active raffles and buy tickets to get started</p>
-          <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-rounded" %>
-        <% elsif @status_filter == 'completed' %>
-          <p class="is-size-4 mb-4">🏁</p>
-          <p class="is-size-5 has-text-grey-dark mb-3">No completed raffles yet</p>
-          <p class="is-size-6 has-text-grey mb-5">Raffles you participate in will show here once they're completed.</p>
-          <%= link_to "Browse Raffles", raffles_path, class: "button is-primary is-rounded" %>
-        <% end %>
-      </div>
+      <% if @status_filter == 'active' %>
+        <%= render UI::EmptyState.new(
+          icon: "🎟️",
+          title: "You're not participating in any active raffles",
+          description: "Browse active raffles and buy tickets to get started",
+          action: link_to("Browse Raffles", raffles_path, class: "button is-primary is-light")
+        ) %>
+      <% elsif @status_filter == 'completed' %>
+        <%= render UI::EmptyState.new(
+          icon: "🏁",
+          title: "No completed raffles yet",
+          description: "Raffles you participate in will show here once they're completed",
+          action: link_to("Browse Raffles", raffles_path, class: "button is-primary is-light")
+        ) %>
+      <% end %>
     <% end %>
 
   </div>

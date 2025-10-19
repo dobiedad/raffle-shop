@@ -87,12 +87,10 @@
             </table>
             <%= link_to "View Full History →", wallet_path, class: "has-text-link is-size-7" %>
           <% else %>
-            <div class="has-text-centered py-5">
-              <p class="has-text-grey">No recent activity</p>
-              <p class="is-size-7 has-text-grey mt-2">
-                Your ticket purchases and raffle entries will appear here
-              </p>
-            </div>
+            <%= render UI::EmptyState.new(
+              title: "No recent activity",
+              description: "Your ticket purchases and raffle entries will appear here"
+            ) %>
           <% end %>
         </div>
       </div>
