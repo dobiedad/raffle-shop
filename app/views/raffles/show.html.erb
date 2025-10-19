@@ -49,25 +49,7 @@
             </div>
           </div>
 
-          <div class="mb-5">
-            <p class="is-size-6 has-text-grey-dark">
-              Tickets sold: <strong><%= tickets_sold_display(@raffle) %></strong> / <%= @raffle.max_tickets %>
-            </p>
-            <progress class="progress is-primary"
-                      value="<%= @raffle.tickets_sold_count %>"
-                      max="<%= @raffle.max_tickets || 500 %>">
-              <%= progress_percentage(@raffle) %>%
-            </progress>
-
-            <p class="is-size-6 mt-2">
-              💰 <strong>$<%= number_with_precision(@raffle.amount_raised, precision: 2) %></strong>
-              raised of $<%= number_with_precision(@raffle.price, precision: 2) %> goal
-            </p>
-
-            <p class="is-size-7 has-text-grey mt-3">
-              👀 <%= pluralize(5, 'person') %> viewed this raffle today
-            </p>
-          </div>
+          <%= render UI::RaffleProgress.new(raffle: @raffle) %>
 
           <% if @raffle.completed? %>
             <%= render UI::NotificationBanner.new(

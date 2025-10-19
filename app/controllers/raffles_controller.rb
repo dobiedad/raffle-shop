@@ -39,6 +39,7 @@ class RafflesController < ApplicationController
     current_user.raffles.build(
       name: 'Sample Raffle',
       ticket_price: 3.50,
+      price: 1000,
       general_description: 'Add details to see your preview...'
     )
   end
