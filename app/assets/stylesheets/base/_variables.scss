@@ -24,3 +24,8 @@ $button-background-color: #4F46E5;
 $button-color: #ffffff;
 $button-border-color: transparent;
 $button-hover-background-color: #4338CA;
+
+
+$primary-strong: $primary;
+$primary-accent: adjust-hue($primary-strong, 35deg);   // neighbor hue
+$primary-soft:   lighten($primary-strong, 10%);        // lighter tone
