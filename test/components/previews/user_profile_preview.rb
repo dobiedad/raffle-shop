@@ -33,9 +33,8 @@ class UserProfilePreview < ComponentPreview
   end
 
   def profile_with_no_activity
-    user = User.create!(
-      email: 'newuser@example.com',
-      password: 'password123'
+    user = User.find_or_create_by!(
+      email: 'newuser@example.com'
     )
 
     render UI::UserProfile.new(
