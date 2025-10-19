@@ -4,13 +4,7 @@ module UI
   class PageHeader < ApplicationViewComponent
     attribute :title
     attribute :subtitle
-
-    def title?
-      title.present?
-    end
-
-    def subtitle?
-      subtitle.present?
-    end
+    attribute :title_size, default: '2'
+    attribute :subtitle_size, default: '5'
   end
 end

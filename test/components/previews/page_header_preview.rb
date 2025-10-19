@@ -10,22 +10,12 @@ class PageHeaderPreview < ComponentPreview
     )
   end
 
-  def with_title_only
+  def with_different_title_and_subtitle_sizes
     render UI::PageHeader.new(
-      title: '🎯 My Dashboard'
-    )
-  end
-
-  def with_subtitle_only
-    render UI::PageHeader.new(
-      subtitle: 'Browse through our collection of amazing items'
-    )
-  end
-
-  def simple_text
-    render UI::PageHeader.new(
-      title: 'Settings',
-      subtitle: 'Manage your account preferences and notification settings.'
+      title: '🎟️ Current Raffles',
+      subtitle: 'Enter raffles for the latest gadgets, collectibles, and more — starting from just $1 per ticket.',
+      title_size: 3,
+      subtitle_size: 7
     )
   end
 end
