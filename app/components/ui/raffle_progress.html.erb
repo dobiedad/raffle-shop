@@ -1,0 +1,22 @@
+<div class="<%= compact ? 'mb-3' : 'mb-5' %>">
+  <p class="is-size-<%= compact ? '7' : '6' %> has-text-grey-dark">
+    Tickets sold: <strong><%= tickets_sold_display %></strong> / <%= max_tickets %>
+  </p>
+  <progress class="progress is-primary"
+            value="<%= raffle.tickets_sold_count %>"
+            max="<%= max_tickets %>">
+    <%= progress_percentage %>%
+  </progress>
+
+  <p class="is-size-<%= compact ? '7' : '6' %> mt-2">
+    💰 <strong>$<%= number_with_precision(amount_raised, precision: 2) %></strong>
+    raised of $<%= number_with_precision(price_goal, precision: 2) %> goal
+  </p>
+
+  <% unless compact %>
+    <p class="is-size-7 has-text-grey mt-3">
+      👀 <%= pluralize(5, 'person') %> viewed this raffle today
+    </p>
+  <% end %>
+</div>
+

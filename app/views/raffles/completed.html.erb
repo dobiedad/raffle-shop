@@ -18,7 +18,7 @@
         <span class="icon">
           <span>🎟️</span>
         </span>
-        <span>View Active Raffles</span>
+        <span>Active Raffles</span>
       <% end %>
     </div>
 
@@ -43,7 +43,7 @@
       <div class="columns is-multiline">
         <% @raffles.each do |raffle| %>
           <div class="column is-one-third-desktop is-half-tablet">
-            <% 
+            <%
               badge_text = if raffle.completed?
                 raffle.winner ? "🏆 Winner: #{raffle.winner.email.split('@').first}" : "Completed"
               else
@@ -96,4 +96,3 @@
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
-
