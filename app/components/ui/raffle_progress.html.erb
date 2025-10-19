@@ -9,8 +9,8 @@
   </progress>
 
   <p class="is-size-<%= compact ? '7' : '6' %> mt-2">
-    💰 <strong>$<%= number_with_precision(amount_raised, precision: 2) %></strong>
-    raised of $<%= number_with_precision(price_goal, precision: 2) %> goal
+    💰 <strong><%= helpers.format_currency(amount_raised) %></strong>
+    raised of <%= helpers.format_currency(price_goal) %> goal
   </p>
 
   <% unless compact %>
@@ -19,4 +19,3 @@
     </p>
   <% end %>
 </div>
-

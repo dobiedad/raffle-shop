@@ -44,11 +44,11 @@
           <div class="is-flex mb-5" style="gap: 1rem;">
             <div class="box has-text-centered is-flex-grow-1">
               <p class="heading has-text-grey">Price Target</p>
-              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.price, precision: 2) %></p>
+              <p class="title is-4 has-text-primary"><%= format_currency(@raffle.price) %></p>
             </div>
             <div class="box has-text-centered is-flex-grow-1">
               <p class="heading has-text-grey">Ticket Price</p>
-              <p class="title is-4 has-text-primary">$<%= number_with_precision(@raffle.ticket_price, precision: 2) %></p>
+              <p class="title is-4 has-text-primary"><%= format_currency(@raffle.ticket_price) %></p>
             </div>
           </div>
 
