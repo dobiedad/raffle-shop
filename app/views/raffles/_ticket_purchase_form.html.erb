@@ -1,9 +1,9 @@
-<div class="box" data-controller="ticket-purchase" data-ticket-price="<%= raffle.ticket_price %>">
+<div class="box" data-controller="ticket-purchase" data-ticket-price="<%= raffle.ticket_price %>" data-currency-symbol="<%= Rails.application.config.x.currency_symbol %>">
   <% if current_user.balance && current_user.balance > 0 %>
     <p class="mb-3">
       💰 Your Balance:
       <strong class="has-text-primary">
-        $<%= number_with_precision(current_user.balance, precision: 2) %>
+        <%= format_currency(current_user.balance) %>
       </strong>
     </p>
   <% end %>
@@ -39,10 +39,10 @@
     </div>
 
     <p class="is-size-7 has-text-grey mt-2">
-      $<%= number_with_precision(raffle.ticket_price, precision: 2) %> per ticket —
+      <%= format_currency(raffle.ticket_price) %> per ticket —
       total
       <span data-ticket-purchase-target="total" class="has-text-weight-bold">
-        $<%= number_with_precision(raffle.ticket_price, precision: 2) %>
+        <%= format_currency(raffle.ticket_price) %>
       </span>
     </p>
   <% end %>

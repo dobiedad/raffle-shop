@@ -36,7 +36,7 @@
               <strong><%= tickets.count %></strong>
             </p>
             <p class="is-size-7 has-text-grey">Total spent:
-              <strong>$<%= number_with_precision(tickets.sum(&:price), precision: 2) %></strong>
+              <strong><%= format_currency(tickets.sum(&:price)) %></strong>
             </p>
           </div>
         </div>

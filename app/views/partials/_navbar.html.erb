@@ -34,7 +34,7 @@
             <%= link_to wallet_path, class: "app-wallet" do %>
               <span class="app-wallet-icon">💰</span>
               <span class="app-wallet-label">Wallet</span>
-              <span class="app-wallet-balance"><%= number_to_currency(current_user.wallet.balance) %></span>
+              <span class="app-wallet-balance"><%= format_currency(current_user.wallet.balance) %></span>
             <% end %>
           </div>
 

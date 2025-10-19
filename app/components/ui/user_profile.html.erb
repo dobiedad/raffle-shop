@@ -53,7 +53,7 @@
       <div class="column is-one-third">
         <div class="box has-text-centered" style="border-radius:12px;">
           <h2 class="title is-6 mb-3">💰 Total Spent</h2>
-          <p class="is-size-3 has-text-weight-semibold">$<%= number_with_precision(total_spent, precision: 2) %></p>
+          <p class="is-size-3 has-text-weight-semibold"><%= helpers.format_currency(total_spent) %></p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
             <div class="is-flex is-justify-content-space-between is-align-items-center">
               <div>
                 <h2 class="title is-6 mb-2">Wallet Balance</h2>
-                <p class="is-size-4 has-text-weight-semibold">$<%= number_with_precision(wallet_balance, precision: 2) %></p>
+                <p class="is-size-4 has-text-weight-semibold"><%= helpers.format_currency(wallet_balance) %></p>
               </div>
               <div class="buttons">
                 <%= link_to "Add Funds", "#", class: "button is-primary is-small", onclick: "alert('Add funds feature coming soon!'); return false;" %>

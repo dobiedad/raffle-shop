@@ -13,10 +13,10 @@
   <!-- NAME -->
   <div class="field mb-5">
     <%= form.label :name, "Raffle Name", class: "label has-text-weight-medium" %>
-    <%= form.text_field :name, 
-        class: "input is-medium", 
+    <%= form.text_field :name,
+        class: "input is-medium",
         placeholder: "e.g. PlayStation 5 Slim + Extra Controller",
-        data: { 
+        data: {
           raffle_preview_target: "name",
           action: "input->raffle-preview#updateName"
         } %>
@@ -27,18 +27,18 @@
     <div class="column">
       <div class="field">
         <%= form.label :price, "Price Target", class: "label has-text-weight-medium" %>
-        <%= form.number_field :price, class: "input is-medium", step: 0.01, placeholder: "550.00" %>
+        <%= form.number_field :price, class: "input is-medium", step: 0.01, placeholder: format_currency("550.00") %>
         <p class="help">Total value you want to reach</p>
       </div>
     </div>
     <div class="column">
       <div class="field">
         <%= form.label :ticket_price, "Ticket Price", class: "label has-text-weight-medium" %>
-        <%= form.number_field :ticket_price, 
-            class: "input is-medium", 
-            step: 0.01, 
-            placeholder: "3.50",
-            data: { 
+        <%= form.number_field :ticket_price,
+            class: "input is-medium",
+            step: 0.01,
+            placeholder: format_currency("3.50"),
+            data: {
               raffle_preview_target: "ticketPrice",
               action: "input->raffle-preview#updateTicketPrice"
             } %>
@@ -81,9 +81,9 @@
   <div class="field mb-6">
     <%= form.label :general_description, "General Description", class: "label has-text-weight-medium" %>
     <p class="help mb-2">Describe your item in detail.</p>
-    <%= form.rich_text_area :general_description, 
+    <%= form.rich_text_area :general_description,
         placeholder: "Describe your raffle in detail...",
-        data: { 
+        data: {
           raffle_preview_target: "description",
           action: "trix-change->raffle-preview#updateDescription"
         } %>
@@ -93,7 +93,7 @@
   <div class="field mb-6">
     <%= form.label :condition_description, "Condition Description", class: "label has-text-weight-medium" %>
     <p class="help mb-2">Detail the condition of the item.</p>
-    <%= form.rich_text_area :condition_description, 
+    <%= form.rich_text_area :condition_description,
         placeholder: "Describe the condition..." %>
   </div>
 
@@ -101,7 +101,7 @@
   <div class="field mb-6">
     <%= form.label :whats_included_description, "What's Included", class: "label has-text-weight-medium" %>
     <p class="help mb-2">List everything that comes with the item.</p>
-    <%= form.rich_text_area :whats_included_description, 
+    <%= form.rich_text_area :whats_included_description,
         placeholder: "List what's included..." %>
   </div>
 
@@ -109,12 +109,12 @@
   <div class="field mb-6">
     <%= form.label :extra_description, "Extra Information", class: "label has-text-weight-medium" %>
     <p class="help mb-2">Any additional information you'd like to share.</p>
-    <%= form.rich_text_area :extra_description, 
+    <%= form.rich_text_area :extra_description,
         placeholder: "Add any extra details..." %>
   </div>
 
   <!-- IMAGES -->
-  <div class="field mt-6" 
+  <div class="field mt-6"
        data-controller="image-upload"
        data-action="image-upload:imagesChanged->raffle-preview#handleImagesChanged">
     <%= form.label :images, "Images", class: "label has-text-weight-medium" %>
@@ -131,7 +131,7 @@
       </div>
       <%= form.file_field :images, multiple: true, accept: "image/*", direct_upload: true,
           class: "hidden-file-input",
-          data: { 
+          data: {
             image_upload_target: "input",
             action: "change->image-upload#handleFiles"
           } %>
