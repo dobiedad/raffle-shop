@@ -34,7 +34,7 @@
       <div class="columns is-multiline" style="margin-top: 1rem;">
         <% @raffles.each do |raffle| %>
           <div class="column is-one-third-desktop is-half-tablet">
-            <% 
+            <%
               badge_text = if @status_filter == 'completed'
                 if raffle.completed? && raffle.winner
                   "🏆 Winner: #{raffle.winner.email.split('@').first}"
@@ -58,18 +58,21 @@
         Showing <%= @pagy.from %>–<%= @pagy.to %> of <%= @pagy.count %> raffles
       </p>
     <% else %>
-      <div class="has-text-centered py-6" style="margin-top: 2rem;">
-        <% if @status_filter == 'active' %>
-          <p class="is-size-4 mb-4">📭</p>
-          <p class="is-size-5 has-text-grey-dark mb-3">You haven't created any active raffles</p>
-          <p class="is-size-6 has-text-grey mb-5">Start a new raffle and reach thousands of potential participants</p>
-          <%= link_to "Create Your First Raffle", new_raffle_path, class: "button is-primary is-rounded" %>
-        <% elsif @status_filter == 'completed' %>
-          <p class="is-size-4 mb-4">🏁</p>
-          <p class="is-size-5 has-text-grey-dark mb-3">No completed raffles yet</p>
-          <p class="is-size-6 has-text-grey mb-5">Raffles you create will show here once they're completed</p>
-        <% end %>
-      </div>
+      <% if @status_filter == 'active' %>
+        <%= render UI::EmptyState.new(
+          icon: "📭",
+          title: "You haven't created any active raffles",
+          description: "Start a new raffle and reach thousands of potential participants",
+          action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-light")
+        ) %>
+      <% elsif @status_filter == 'completed' %>
+        <%= render UI::EmptyState.new(
+          icon: "🏁",
+          title: "No completed raffles yet",
+          description: "Raffles you create will show here once they're completed",
+          action: link_to("Create Your First Raffle", new_raffle_path, class: "button is-primary is-light")
+        ) %>
+      <% end %>
     <% end %>
 
   </div>
