@@ -31,20 +31,4 @@ class UserProfilePreview < ComponentPreview
       recent_activities: RecentActivities.build(user).activities
     )
   end
-
-  def profile_with_no_activity
-    user = User.find_or_create_by!(
-      email: 'newuser@example.com'
-    )
-
-    render UI::UserProfile.new(
-      user: user,
-      current_user: User.first,
-      tickets_entered_count: 0,
-      total_spent: 0,
-      raffles_won_count: 0,
-      wallet_balance: nil,
-      recent_activities: []
-    )
-  end
 end
