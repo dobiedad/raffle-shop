@@ -27,7 +27,7 @@ $button-hover-background-color: #4338CA;
 
 
 $primary-strong: $primary;
-$primary-soft:   lighten($primary-strong, 10%);
+$primary-soft: lighten($primary-strong, 10%);
 
 $primary: #4F46E5;
 $primary-accent: adjust-hue($primary, 35deg);

@@ -1,11 +1,12 @@
 <section class="section user-profile" style="background-color:#f8f9fb; min-height:100vh;">
-  <div class="container">
+  <div class="container is-max-widescreen">
+    <%= render UI::PageHeader.new(
+      title: '📰 Activity Feed',
+      subtitle: 'Recent activity from people you follow — new raffles, entries, and wins.'
+    ) %>
     <div class="columns is-variable is-6">
       <div class="column is-two-thirds-tablet is-three-quarters-desktop">
         <div class="box" style="border-radius:12px;">
-          <h2 class="title is-4 mb-4">Your Feed</h2>
-          <p class="has-text-grey is-size-6 mb-5">Recent activity from people you follow</p>
-
           <% if @activities.present? %>
             <table class="table is-fullwidth is-hoverable" style="font-size: 0.95rem;">
               <tbody>
