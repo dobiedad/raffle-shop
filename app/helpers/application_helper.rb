@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def format_currency(amount)
-    "#{currency_symbol}#{number_with_precision(amount, precision: 2)}"
+    number_to_currency(amount, unit: currency_symbol, precision: 2)
   end
 end
