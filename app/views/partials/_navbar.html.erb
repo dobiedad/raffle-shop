@@ -41,7 +41,7 @@
           <a href="<%= wallet_path %>" class="navbar-item" aria-label="Wallet">
             <span class="tags has-addons">
               <span class="tag is-light">💰 Wallet</span>
-              <span class="tag is-info">
+              <span class="tag is-info is-walletGradient">
                 <%= number_to_currency(current_user.wallet&.balance || 0) %>
               </span>
             </span>
