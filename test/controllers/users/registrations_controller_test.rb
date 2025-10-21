@@ -58,5 +58,71 @@ module Users
       assert_response :unprocessable_entity
       assert_template 'devise/registrations/edit'
     end
+
+    test 'sets referred_by when valid referrer_code is provided' do
+      sign_out @user
+      referrer = users(:leo)
+
+      assert_difference 'User.count', 1 do
+        post user_registration_path, params: {
+          user: {
+            first_name: 'New',
+            last_name: 'User',
+            email: 'newuser@example.com',
+            password: 'password123',
+            password_confirmation: 'password123',
+            referrer_code: referrer.referral_code
+          }
+        }
+      end
+
+      new_user = User.find_by(email: 'newuser@example.com')
+
+      assert_not_nil new_user
+      assert_equal referrer, new_user.referred_by
+    end
+
+    test 'does not set referred_by when invalid referrer_code is provided' do
+      sign_out @user
+
+      assert_difference 'User.count', 1 do
+        post user_registration_path, params: {
+          user: {
+            first_name: 'New',
+            last_name: 'User',
+            email: 'newuser2@example.com',
+            password: 'password123',
+            password_confirmation: 'password123',
+            referrer_code: 'INVALID_CODE'
+          }
+        }
+      end
+
+      new_user = User.find_by(email: 'newuser2@example.com')
+
+      assert_not_nil new_user
+      assert_nil new_user.referred_by
+    end
+
+    test 'does not set referred_by when no referrer_code is provided' do
+      sign_out @user
+
+      assert_difference 'User.count', 1 do
+        post user_registration_path, params: {
+          user: {
+            first_name: 'New',
+            last_name: 'User',
+            email: 'newuser3@example.com',
+            password: 'password123',
+            password_confirmation: 'password123'
+          }
+        }
+      end
+
+      new_user = User.find_by(email: 'newuser3@example.com')
+
+      assert_not_nil new_user
+      assert_nil new_user.referred_by
+    end
   end
 end

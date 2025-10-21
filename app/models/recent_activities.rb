@@ -60,7 +60,7 @@ class RecentActivities
   end
 
   def sort_and_format_activities
-    self.activities = activities.sort_by { |a| a[:timestamp] }.reverse.first(10).each do |activity|
+    self.activities = activities.sort_by { |a| a[:timestamp] }.reverse.first(9).each do |activity|
       activity[:time_ago] = "#{activity[:time_ago]} ago"
     end
   end

@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   resources :my_created_raffles, only: [:index]
   resources :my_participating_raffles, only: [:index]
   resources :my_tickets, only: [:index], controller: 'raffle_tickets'
+  resources :referrals, only: [:index]
 end

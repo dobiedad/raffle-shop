@@ -19,7 +19,11 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_follows, source: :follower
   has_many :user_activities, dependent: :destroy
 
-  after_create :create_wallet
+  belongs_to :referred_by, class_name: 'User', optional: true
+  has_many :referred_users, class_name: 'User', foreign_key: 'referred_by_id', dependent: :nullify,
+                            inverse_of: :referred_by
+
+  after_create :create_wallet, :generate_referral_code
 
   delegate :balance, to: :wallet
 
@@ -50,5 +54,21 @@ class User < ApplicationRecord
     follow = active_follows.find_by!(followed: other)
 
     follow.destroy
+  end
+
+  private
+
+  def generate_referral_code
+    self.referral_code = generate_unique_referral_code
+    save!
+  end
+
+  def generate_unique_referral_code
+    loop do
+      pid = Process.pid.to_s[-4..]
+      random = SecureRandom.hex(3).upcase
+      code = "#{pid}#{random}"
+      break code unless User.exists?(referral_code: code)
+    end
   end
 end

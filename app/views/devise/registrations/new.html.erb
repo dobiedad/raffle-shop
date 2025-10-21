@@ -45,6 +45,13 @@
             </div>
           </div>
 
+          <% if params[:referrer_code].present? %>
+            <%= f.hidden_field :referrer_code, value: params[:referrer_code] %>
+            <div class="notification is-info is-light mb-4">
+              <p class="is-size-7">✨ You're signing up with a referral code!</p>
+            </div>
+          <% end %>
+
           <div class="field">
             <div class="control">
               <%= f.submit "Sign up", class: "button is-primary is-fullwidth" %>
