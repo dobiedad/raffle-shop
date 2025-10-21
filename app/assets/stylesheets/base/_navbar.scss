@@ -1,185 +1,51 @@
-/* Wrapper */
-.app-navbar {
-  position: sticky; top: 0; z-index: 30;
-  background: rgba(255,255,255,.85);
-  border-bottom: 1px solid #eef2f7;
+.navbar {
+	background-color: #ffffff;
+	border-bottom: 1px solid #f1f5f9;
+	box-shadow: none;
+
+	.navbar-brand .navbar-item {
+		font-weight: 700;
+		color: #4F46E5;
+
+		&:hover {
+			color: #4f46e5;
+			background-color: #f9fafb;
+		}
+	}
 }
 
-/* LEFT links: animated underline */
-.app-link { position: relative; font-weight: 600; }
-.app-link::after {
-  content:""; position:absolute; left:1rem; right:1rem; bottom:.35rem;
-  height:2px; border-radius:2px; transform:scaleX(0);
-  background: linear-gradient(90deg,#8b5cf6,#06b6d4);
-  transition: transform .18s ease;
-}
-.app-link:hover::after, .app-link.is-active::after { transform: scaleX(1); }
-
-/* Only items WITHOUT .app-link lose the underline (Wallet/CTA/User) */
-.app-navbar-right .navbar-item:not(.app-link)::after { display: none !important; }
-
-/* CTA pill */
-.app-cta {
-  border-radius:999px; background:#4f46e5; color:#fff; border:0;
-  box-shadow:0 6px 18px rgba(79,70,229,.22);
-}
-.app-cta:hover { filter: brightness(1.06); }
-
-/* User chip + dropdown */
-.app-user-link { display:inline-flex; align-items:center; gap:.5rem; }
-.app-avatar { width:28px; height:28px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 2px #fff, 0 0 0 3px #e5e7eb; }
-.app-user-email { max-width:16ch; overflow:hidden; text-overflow:ellipsis; }
-
-.app-dropdown {
-  border:1px solid #e5e7eb; border-radius:12px; padding:.25rem; min-width:220px;
-  box-shadow:0 12px 24px rgba(0,0,0,.08);
-}
-.app-dropdown .navbar-item { border-radius:8px; margin:2px 4px; }
-.app-dropdown .navbar-item:hover { background:#f5f7fb; }
-.app-dropdown .navbar-divider { margin:.35rem .25rem; }
-
-/* Make sign-out feel native */
-.app-signout-button { width:100%; text-align:left; background:transparent; border:0; padding:.5rem .75rem; }
-
-/* Wallet chip lives in the navbar right; no underline effect */
-.app-navbar-right .app-wallet {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .4rem .65rem;
-  border-radius: 999px;
-  background: rgba(17,24,39,.04);
-  border: 1px solid #e5e7eb;
-  text-decoration: none;
-  font-weight: 600;
-  line-height: 1;
+.is-avatar {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
-.app-wallet:hover {
-  background: rgba(17,24,39,.06);
-  border-color: #d1d5db;
-}
 
-.app-wallet-icon { font-size: .95rem; }
-.app-wallet-label { color: #111827; }
-
-/* Balance pill with soft glow */
-.app-wallet-balance {
-  padding: .25rem .5rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #6366f1, #06b6d4);
-  color: #fff;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(6,182,212,.25);
-}
-
-/* Respect your earlier rule: no underline anim on right side */
-.app-navbar-right .navbar-item::after { display: none !important; }
-
-/* ===== Mobile fixes (Bulma-native) ===== */
 @media (max-width: 1023px) {
-  /* Use Bulma's built-in .is-active toggle; no fixed positioning */
-  .app-navbar .navbar-menu {
-    position: static;
-    background: #fff;
-    border-top: 1px solid #eef2f7;
-    box-shadow: none;
-    padding: 10px 12px 14px;
-  }
-  .app-navbar .navbar-menu.is-active { display: block; }
-
-  /* Stack left/right areas */
-  .app-navbar .navbar-start,
-  .app-navbar .app-navbar-right { display: block; }
-
-  /* Full-width actions without weird stretching inside dropdowns */
-  .app-navbar > .container .navbar-item { padding-left: .75rem; padding-right: .75rem; }
-  .app-navbar .button.app-cta { width: 100%; justify-content: center; font-weight: 700; margin-bottom: .5rem; }
-
-  /* Wallet chip: full width, spaced */
-  .app-navbar-right .app-wallet {
-    width: 100%;
-    justify-content: space-between;
-    padding: .6rem .8rem;
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
+  .navbar-brand .brand-avatar {
+    margin-left: auto;
   }
 
-  /* Dropdown behaves as an inline list (no absolute positioning) */
-  .app-navbar .has-dropdown.is-hoverable > .navbar-link::after { display: none; }
-  .app-navbar .has-dropdown .navbar-dropdown {
-    display: block;
-    position: static;
-    margin-top: 8px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: .25rem;
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  .navbar-brand .navbar-burger {
+    margin-left: .25rem;
   }
-  .app-navbar .navbar-dropdown .navbar-item { border-radius: 8px; margin: 2px 4px; }
-  .app-navbar .navbar-dropdown .navbar-item:hover { background: #f5f7fb; }
-  .app-navbar .navbar-dropdown .navbar-divider { margin: .35rem .25rem; }
+
+	.navbar-menu {
+		padding: .75rem 1rem 1.25rem;
+	}
+
+
+	.navbar-end .navbar-item .button.is-light {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		width: 100%;
+	}
 }
 
-
-/* === Brand emoji: gradient ring badge === */
-.app-brand { display: inline-flex; align-items: center; gap: .5rem; }
-
-.app-logo {
-  display: inline-grid; place-items: center;
-  width: 32px; height: 32px; border-radius: 50%;
-  padding: 2px;                        /* ring thickness */
-  background: conic-gradient(from 180deg, $primary-strong, $primary-accent, $primary-strong);
-  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 6px 16px rgba($primary-strong, .18);
-}
-.app-logo::after {
-  content: ""; width: 100%; height: 100%; border-radius: 50%;
-  background: #fff;                     /* inner disc behind emoji */
-}
-.app-logo { font-size: 0; }             /* hide layout text flow */
-.app-logo > * { font-size: 18px; }      /* (not needed for emoji, safe for future) */
-
-/* Let the emoji sit above the inner disc */
-.app-logo { position: relative; }
-.app-logo::after { position: absolute; inset: 0; }
-.app-logo { z-index: 0; }
-.app-logo { color: initial; }           /* emoji keeps native color */
-.app-logo { line-height: 1; }
-
-/* Subtle hover lift */
-.app-brand:hover .app-logo {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba($primary-strong, .22);
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-
-/* Optional: gradient brand text (commented out to keep your solid color)
-.app-brand-text {
-  background: linear-gradient(90deg, $primary-strong, $primary-accent);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent !important;
-}
-*/
-
-/* === Wallet balance pill: gradient from $primary === */
-.app-wallet-balance {
-  padding: .25rem .5rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, $primary-strong, $primary-accent);
+.navbar-end a[aria-label="Wallet"] .tag:last-child {
+  background: linear-gradient(90deg, #4F46E5, #06B6D4);
   color: #fff;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba($primary-accent, .28);
-}
-
-/* Keep other wallet chip bits as you had */
-.app-wallet-label { color: #111827; }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .app-brand:hover .app-logo { transition: none; transform: none; }
-}
-
-
-.app-cta:hover {
-  color: #ffffff !important;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
 }

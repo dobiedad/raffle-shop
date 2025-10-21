@@ -1,78 +1,67 @@
-<nav class="navbar is-white has-shadow app-navbar"
-     role="navigation" aria-label="main navigation"
-     data-controller="bulma" style="backdrop-filter: blur(8px);">
-  <div class="container">
-    <div class="navbar-brand">
-      <%= link_to root_path, class: "navbar-item app-brand" do %>
-        <span class="has-text-weight-bold" style="color:#4f46e5;">🎟️ Raffle Shop</span>
+<nav class="navbar is-white has-shadow"
+     role="navigation"
+     aria-label="main navigation"
+     data-controller="bulma"
+     style="border-bottom: 1px solid #f1f5f9;">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: "navbar-item" do %>
+      <span class="has-text-weight-bold" style="color: #4f46e5;">🎟️ Raffle Shop</span>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= link_to profile_path, class: "navbar-item is-hidden-desktop brand-avatar", aria: { label: "My profile" } do %>
+        <%= image_tag user_avatar_url(current_user), class: "is-avatar", alt: "" %>
       <% end %>
+    <% end %>
 
-      <a role="button"
-         class="navbar-burger"
-         aria-label="menu"
-         aria-expanded="false"
-         data-bulma-target="burger"
-         data-action="click->bulma#toggleHamburger">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
+    <a role="button"
+       class="navbar-burger"
+       aria-label="menu"
+       aria-expanded="false"
+       data-bulma-target="burger"
+       data-action="click->bulma#toggleHamburger">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 
-    <div class="navbar-menu" data-bulma-target="menu">
-      <!-- LEFT now empty (everything moves right) -->
-      <div class="navbar-start"></div>
+  <div class="navbar-menu" data-bulma-target="menu">
+    <div class="navbar-end">
+      <% if user_signed_in? %>
+        <%= link_to "Raffles", raffles_path, class: "navbar-item" %>
+        <%= link_to "Feed", feed_path, class: "navbar-item" %>
 
-      <!-- RIGHT: order = CTA, Wallet, Raffles, Feed, User menu -->
-      <div class="navbar-end app-navbar-right">
-        <% if user_signed_in? %>
+        <div class="is-inline-flex">
           <div class="navbar-item">
-            <%= link_to "Create Raffle", new_raffle_path, class: "button app-cta" %>
+            <%= link_to "New Raffle", new_raffle_path, class: "button is-primary is-small" %>
           </div>
 
-          <div class="navbar-item">
-            <%= link_to wallet_path, class: "app-wallet" do %>
-              <span class="app-wallet-icon">💰</span>
-              <span class="app-wallet-label">Wallet</span>
-              <span class="app-wallet-balance"><%= format_currency(current_user.wallet.balance) %></span>
-            <% end %>
-          </div>
 
-          <%= link_to "Raffles",
-              raffles_path,
-              class: "navbar-item app-link #{'is-active' if current_page?(raffles_path)}" %>
+          <a href="<%= wallet_path %>" class="navbar-item" aria-label="Wallet">
+            <span class="tags has-addons">
+              <span class="tag is-light">💰 Wallet</span>
+              <span class="tag is-info">
+                <%= number_to_currency(current_user.wallet&.balance || 0) %>
+              </span>
+            </span>
+          </a>
+        </div>
 
-          <%= link_to "Feed",
-              feed_path,
-              class: "navbar-item app-link #{'is-active' if current_page?(feed_path)}" %>
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link app-user-link">
-              <%= image_tag user_avatar_url(current_user),
-                            alt: current_user.email,
-                            class: "app-avatar" %>
-              <span class="app-user-email"><%= current_user.email %></span>
-            </a>
-
-            <div class="navbar-dropdown is-right app-dropdown">
-              <%= link_to "My Account", profile_path, class: "navbar-item" %>
-              <%= link_to "Following",  following_user_path(current_user), class: "navbar-item" %>
-              <%= link_to "Followers",  followers_user_path(current_user), class: "navbar-item" %>
-              <hr class="navbar-divider">
-              <%= button_to "Sign Out",
-                            destroy_user_session_path,
-                            method: :delete,
-                            class: "navbar-item app-signout-button",
-                            form_class: "navbar-item p-0" %>
-            </div>
-          </div>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path, class: "navbar-item" %>
-          <div class="navbar-item">
-            <%= link_to "Get Started", new_user_registration_path, class: "button app-cta" %>
-          </div>
+        <%= link_to profile_path, class: "navbar-item is-hidden-touch", aria: { label: "My profile" } do %>
+          <%= image_tag user_avatar_url(current_user), class: "is-avatar", alt: "" %>
         <% end %>
-      </div>
+
+        <%= button_to "Sign Out",
+                      destroy_user_session_path,
+                      method: :delete,
+                      class: "button is-light is-small ml-3 mr-4",
+                      form_class: "navbar-item" %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "navbar-item has-text-weight-semibold" %>
+        <%= link_to "Sign In", new_user_session_path, class: "navbar-item has-text-grey" %>
+      <% end %>
     </div>
   </div>
 </nav>
