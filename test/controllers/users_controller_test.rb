@@ -15,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get profile_url
 
     assert_response :success
-    assert_select 'h1', text: users(:leo).email
+    assert_select 'h1', text: users(:leo).full_name
     assert_select '.title', text: /Tickets Entered/
     assert_select '.title', text: /Total Spent/
     assert_select '.title', text: /Raffles Won/
@@ -79,7 +79,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_path(bob)
 
     assert_response :success
-    assert_select 'h1', text: bob.email
+    assert_select 'h1', text: bob.full_name
   end
 
   test '#show displays own profile when accessed via /profile' do
@@ -88,7 +88,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get profile_url
 
     assert_response :success
-    assert_select 'h1', text: leo.email
+    assert_select 'h1', text: leo.full_name
     assert_select 'a[href=?]', edit_user_registration_path
   end
 
@@ -98,7 +98,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_path(bob)
 
     assert_response :success
-    assert_select 'h1', text: bob.email
+    assert_select 'h1', text: bob.full_name
   end
 
   test '#show displays active raffles created by user' do
