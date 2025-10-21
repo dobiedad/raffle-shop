@@ -31,6 +31,10 @@ class User < ApplicationRecord
             size: { less_than: 5.megabytes,
                     message: 'must be less than 5MB' }
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def following?(other)
     followings.include?(other)
   end

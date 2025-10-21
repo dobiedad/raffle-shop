@@ -1,5 +1,5 @@
 <%= render UI::UserList.new(
-  title: "#{@user.email}'s Followers",
+  title: "#{@user.full_name}'s Followers",
   subtitle: "#{@user.followers.count} followers",
   users: @followers,
   pagy: @pagy,

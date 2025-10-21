@@ -12,9 +12,9 @@
     <% top_creators.each do |creator| %>
       <div class="is-flex is-align-items-center is-justify-content-space-between mb-4">
         <%= link_to user_path(creator), class: "is-flex is-align-items-center", style: "gap: 0.75rem; flex: 1;" do %>
-          <%= image_tag user_avatar_url(creator), alt: creator.email, class: "u-borderRadius50", style: "width: 40px; height: 40px;" %>
+          <%= image_tag user_avatar_url(creator), alt: creator.full_name, class: "u-borderRadius50", style: "width: 40px; height: 40px;" %>
           <div>
-            <p class="has-text-weight-semibold is-size-7"><%= creator.email %></p>
+            <p class="has-text-weight-semibold is-size-7"><%= creator.full_name %></p>
             <p class="is-size-7 has-text-grey"><span id="followers-count-<%= creator.id %>"><%= creator.followers.count %></span> followers</p>
           </div>
         <% end %>

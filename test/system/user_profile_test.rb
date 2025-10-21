@@ -8,7 +8,7 @@ class UserProfileTest < ApplicationSystemTestCase
 
     visit profile_path
 
-    assert_text leo.email
+    assert_text leo.full_name
     click_link 'Edit Profile'
 
     assert_text 'Edit Profile'

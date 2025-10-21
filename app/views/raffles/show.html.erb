@@ -3,10 +3,10 @@
 
     <div class="raffle-meta has-background-white-bis p-4 mb-5 is-flex is-align-items-center is-justify-content-space-between">
       <%= link_to user_path(@raffle.user), class: "is-flex is-align-items-center", style: "gap: 1rem;" do %>
-        <%= image_tag user_avatar_url(@raffle.user), alt: @raffle.user.email, class: "u-borderRadius50 u-borderRadius50", style: "width: 48px; height: 48px;" %>
+        <%= image_tag user_avatar_url(@raffle.user), alt: @raffle.user.full_name, class: "u-borderRadius50 u-borderRadius50", style: "width: 48px; height: 48px;" %>
         <div>
           <p class="is-size-7 has-text-grey">Raffle ID #<%= @raffle.id %></p>
-          <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.email %></strong></p>
+          <p class="is-size-6 has-text-grey">Created by <strong><%= @raffle.user.full_name %></strong></p>
         </div>
       <% end %>
       <div class="is-flex is-align-items-center" style="gap: 1rem;">
@@ -61,7 +61,7 @@
                   title: 'Raffle Completed!',
                   message: (
                     if @raffle.winner
-                      winner_text = @raffle.winner == current_user ? 'You won!' : @raffle.winner.email
+                      winner_text = @raffle.winner == current_user ? 'You won!' : @raffle.winner.full_name
                       "Winner: #{winner_text}. Drawn on #{@raffle.drawn_at.strftime('%B %d, %Y at %I:%M %p')}."
                     else
                       'This raffle has concluded.'

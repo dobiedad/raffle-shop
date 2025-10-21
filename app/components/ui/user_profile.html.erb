@@ -8,7 +8,7 @@
             <%= image_tag helpers.user_avatar_url(user), alt: "Profile photo", class: "profile-image" %>
           </div>
 
-          <h1 class="title is-4 mb-1"><%= user.email %></h1>
+          <h1 class="title is-4 mb-1"><%= user.full_name %></h1>
           <p class="is-size-7 has-text-grey mb-2">Member since <strong><%= user.created_at.strftime("%B %Y") %></strong></p>
 
           <div class="tags is-centered mb-3">

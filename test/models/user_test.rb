@@ -126,4 +126,8 @@ class UserTest < ActiveSupport::TestCase
       new_user.destroy
     end
   end
+
+  test 'full_name' do
+    assert_equal 'Leo Smith', leo.full_name
+  end
 end

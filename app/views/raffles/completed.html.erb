@@ -45,7 +45,7 @@
           <div class="column is-one-third-desktop is-half-tablet">
             <%
               badge_text = if raffle.completed?
-                raffle.winner ? "🏆 Winner: #{raffle.winner.email.split('@').first}" : "Completed"
+                raffle.winner ? "🏆 Winner: #{raffle.winner.full_name}" : "Completed"
               else
                 "❌ Cancelled"
               end
