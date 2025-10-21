@@ -5,7 +5,7 @@
         class: "button is-light #{button_size}",
         style: button_style,
         data: { turbo_frame: "user-profile-actions-#{user.id}" },
-        aria_label: "Unfollow #{user.email}" do %>
+        aria_label: "Unfollow #{user.full_name}" do %>
       Following
     <% end %>
   <% else %>
@@ -14,9 +14,8 @@
         class: "button is-primary #{button_size}",
         style: button_style,
         data: { turbo_frame: "user-profile-actions-#{user.id}" },
-        aria_label: "Follow #{user.email}" do %>
+        aria_label: "Follow #{user.full_name}" do %>
       Follow
     <% end %>
   <% end %>
 </div>
-

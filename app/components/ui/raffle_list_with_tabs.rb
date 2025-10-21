@@ -43,7 +43,7 @@ module UI
         elsif raffle.cancelled?
           '❌ Cancelled'
         elsif raffle.winner
-          "Winner: #{raffle.winner.email.split('@').first}"
+          "Winner: #{raffle.winner.full_name.split('@').first}"
         else
           'Completed'
         end
@@ -54,7 +54,7 @@ module UI
       return unless status_filter == 'completed'
 
       if raffle.completed? && raffle.winner
-        "🏆 Winner: #{raffle.winner.email.split('@').first}"
+        "🏆 Winner: #{raffle.winner.full_name.split('@').first}"
       elsif raffle.cancelled?
         '❌ Cancelled'
       else

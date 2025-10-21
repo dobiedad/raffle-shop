@@ -22,30 +22,30 @@
                     description = case activity.activity_type
                     when 'created_raffle'
                       if activity.subject
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
                       else
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} created a new raffle".html_safe
                       end
                     when 'entered_raffle'
                       if activity.subject
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} entered #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} entered #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'}".html_safe
                       else
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} entered a raffle".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} entered a raffle".html_safe
                       end
                     when 'won_raffle'
                       if activity.subject
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} won #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'} 🎉".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} won #{link_to activity.subject.name, raffle_path(activity.subject), class: 'has-text-link'} 🎉".html_safe
                       else
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} won a raffle 🎉".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} won a raffle 🎉".html_safe
                       end
                     when 'followed_user'
                       if activity.subject
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} followed #{link_to activity.subject.email, user_path(activity.subject), class: 'has-text-link'}".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} followed #{link_to activity.subject.full_name, user_path(activity.subject), class: 'has-text-link'}".html_safe
                       else
-                        "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} followed someone".html_safe
+                        "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} followed someone".html_safe
                       end
                     else
-                      "#{link_to activity.user.email, user_path(activity.user), class: 'has-text-weight-semibold'} did something".html_safe
+                      "#{link_to activity.user.full_name, user_path(activity.user), class: 'has-text-weight-semibold'} did something".html_safe
                     end
                   %>
                   <tr>

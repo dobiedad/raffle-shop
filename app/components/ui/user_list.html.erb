@@ -27,13 +27,13 @@
             <div class="rs-person__left">
               <%= link_to user_path(u), class: 'rs-avatar-wrap' do %>
                 <span class="rs-avatar-ring">
-                  <%= image_tag helpers.user_avatar_url(u), alt: u.email, class: "rs-avatar-img" %>
+                  <%= image_tag helpers.user_avatar_url(u), alt: u.full_name, class: "rs-avatar-img" %>
                 </span>
               <% end %>
 
               <div class="rs-person__meta">
                 <%= link_to user_path(u), class: 'rs-person__name' do %>
-                  <span class="has-text-weight-semibold"><%= u.email %></span>
+                  <span class="has-text-weight-semibold"><%= u.full_name %></span>
                 <% end %>
 
                 <div class="rs-person__chips">
