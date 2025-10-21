@@ -62,7 +62,7 @@ module Users
     test 'should set referred_by when valid referrer_code is provided' do
       sign_out @user
       referrer = users(:leo)
-      
+
       assert_difference 'User.count', 1 do
         post user_registration_path, params: {
           user: {
@@ -77,13 +77,14 @@ module Users
       end
 
       new_user = User.find_by(email: 'newuser@example.com')
+
       assert_not_nil new_user
       assert_equal referrer, new_user.referred_by
     end
 
     test 'should not set referred_by when invalid referrer_code is provided' do
       sign_out @user
-      
+
       assert_difference 'User.count', 1 do
         post user_registration_path, params: {
           user: {
@@ -98,13 +99,14 @@ module Users
       end
 
       new_user = User.find_by(email: 'newuser2@example.com')
+
       assert_not_nil new_user
       assert_nil new_user.referred_by
     end
 
     test 'should not set referred_by when no referrer_code is provided' do
       sign_out @user
-      
+
       assert_difference 'User.count', 1 do
         post user_registration_path, params: {
           user: {
@@ -118,6 +120,7 @@ module Users
       end
 
       new_user = User.find_by(email: 'newuser3@example.com')
+
       assert_not_nil new_user
       assert_nil new_user.referred_by
     end

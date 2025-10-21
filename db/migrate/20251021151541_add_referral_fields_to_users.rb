@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddReferralFieldsToUsers < ActiveRecord::Migration[8.0]
   def change
     add_column :users, :referral_code, :string
