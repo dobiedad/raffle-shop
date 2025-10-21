@@ -2,7 +2,6 @@
   <div class="container">
 
     <div class="columns is-variable is-6">
-      <!-- LEFT: ~30% (Profile + Wallet + Achievements) -->
       <div class="column is-12-tablet is-4-desktop">
         <div class="box has-text-centered" style="padding:2.25rem 1.75rem; border-radius:14px;">
           <div class="mb-3" style="display:inline-block;">
@@ -50,8 +49,7 @@
                 <p class="is-size-4 has-text-weight-semibold"><%= helpers.format_currency(wallet_balance) %></p>
               </div>
               <div class="buttons">
-                <%= link_to "Add Funds", "#", class: "button is-primary is-small", onclick: "alert('Add funds feature coming soon!'); return false;" %>
-                <%= link_to "Withdraw", "#", class: "button is-light is-small", onclick: "alert('Withdraw feature coming soon!'); return false;" %>
+                <%= link_to "View", wallet_path, class: "button is-light is-small" %>
               </div>
             </div>
           </div>
