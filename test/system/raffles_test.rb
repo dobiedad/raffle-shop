@@ -8,7 +8,7 @@ class RafflesTest < ApplicationSystemTestCase
 
     visit raffles_path
 
-    click_link 'New Raffle'
+    click_link 'New Raffle', match: :first
 
     fill_in 'Name', with: 'MacBook Pro Giveaway'
     fill_in_trix_editor 'General Description', with: 'Brand new MacBook Pro 16-inch'
