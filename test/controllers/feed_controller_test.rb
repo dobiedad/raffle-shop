@@ -27,8 +27,7 @@ class FeedControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'shows empty state when not following anyone' do
-    # Create a new user who doesn't follow anyone
-    new_user = User.create!(email: 'newuser@test.com', password: 'password123')
+    new_user = User.create!(first_name: 'New', last_name: 'User', email: 'newuser@test.com', password: 'password123')
     login_as new_user
 
     get feed_path
