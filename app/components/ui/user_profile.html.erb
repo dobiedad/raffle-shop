@@ -1,6 +1,5 @@
 <section class="section user-profile" style="background-color:#f8f9fb; min-height:100vh;">
   <div class="container">
-
     <div class="columns is-variable is-6">
       <div class="column is-12-tablet is-4-desktop">
         <div class="box has-text-centered" style="padding:2.25rem 1.75rem; border-radius:14px;">
@@ -54,6 +53,7 @@
             </div>
           </div>
         <% end %>
+
 
         <div class="box" style="border-radius:12px; margin-top:1.25rem;">
           <h2 class="title is-6 mb-3">Achievements</h2>
@@ -117,6 +117,47 @@
         </div>
       </div>
     </div>
+    <% if own_profile? %>
+      <div class="box" style="border-radius:12px; margin-bottom:2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; color: white;">
+        <div class="columns is-variable is-6 is-align-items-center">
+          <div class="column is-8">
+            <div class="is-flex is-align-items-center mb-3">
+              <span class="icon is-large mr-3" style="font-size: 2.5rem;">🎁</span>
+              <div>
+                <h2 class="title is-4 mb-1 has-text-white">Share & Earn Rewards</h2>
+                <p class="is-size-6 has-text-white-ter">Invite friends and get rewarded when they join!</p>
+              </div>
+            </div>
 
+             <div class="is-flex is-align-items-center is-flex-wrap-wrap" style="background: rgba(255,255,255,0.25); border-radius: 10px; padding: 1rem;">
+               <div class="is-flex-grow-1 mr-3" style="min-width: 200px;">
+                 <p class="is-size-7 has-text-white-ter mb-1">Your Referral Code</p>
+                 <code class="has-text-white" style="font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; background: transparent;"><%= user.referral_code %></code>
+               </div>
+               <button class="button"
+                       data-controller="copy"
+                       data-copy-text-value="<%= helpers.request.base_url %>/users/sign_up?referrer_code=<%= user.referral_code %>"
+                       data-action="click->copy#copy"
+                       style="background: white; color: #667eea; font-weight: 600; border: none; border-radius: 8px; padding: 0.75rem 1.5rem; flex-shrink: 0;">
+                 📋 Copy Link
+               </button>
+             </div>
+             <div class="mt-4">
+               <%= link_to "View Referrals & Rewards →", referrals_path, class: "button is-white is-outlined", style: "border-color: white; color: white; font-weight: 600;" %>
+             </div>
+          </div>
+
+          <div class="column is-4">
+            <div class="has-text-centered" style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 1.5rem;">
+              <p class="is-size-6 has-text-white-ter mb-2">Total Referrals</p>
+              <p class="is-size-1 has-text-white has-text-weight-bold" style="font-size: 3rem !important;"><%= user.referred_users.count %></p>
+              <% if user.referred_by.present? %>
+                <p class="is-size-7 has-text-white-ter mt-2">Referred by <strong><%= user.referred_by.full_name %></strong></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </section>

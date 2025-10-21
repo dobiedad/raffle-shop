@@ -14,5 +14,13 @@ module Users
     def after_update_path_for(_resource)
       profile_path
     end
+
+    def build_resource(hash = {})
+      super
+      return unless params[:user] && params[:user][:referrer_code].present?
+
+      referrer = User.find_by(referral_code: params[:user][:referrer_code])
+      resource.referred_by = referrer if referrer
+    end
   end
 end

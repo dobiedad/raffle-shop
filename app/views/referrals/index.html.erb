@@ -1,0 +1,153 @@
+<section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+  <div class="container section">
+    <!-- Hero Section -->
+    <div class="has-text-centered mb-5">
+      <div class="mb-3">
+        <span class="icon is-large" style="font-size: 3.5rem;">🎁</span>
+      </div>
+      <h1 class="title is-3 has-text-white mb-6">Referral Rewards</h1>
+      <p class="subtitle is-5 has-text-white-ter">Share the love and earn free tickets!</p>
+    </div>
+
+    <!-- How It Works & Referral Code Section -->
+    <div class="columns is-variable is-4 mb-5">
+      <!-- How It Works -->
+      <div class="column is-8">
+        <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+          <h2 class="title is-5 mb-3 has-text-white has-text-centered">How Referrals Work</h2>
+
+          <div class="columns is-variable is-3">
+            <div class="column">
+              <div class="has-text-centered">
+                <div class="icon is-large mb-3" style="font-size: 3rem;">📤</div>
+                <h3 class="title is-4 mb-3 has-text-white">1. Share Your Code</h3>
+                <p class="is-size-6 has-text-white-ter">Share your unique referral code with friends and family</p>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="has-text-centered">
+                <div class="icon is-large mb-3" style="font-size: 3rem;">👥</div>
+                <h3 class="title is-4 mb-3 has-text-white">2. They Join</h3>
+                <p class="is-size-6 has-text-white-ter">Your friends sign up using your referral code</p>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="has-text-centered">
+                <div class="icon is-large mb-3" style="font-size: 3rem;">🎟️</div>
+                <h3 class="title is-4 mb-3 has-text-white">3. You Earn Rewards</h3>
+                <p class="is-size-6 has-text-white-ter">Get a free ticket for each of their first 10 raffle entries!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Your Referral Code -->
+      <div class="column is-4">
+        <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+          <h2 class="title is-6 has-text-white mb-3 has-text-centered">Your Referral Code</h2>
+
+          <div class="has-text-centered mb-3">
+            <div class="box" style="background: white; border-radius: 8px; padding: 0.75rem;">
+              <p class="is-size-7 has-text-grey mb-1">Your Code</p>
+              <code class="has-text-dark" style="font-size: 1.25rem; font-weight: 700; letter-spacing: 1px;"><%= current_user.referral_code %></code>
+            </div>
+          </div>
+
+          <button class="button is-primary is-fullwidth"
+                  data-controller="copy"
+                  data-copy-text-value="<%= request.base_url %>/users/sign_up?referrer_code=<%= current_user.referral_code %>"
+                  data-action="click->copy#copy"
+                  style="background: white; color: #667eea; font-weight: 600; border: none; border-radius: 8px;">
+            📋 Copy Link
+          </button>
+
+          <p class="has-text-centered has-text-white-ter is-size-7 mt-2">
+            Share this link with friends!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="columns is-variable is-3 mb-5">
+      <div class="column">
+        <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+          <div class="icon is-large mb-5" style="font-size: 4rem;">👥</div>
+          <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_referrals] %></h3>
+          <p class="is-size-5 has-text-white-ter">Total Referrals</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+          <div class="icon is-large mb-5" style="font-size: 4rem;">🎟️</div>
+          <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_tickets_earned] %></h3>
+          <p class="is-size-5 has-text-white-ter">Free Tickets Earned</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+          <div class="icon is-large mb-5" style="font-size: 4rem;">💰</div>
+          <h3 class="title is-4 has-text-white">$<%= @referral_stats[:total_tickets_earned] * 1 %></h3>
+          <p class="is-size-5 has-text-white-ter">Value Earned</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referred Users Section -->
+    <% if @referred_users.any? %>
+      <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+        <h2 class="title is-5 mb-4 has-text-white has-text-centered">Your Referred Users</h2>
+
+        <div class="columns is-multiline">
+          <% @referred_users.each do |user| %>
+            <div class="column is-6-tablet is-4-desktop">
+              <div class="box has-text-centered" style="border-radius: 8px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1rem;">
+                <div class="mb-2">
+                  <%= image_tag user_avatar_url(user), alt: "Profile photo", class: "profile-image", style: "width: 50px; height: 50px;" %>
+                </div>
+                <h4 class="title is-6 mb-1"><%= user.full_name %></h4>
+                <p class="is-size-7 has-text-grey mb-2">Joined <%= user.created_at.strftime("%b %d, %Y") %></p>
+
+                <div class="tags is-centered">
+                  <span class="tag is-success is-light is-small">
+                    🎟️ <%= user.raffle_tickets.count %> tickets
+                  </span>
+                  <span class="tag is-info is-light is-small">
+                    🎁 <%= [user.raffle_tickets.count, 10].min %> rewards
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 2rem;">
+        <div class="icon is-large mb-3" style="font-size: 3rem;">🤝</div>
+        <h3 class="title is-5 mb-2 has-text-white">No Referrals Yet</h3>
+        <p class="is-size-6 has-text-white-ter mb-4">Start sharing your referral code to earn free tickets!</p>
+        <button class="button is-primary"
+                data-controller="copy"
+                data-copy-text-value="<%= request.base_url %>/users/sign_up?referrer_code=<%= current_user.referral_code %>"
+                data-action="click->copy#copy">
+          📋 Copy My Referral Link
+        </button>
+      </div>
+    <% end %>
+
+    <!-- Back to Profile -->
+    <div class="has-text-centered mt-5">
+      <%= link_to "← Back to Profile", profile_path, class: "button is-white is-outlined", style: "border-color: white; color: white; font-weight: 600;" %>
+    </div>
+  </div>
+</section>
+
+
+<style media="screen">
+
+</style>

@@ -3,15 +3,18 @@ leo:
   last_name: Smith
   email: leo@test.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  referral_code: LEO123
 
 jane:
   first_name: Jane
   last_name: Doe
   email: jane@test.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  referral_code: JANE456
 
 bob:
   first_name: Bob
   last_name: Johnson
   email: bob@test.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  referral_code: BOB789

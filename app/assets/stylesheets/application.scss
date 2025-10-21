@@ -74,6 +74,9 @@ body {
   }
 }
 
+.is-gradient {
+  background: linear-gradient(90deg, $primary, $primary-accent);
+}
 
 .is-walletGradient {
   background: linear-gradient(90deg, #4F46E5, #06B6D4);
