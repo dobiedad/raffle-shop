@@ -22,7 +22,7 @@ class UserProfileStats
   def wallet_balance
     return nil unless own_profile?
 
-    @wallet_balance ||= user.wallet&.balance || 0
+    @wallet_balance ||= user.wallet.balance
   end
 
   def recent_activities
