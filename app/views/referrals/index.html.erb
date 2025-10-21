@@ -1,5 +1,12 @@
 <% content_for :head do %>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/wowjs@1.1.3/dist/wow.min.js"></script>
+  <script>
+    document.addEventListener('turbo:load', function() {
+      new WOW({ live: false }).init();
+    });
+  </script>
 <% end %>
 
 <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; position: relative; overflow: hidden;">
@@ -7,7 +14,7 @@
   
   <div class="container section" style="position: relative; z-index: 1;">
     <!-- Hero Section -->
-    <div class="has-text-centered mb-5">
+    <div class="has-text-centered mb-5 wow animate__animated animate__fadeInDown">
       <div class="mb-3">
         <span class="icon is-large" style="font-size: 3.5rem;">🎁</span>
       </div>
@@ -18,7 +25,7 @@
     <!-- How It Works & Referral Code Section -->
     <div class="columns is-variable is-4 mb-5">
       <!-- How It Works -->
-      <div class="column is-8">
+      <div class="column is-8 wow animate__animated animate__fadeInLeft">
         <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <h2 class="title is-5 mb-3 has-text-white has-text-centered">How Referrals Work</h2>
 
@@ -51,7 +58,7 @@
       </div>
 
       <!-- Your Referral Code -->
-      <div class="column is-4">
+      <div class="column is-4 wow animate__animated animate__fadeInRight">
         <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <h2 class="title is-6 has-text-white mb-3 has-text-centered">Your Referral Code</h2>
 
@@ -79,7 +86,7 @@
 
     <!-- Stats Section -->
     <div class="columns is-variable is-3 mb-5">
-      <div class="column">
+      <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">👥</div>
           <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_referrals] %></h3>
@@ -87,7 +94,7 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">🎟️</div>
           <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_tickets_earned] %></h3>
@@ -95,7 +102,7 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">💰</div>
           <h3 class="title is-4 has-text-white">$<%= @referral_stats[:total_tickets_earned] * 1 %></h3>
@@ -106,7 +113,7 @@
 
     <!-- Referred Users Section -->
     <% if @referred_users.any? %>
-      <div class="box" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
+      <div class="box wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
         <h2 class="title is-5 mb-4 has-text-white has-text-centered">Your Referred Users</h2>
 
         <div class="columns is-multiline">
@@ -133,7 +140,7 @@
         </div>
       </div>
     <% else %>
-      <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 2rem;">
+      <div class="box has-text-centered wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 2rem;">
         <div class="icon is-large mb-3" style="font-size: 3rem;">🤝</div>
         <h3 class="title is-5 mb-2 has-text-white">No Referrals Yet</h3>
         <p class="is-size-6 has-text-white-ter mb-4">Start sharing your referral code to earn free tickets!</p>
@@ -147,7 +154,7 @@
     <% end %>
 
     <!-- Back to Profile -->
-    <div class="has-text-centered mt-5">
+    <div class="has-text-centered mt-5 wow animate__animated animate__fadeIn" data-wow-delay="0.5s">
       <%= link_to "← Back to Profile", profile_path, class: "button is-white is-outlined", style: "border-color: white; color: white; font-weight: 600;" %>
     </div>
   </div>
