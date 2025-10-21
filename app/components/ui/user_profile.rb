@@ -30,6 +30,13 @@ module UI
       own_profile?
     end
 
+    def win_rate_percent
+      entered = tickets_entered_count.to_i
+      return 0.0 if entered.zero?
+
+      ((raffles_won_count.to_f / entered) * 100).round(1)
+    end
+
     def recent_activity_empty_message
       if own_profile?
         'Your ticket purchases and raffle entries will appear here'
