@@ -1,14 +1,5 @@
 <%= form_with(model: raffle, local: true) do |form| %>
-  <% if raffle.errors.any? %>
-    <%= render UI::NotificationBanner.new(type: 'danger', light: false, centered: false) do %>
-      <strong><%= pluralize(raffle.errors.count, "error") %> prevented saving:</strong>
-      <ul>
-        <% raffle.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  <% end %>
+  <%= render 'partials/form_errors', record: raffle %>
 
   <!-- NAME -->
   <div class="field mb-5">

@@ -18,7 +18,7 @@ module UI
     end
 
     def form_style
-      centered ? 'margin: 0 auto;' : ''
+      centered ? 'gap: 10px;' : ''
     end
   end
 end

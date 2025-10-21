@@ -15,7 +15,7 @@ module UI
       classes << "is-#{type}"
       classes << 'is-light' if light
       classes << 'has-text-centered' if centered
-      classes << 'mb-0'
+      classes << 'mb-2'
       classes.join(' ')
     end
 
