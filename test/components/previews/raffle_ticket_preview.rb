@@ -21,6 +21,8 @@ class RaffleTicketPreview < ComponentPreview
 
   def create_sample_ticket(raffle, purchased_at = Time.current)
     user = User.first || User.create!(
+      first_name: 'Sample',
+      last_name: 'User',
       email: 'sample@example.com',
       password: 'password123'
     )

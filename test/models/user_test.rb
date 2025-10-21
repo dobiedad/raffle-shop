@@ -5,10 +5,12 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   test 'validations' do
     assert_invalid "can't be blank", email: nil
+    assert_invalid "can't be blank", first_name: nil
+    assert_invalid "can't be blank", last_name: nil
   end
 
   test 'creates wallet after user creation' do
-    user = User.create!(email: 'newuser@example.com', password: 'password123')
+    user = User.create!(first_name: 'New', last_name: 'User', email: 'newuser@example.com', password: 'password123')
 
     assert_not_nil user.wallet
     assert_equal 0, user.wallet.balance
@@ -116,8 +118,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'destroying user destroys follows as followed' do
-    # Create a new user to isolate the test
-    new_user = User.create!(email: 'test@example.com', password: 'password123')
+    new_user = User.create!(first_name: 'Test', last_name: 'User', email: 'test@example.com', password: 'password123')
     bob.follow!(new_user)
     jane.follow!(new_user)
 

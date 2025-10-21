@@ -23,7 +23,7 @@ class WalletTest < ActiveSupport::TestCase
   end
 
   test 'starts with zero balance' do
-    user = User.create!(email: 'test@example.com', password: 'password123')
+    user = User.create!(first_name: 'Test', last_name: 'User', email: 'test@example.com', password: 'password123')
 
     assert_equal 0, user.wallet.balance
   end

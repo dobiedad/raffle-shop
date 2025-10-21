@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   delegate :balance, to: :wallet
 
+  validates :first_name, :last_name, presence: true
+
   validates :profile_image,
             content_type: { in: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
                             message: 'must be a JPEG, PNG, GIF, or WebP' },
