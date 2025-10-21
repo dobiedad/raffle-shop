@@ -8,6 +8,12 @@
       <span class="has-text-weight-bold" style="color: #4f46e5;">🎟️ Raffle Shop</span>
     <% end %>
 
+    <% if user_signed_in? %>
+      <%= link_to profile_path, class: "navbar-item is-hidden-desktop brand-avatar", aria: { label: "My profile" } do %>
+        <%= image_tag user_avatar_url(current_user), class: "is-avatar", alt: "" %>
+      <% end %>
+    <% end %>
+
     <a role="button"
        class="navbar-burger"
        aria-label="menu"
@@ -21,12 +27,32 @@
   </div>
 
   <div class="navbar-menu" data-bulma-target="menu">
-
     <div class="navbar-end">
       <% if user_signed_in? %>
         <%= link_to "Raffles", raffles_path, class: "navbar-item" %>
         <%= link_to "Feed", feed_path, class: "navbar-item" %>
-        <%= link_to "My Account", profile_path, class: "navbar-item" %>
+
+        <div class="is-inline-flex">
+          <div class="navbar-item">
+            <%= link_to "Create Raffle", new_raffle_path, class: "button is-primary is-small" %>
+          </div>
+
+
+          <a href="<%= wallet_path %>" class="navbar-item" aria-label="Wallet">
+            <span class="tags has-addons">
+              <span class="tag is-light">💰 Wallet</span>
+              <span class="tag is-info">
+                <%= number_to_currency(current_user.wallet&.balance || 0) %>
+              </span>
+            </span>
+          </a>
+        </div>
+
+
+        <%= link_to profile_path, class: "navbar-item is-hidden-touch", aria: { label: "My profile" } do %>
+          <%= image_tag user_avatar_url(current_user), class: "is-avatar", alt: "" %>
+        <% end %>
+
         <%= button_to "Sign Out",
                       destroy_user_session_path,
                       method: :delete,
