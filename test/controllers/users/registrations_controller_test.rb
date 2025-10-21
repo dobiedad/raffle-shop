@@ -59,7 +59,7 @@ module Users
       assert_template 'devise/registrations/edit'
     end
 
-    test 'should set referred_by when valid referrer_code is provided' do
+    test 'sets referred_by when valid referrer_code is provided' do
       sign_out @user
       referrer = users(:leo)
 
@@ -82,7 +82,7 @@ module Users
       assert_equal referrer, new_user.referred_by
     end
 
-    test 'should not set referred_by when invalid referrer_code is provided' do
+    test 'does not set referred_by when invalid referrer_code is provided' do
       sign_out @user
 
       assert_difference 'User.count', 1 do
@@ -104,7 +104,7 @@ module Users
       assert_nil new_user.referred_by
     end
 
-    test 'should not set referred_by when no referrer_code is provided' do
+    test 'does not set referred_by when no referrer_code is provided' do
       sign_out @user
 
       assert_difference 'User.count', 1 do
