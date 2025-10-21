@@ -59,3 +59,16 @@ body {
 .u-borderRadius50 {
   border-radius: 50%;
 }
+
+
+.category-filter {
+  border: 1px solid #e5e7eb;
+
+  &.is-active {
+    background: linear-gradient(90deg, $primary, $primary-accent);
+    color:#fff; border-color: transparent;
+  }
+  &:hover {
+    background-color: #f5f7fb;
+  }
+}

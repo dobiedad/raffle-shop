@@ -23,10 +23,10 @@
 
     <div class="buttons are-small is-centered mb-6">
       <%= link_to 'All', raffles_path(params.permit(:q, :category).except(:category)),
-          class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
+          class: "button is-light category-filter is-rounded #{'is-active' if @active_category == 'All'}" %>
       <% Raffle::CATEGORIES.each do |category| %>
         <%= link_to category.humanize, raffles_path(params.permit(:q, :category).merge(category: category)),
-            class: "button is-light is-rounded #{'is-active' if @active_category == category}" %>
+            class: "button is-light category-filter is-rounded #{'is-active' if @active_category == category}" %>
       <% end %>
     </div>
 
