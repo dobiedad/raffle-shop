@@ -1,0 +1,56 @@
+<div class="social-icons__container">
+  <div class="social-icons__buttons">
+    <% if show_native_share %>
+      <button id="<%= dom_id %>-native"
+              class="social-icons__button social-icons__button--primary"
+              data-controller="social-share"
+              data-social-share-url-value="<%= share_url %>"
+              data-social-share-text-value="<%= share_text %>"
+              data-action="click->social-share#share"
+              aria-label="Share">
+        <img src="/images/social_icons/share.png" alt="Share" class="social-icons__icon">
+      </button>
+    <% end %>
+
+    <% if show_whatsapp %>
+      <a class="social-icons__button social-icons__button--whatsapp"
+         aria-label="Share on WhatsApp"
+         href="<%= whatsapp_url %>"
+         target="_blank" rel="noopener">
+        <img src="/images/social_icons/whatsapp.png" alt="WhatsApp" class="social-icons__icon">
+      </a>
+    <% end %>
+
+    <% if show_telegram %>
+      <a class="social-icons__button social-icons__button--telegram"
+         aria-label="Share on Telegram"
+         href="<%= telegram_url %>"
+         target="_blank" rel="noopener">
+        <img src="/images/social_icons/telegram.png" alt="Telegram" class="social-icons__icon">
+      </a>
+    <% end %>
+
+    <% if show_twitter %>
+      <a class="social-icons__button social-icons__button--twitter"
+         aria-label="Share on X"
+         href="<%= twitter_url %>"
+         target="_blank" rel="noopener">
+        <img src="/images/social_icons/x.png" alt="X" class="social-icons__icon">
+      </a>
+    <% end %>
+
+    <% if show_email %>
+      <a class="social-icons__button social-icons__button--email"
+         aria-label="Share via Email"
+         href="<%= email_url %>"
+         target="_blank" rel="noopener">
+        <img src="/images/social_icons/mail.png" alt="Email" class="social-icons__icon">
+      </a>
+    <% end %>
+  </div>
+
+  <p class="social-icons__hint">
+    Tap an icon to share instantly.
+  </p>
+</div>
+
