@@ -20,11 +20,6 @@ Rails.application.configure do
   # Configure public file server for tests with cache-control for performance.
   config.public_file_server.headers = { 'cache-control' => 'public, max-age=3600' }
 
-  # Enable serving of images and assets in test environment
-  config.assets.compile = true
-  config.assets.check_precompiled_asset = false
-  config.public_file_server.enabled = true
-
   # Show full error reports.
   config.consider_all_requests_local = true
   config.cache_store = :null_store
