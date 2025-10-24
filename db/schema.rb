@@ -75,6 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_162503) do
     t.index ["raffle_id", "user_id"], name: "index_raffle_tickets_on_raffle_id_and_user_id"
     t.index ["raffle_id"], name: "index_raffle_tickets_on_raffle_id"
     t.index ["referred_user_id"], name: "index_raffle_tickets_on_referred_user_id"
+    t.index ["user_id", "referred_user_id"], name: "index_raffle_tickets_on_user_and_referred_user", unique: true, where: "(referred_user_id IS NOT NULL)"
     t.index ["user_id"], name: "index_raffle_tickets_on_user_id"
   end
 
