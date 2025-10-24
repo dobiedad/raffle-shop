@@ -164,7 +164,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def award_referral_ticket!(buyer)
-    return unless buyer.referred_by.present?
+    return if buyer.referred_by.blank?
     return unless buyer.referred_by.can_receive_referral_reward?(self)
 
     raffle_tickets.create!(
