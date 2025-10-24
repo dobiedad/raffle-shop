@@ -111,6 +111,10 @@
       </div>
     </div>
 
+    <%= render(UI::SocialIcons.new(
+      share_url: "#{request.base_url}/users/sign_up?referrer_code=#{current_user.referral_code}",
+      share_text: '⚡ Jump into raffles with me on Raffle Shop. Let’s win!'
+    ))%>
     <div class="has-text-centered mt-5 wow animate__animated animate__fadeIn" data-wow-delay="0.5s">
       <%= link_to "← Back to Profile", profile_path, class: "button is-white is-outlined", style: "border-color: white; color: white; font-weight: 600;" %>
     </div>
