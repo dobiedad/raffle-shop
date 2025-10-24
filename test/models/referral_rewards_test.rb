@@ -31,9 +31,8 @@ class ReferralRewardsTest < ActiveSupport::TestCase
   end
 
   test 'stops awarding free tickets after 10 total across all raffles' do
-    referred_user = create_referred_user(referred_by: leo)
-
     10.times do
+      referred_user = create_referred_user(referred_by: leo)
       RaffleTicket.create!(
         raffle: raffles(:iphone_giveaway),
         user: leo,
@@ -46,9 +45,10 @@ class ReferralRewardsTest < ActiveSupport::TestCase
     assert_equal 10, leo.referral_reward_tickets.count
 
     new_raffle = create_raffle
+    new_referred_user = create_referred_user(referred_by: leo)
 
     assert_no_difference -> { leo.referral_reward_tickets.count } do
-      new_raffle.buy_tickets(buyer: referred_user, quantity: 1)
+      new_raffle.buy_tickets(buyer: new_referred_user, quantity: 1)
     end
   end
 
@@ -117,9 +117,8 @@ class ReferralRewardsTest < ActiveSupport::TestCase
   end
 
   test '#can_receive_referral_reward? returns false after 10 total free tickets' do
-    referred_user = create_referred_user(referred_by: leo)
-
     10.times do
+      referred_user = create_referred_user(referred_by: leo)
       RaffleTicket.create!(
         raffle: raffles(:iphone_giveaway),
         user: leo,
@@ -132,6 +131,28 @@ class ReferralRewardsTest < ActiveSupport::TestCase
     new_raffle = create_raffle
 
     assert_not leo.can_receive_referral_reward?(new_raffle)
+  end
+
+  test 'users can only get 1 free ticket per raffle per refered user' do
+    referred_user = create_referred_user(referred_by: leo)
+
+    RaffleTicket.create!(
+      raffle: raffles(:iphone_giveaway),
+      user: leo,
+      referred_user: referred_user,
+      price: raffles(:iphone_giveaway).ticket_price,
+      purchased_at: Time.current
+    )
+
+    assert_raises ActiveRecord::RecordNotUnique do
+      RaffleTicket.create!(
+        raffle: raffles(:iphone_giveaway),
+        user: leo,
+        referred_user: referred_user,
+        price: raffles(:iphone_giveaway).ticket_price,
+        purchased_at: Time.current
+      )
+    end
   end
 
   private
