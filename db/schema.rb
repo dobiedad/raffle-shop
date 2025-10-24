@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_151541) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_162503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,8 +71,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_151541) do
     t.datetime "purchased_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "referred_user_id"
     t.index ["raffle_id", "user_id"], name: "index_raffle_tickets_on_raffle_id_and_user_id"
     t.index ["raffle_id"], name: "index_raffle_tickets_on_raffle_id"
+    t.index ["referred_user_id"], name: "index_raffle_tickets_on_referred_user_id"
+    t.index ["user_id", "referred_user_id"], name: "index_raffle_tickets_on_user_and_referred_user", unique: true, where: "(referred_user_id IS NOT NULL)"
     t.index ["user_id"], name: "index_raffle_tickets_on_user_id"
   end
 
@@ -156,6 +159,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_151541) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "raffle_tickets", "raffles"
   add_foreign_key "raffle_tickets", "users"
+  add_foreign_key "raffle_tickets", "users", column: "referred_user_id"
   add_foreign_key "raffles", "users"
   add_foreign_key "raffles", "users", column: "winner_id"
   add_foreign_key "transactions", "wallets"

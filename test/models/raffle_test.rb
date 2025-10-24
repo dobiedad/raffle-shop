@@ -203,21 +203,21 @@ class RaffleTest < ActiveSupport::TestCase
   end
 
   test '#buy_tickets' do
-    bob.wallet.update!(balance: 100.0)
+    jane.wallet.update!(balance: 100.0)
 
     raffle = raffles(:iphone_giveaway)
-    tickets = raffle.buy_tickets(buyer: bob, quantity: 10)
+    tickets = raffle.buy_tickets(buyer: jane, quantity: 10)
 
     assert_equal 10, tickets.count
     assert_equal 10, raffle.raffle_tickets.count
-    assert_equal [bob], raffle.raffle_tickets.map(&:user).uniq
+    assert_equal [jane], raffle.raffle_tickets.map(&:user).uniq
     assert_equal raffle.ticket_price, tickets.map(&:price).uniq.sole
 
-    leo.wallet.reload
+    jane.wallet.reload
 
-    assert_equal 100 - (raffle.ticket_price * 10), bob.wallet.balance
+    assert_equal 100 - (raffle.ticket_price * 10), jane.wallet.balance
 
-    transaction = bob.wallet.transactions.last
+    transaction = jane.wallet.transactions.last
 
     assert_includes transaction.description, raffle.name
     assert_includes transaction.description, "10 tickets (##{tickets.map(&:ticket_number).join(', ')})"
@@ -286,26 +286,26 @@ class RaffleTest < ActiveSupport::TestCase
   end
 
   test '#draw_winner! cancels and refunds if max tickets are not met but end date is met' do
-    bob.wallet.update!(balance: 100_000)
+    jane.wallet.update!(balance: 100_000)
 
     raffle = raffles(:iphone_giveaway)
-    initial_balance = bob.wallet.balance
+    initial_balance = jane.wallet.balance
 
-    raffle.buy_tickets(buyer: bob, quantity: raffle.max_tickets - 1)
+    raffle.buy_tickets(buyer: jane, quantity: raffle.max_tickets - 1)
 
-    assert_not_equal initial_balance, bob.wallet.balance
+    assert_not_equal initial_balance, jane.wallet.balance
 
     raffle.update!(end_date: 1.second.ago)
 
     winner = raffle.draw_winner!
 
-    assert_operator raffle.raffle_tickets.count, :<, raffle.max_tickets
+    assert_operator raffle.raffle_tickets.purchased.count, :<, raffle.max_tickets
     assert_nil winner
     assert_predicate raffle, :cancelled?
 
-    bob.wallet.reload
+    jane.wallet.reload
 
-    assert_equal initial_balance, bob.wallet.balance
+    assert_equal initial_balance, jane.wallet.balance
   end
 
   test '.eligible_for_draw returns raffles that have gone past their end date but do not have a winner' do
