@@ -11,7 +11,7 @@
 
 <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; position: relative; overflow: hidden;">
   <div id="particles-js" data-controller="particles" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></div>
-  
+
   <div class="container section" style="position: relative; z-index: 1;">
     <!-- Hero Section -->
     <div class="has-text-centered mb-5 wow animate__animated animate__fadeInDown">
@@ -89,7 +89,7 @@
       <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">👥</div>
-          <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_referrals] %></h3>
+          <h3 class="title is-4 has-text-white"><%= @referred_users_count %></h3>
           <p class="is-size-5 has-text-white-ter">Total Referrals</p>
         </div>
       </div>
@@ -97,7 +97,7 @@
       <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">🎟️</div>
-          <h3 class="title is-4 has-text-white"><%= @referral_stats[:total_tickets_earned] %></h3>
+          <h3 class="title is-4 has-text-white"><%= @total_tickets_earned %></h3>
           <p class="is-size-5 has-text-white-ter">Free Tickets Earned</p>
         </div>
       </div>
@@ -105,62 +105,14 @@
       <div class="column wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
         <div class="box has-text-centered" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
           <div class="icon is-large mb-5" style="font-size: 4rem;">💰</div>
-          <h3 class="title is-4 has-text-white">$<%= @referral_stats[:total_tickets_earned] * 1 %></h3>
+          <h3 class="title is-4 has-text-white"><%= format_currency(@total_value) %></h3>
           <p class="is-size-5 has-text-white-ter">Value Earned</p>
         </div>
       </div>
     </div>
 
-    <!-- Referred Users Section -->
-    <% if @referred_users.any? %>
-      <div class="box wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 1.5rem;">
-        <h2 class="title is-5 mb-4 has-text-white has-text-centered">Your Referred Users</h2>
-
-        <div class="columns is-multiline">
-          <% @referred_users.each do |user| %>
-            <div class="column is-6-tablet is-4-desktop">
-              <div class="box has-text-centered" style="border-radius: 8px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1rem;">
-                <div class="mb-2">
-                  <%= image_tag user_avatar_url(user), alt: "Profile photo", class: "profile-image", style: "width: 50px; height: 50px;" %>
-                </div>
-                <h4 class="title is-6 mb-1"><%= user.full_name %></h4>
-                <p class="is-size-7 has-text-grey mb-2">Joined <%= user.created_at.strftime("%b %d, %Y") %></p>
-
-                <div class="tags is-centered">
-                  <span class="tag is-success is-light is-small">
-                    🎟️ <%= user.raffle_tickets.count %> tickets
-                  </span>
-                  <span class="tag is-info is-light is-small">
-                    🎁 <%= [user.raffle_tickets.count, 10].min %> rewards
-                  </span>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% else %>
-      <div class="box has-text-centered wow animate__animated animate__fadeInUp" data-wow-delay="0.4s" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); padding: 2rem;">
-        <div class="icon is-large mb-3" style="font-size: 3rem;">🤝</div>
-        <h3 class="title is-5 mb-2 has-text-white">No Referrals Yet</h3>
-        <p class="is-size-6 has-text-white-ter mb-4">Start sharing your referral code to earn free tickets!</p>
-        <button class="button is-primary"
-                data-controller="copy"
-                data-copy-text-value="<%= request.base_url %>/users/sign_up?referrer_code=<%= current_user.referral_code %>"
-                data-action="click->copy#copy">
-          📋 Copy My Referral Link
-        </button>
-      </div>
-    <% end %>
-
-    <!-- Back to Profile -->
     <div class="has-text-centered mt-5 wow animate__animated animate__fadeIn" data-wow-delay="0.5s">
       <%= link_to "← Back to Profile", profile_path, class: "button is-white is-outlined", style: "border-color: white; color: white; font-weight: 600;" %>
     </div>
   </div>
 </section>
-
-
-<style media="screen">
-
-</style>

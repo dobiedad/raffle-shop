@@ -18,3 +18,4 @@ bob:
   email: bob@test.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
   referral_code: BOB789
+  referred_by: leo

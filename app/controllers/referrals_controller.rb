@@ -4,11 +4,9 @@ class ReferralsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @referred_users = current_user.referred_users.order(created_at: :desc)
-    @referral_stats = {
-      total_referrals: @referred_users.count,
-      active_referrals: @referred_users.joins(:raffle_tickets).distinct.count,
-      total_tickets_earned: 0
-    }
+    referral_reward_tickets = current_user.referral_reward_tickets
+    @referred_users_count = current_user.referred_users.order(created_at: :desc).count
+    @total_tickets_earned = referral_reward_tickets.count
+    @total_value = referral_reward_tickets.sum(:price)
   end
 end

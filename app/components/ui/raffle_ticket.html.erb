@@ -1,15 +1,23 @@
 <div class="ticket-stub">
   <div class="ticket-main">
-    <h4 class="ticket-title">🎟️ Ticket #<%= ticket_number %></h4>
+    <div class="is-flex is-align-items-center" style="gap: 0.5rem;">
+      <h4 class="ticket-title">🎟️ Ticket #<%= ticket_number %></h4>
+    </div>
     <p class="is-size-7 has-text-grey mb-1">
-      Purchased <%= purchased_time_ago %>
+      <% if reward_ticket? %>
+        Awarded <%= purchased_time_ago %>
+      <% else %>
+        Purchased <%= purchased_time_ago %>
+      <% end %>
     </p>
     <% if show_raffle_name %>
       <p class="is-size-7 has-text-grey-light">Raffle: <%= raffle.name %></p>
+    <% end %>
+    <% if reward_ticket? %>
+      <span class="tag is-success is-light is-small" style="font-weight: 600;">🎁 Reward Ticket</span>
     <% end %>
   </div>
   <div class="ticket-side">
     <span class="ticket-code"><%= ticket_code %></span>
   </div>
 </div>
-

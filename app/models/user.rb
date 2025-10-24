@@ -11,7 +11,12 @@ class User < ApplicationRecord
   has_many :raffle_tickets, dependent: :destroy
   has_many :raffles_entered, through: :raffle_tickets, source: :raffle
   has_many :raffles_won, class_name: 'Raffle', foreign_key: 'winner_id', dependent: :nullify, inverse_of: :winner
-
+  has_many :referral_reward_tickets,
+           -> { where.not(referred_user_id: nil) },
+           class_name: 'RaffleTicket',
+           foreign_key: :user_id,
+           inverse_of: :user,
+           dependent: :nullify
   has_many :active_follows, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy, inverse_of: :follower
   has_many :passive_follows, class_name: 'Follow', foreign_key: 'followed_id', dependent: :destroy,
                              inverse_of: :followed
@@ -54,6 +59,12 @@ class User < ApplicationRecord
     follow = active_follows.find_by!(followed: other)
 
     follow.destroy
+  end
+
+  def can_receive_referral_reward?(raffle)
+    return false if referral_reward_tickets.count >= 10
+
+    !referral_reward_tickets.exists?(raffle: raffle)
   end
 
   private

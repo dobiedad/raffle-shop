@@ -21,6 +21,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   validates :name, :general_description, :condition_description, :whats_included_description, :price, :ticket_price,
             :status, :category, :condition, presence: true
+  # TODO: rename price to target price or something better
   validates :price, numericality: { greater_than: 0 }
   # TODO: do we actually want a max ticket price of 100 ?
   validates :ticket_price, numericality: { greater_than: 2, less_than: 100 }
@@ -40,13 +41,14 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   attr_readonly :platform_fee_percent, :ticket_price
 
-  # TODO: this can easily be simplifed if max_tickets becomes a column instead of a dynamic method
+  # TODO: remvoe this, we dont care about this scope. What we care about is ones that have gone past end date, as
+  # other ones end automatically when last ticekt is purchased.
   scope :eligible_for_draw, lambda {
     left_joins(:raffle_tickets)
       .where(status: 'active', winner_id: nil)
       .group(:id)
       .having(<<~SQL.squish, Time.current)
-        COUNT(raffle_tickets.id) >= CEIL((raffles.price * (1 + (raffles.platform_fee_percent / 100.0))) / raffles.ticket_price)
+        COUNT(raffle_tickets.id) FILTER (WHERE raffle_tickets.referred_user_id IS NULL) >= CEIL((raffles.price * (1 + (raffles.platform_fee_percent / 100.0))) / raffles.ticket_price)
         OR raffles.end_date <= ?
       SQL
   }
@@ -81,6 +83,8 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
       buyer.wallet.deduct(ticket_price * quantity, description, transaction_type: :ticket_purchase)
 
       UserActivity.create_entry_activity(buyer, self)
+
+      award_referral_ticket!(buyer)
 
       tickets
     end
@@ -117,7 +121,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def tickets_sold_count
-    raffle_tickets.count
+    raffle_tickets.purchased.count
   end
 
   def tickets_remaining
@@ -125,7 +129,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def amount_raised
-    raffle_tickets.sum(:price)
+    raffle_tickets.purchased.sum(:price)
   end
 
   def days_remaining
@@ -139,7 +143,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def enough_tickets_sold?
-    raffle_tickets.count >= max_tickets
+    raffle_tickets.purchased.count >= max_tickets
   end
 
   private
@@ -159,8 +163,20 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     false
   end
 
+  def award_referral_ticket!(buyer)
+    return unless buyer.referred_by.present?
+    return unless buyer.referred_by.can_receive_referral_reward?(self)
+
+    raffle_tickets.create!(
+      user: buyer.referred_by,
+      price: ticket_price,
+      purchased_at: Time.current,
+      referred_user: buyer
+    )
+  end
+
   def cancel_and_refund!
-    raffle_tickets.find_each do |ticket|
+    raffle_tickets.purchased.find_each do |ticket|
       ticket.user.wallet.add(
         ticket.price,
         "Refund for ticket ##{ticket.ticket_number} - raffle cancelled: #{name}",

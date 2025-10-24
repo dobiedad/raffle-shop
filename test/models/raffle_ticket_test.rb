@@ -6,7 +6,7 @@ class RaffleTicketTest < ActiveSupport::TestCase
   test 'validations' do
     assert_invalid "can't be blank", 'is not a number', price: nil
     assert_invalid "can't be blank", purchased_at: nil
-    assert_invalid 'must be greater than 0', price: -1
+    assert_invalid 'must be greater than or equal to 0', price: -1
   end
 
   test '#ticket_number is the hashid uppercased' do
