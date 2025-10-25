@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
 
   def platform_total_raised
     @platform_total_raised ||= Raffle.joins(:raffle_tickets)
-                                      .where(raffle_tickets: { referred_user_id: nil })
-                                      .sum('raffle_tickets.price')
+                                     .where(raffle_tickets: { referred_user_id: nil })
+                                     .sum('raffle_tickets.price')
   end
 
   def platform_total_tickets

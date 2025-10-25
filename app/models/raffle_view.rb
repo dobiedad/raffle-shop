@@ -6,8 +6,8 @@ class RaffleView < ApplicationRecord
 
   validates :viewed_at, presence: true
 
-  scope :today, -> { where(viewed_at: Date.current.beginning_of_day..Date.current.end_of_day) }
-  scope :unique_users_today, -> { 
+  scope :today, -> { where(viewed_at: Date.current.all_day) }
+  scope :unique_users_today, lambda {
     today.select('DISTINCT ON (raffle_id, COALESCE(user_id, ip_address)) raffle_id, user_id, ip_address, viewed_at')
   }
 
