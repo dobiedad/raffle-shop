@@ -5,6 +5,9 @@ module UI
     attribute :raffle, required: true
     attribute :compact, default: false
 
+    delegate :amount_raised, to: :raffle
+    delegate :max_tickets, to: :raffle
+
     def tickets_sold_display
       raffle.tickets_sold_count || 0
     end
@@ -17,12 +20,12 @@ module UI
       ((sold.to_f / max) * 100).round
     end
 
-    delegate :amount_raised, to: :raffle
-
     def price_goal
       raffle.price
     end
 
-    delegate :max_tickets, to: :raffle
+    def unique_viewers_today
+      RaffleView.unique_viewers_today(raffle)
+    end
   end
 end
