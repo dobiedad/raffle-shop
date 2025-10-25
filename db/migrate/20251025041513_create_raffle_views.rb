@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateRaffleViews < ActiveRecord::Migration[8.1]
   def change
     create_table :raffle_views do |t|
@@ -12,7 +10,7 @@ class CreateRaffleViews < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :raffle_views, %i[raffle_id viewed_at]
-    add_index :raffle_views, %i[raffle_id user_id viewed_at], name: 'index_raffle_views_on_raffle_user_viewed'
+    add_index :raffle_views, [:raffle_id, :viewed_at]
+    add_index :raffle_views, [:raffle_id, :user_id, :viewed_at], name: 'index_raffle_views_on_raffle_user_viewed'
   end
 end

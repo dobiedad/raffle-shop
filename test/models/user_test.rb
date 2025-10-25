@@ -109,11 +109,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'destroying user destroys follows as follower' do
-    # When destroying a user, both their active and passive follows are destroyed
     total_follows = leo.active_follows.count + leo.passive_follows.count
 
     assert_difference 'Follow.count', -total_follows do
-      leo.destroy
+      leo.destroy!
     end
   end
 

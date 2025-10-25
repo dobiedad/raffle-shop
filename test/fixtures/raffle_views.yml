@@ -1,0 +1,19 @@
+iphone_view:
+  raffle: iphone_giveaway
+  user: leo
+  viewed_at: <%= Time.current %>
+  ip_address: 192.168.1.1
+  user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+
+ps5_view:
+  raffle: ps5_bundle
+  user: jane
+  viewed_at: <%= Time.current %>
+  ip_address: 192.168.1.2
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+
+anonymous_view:
+  raffle: iphone_giveaway
+  viewed_at: <%= Time.current %>
+  ip_address: 192.168.1.3
+  user_agent: Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)

@@ -147,12 +147,6 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     raffle_tickets.purchased.count >= max_tickets
   end
 
-  def unique_viewers_today
-    raffle_views.today
-                .select('DISTINCT ON (COALESCE(user_id, ip_address)) *')
-                .count
-  end
-
   private
 
   def can_actually_buy_tickets?(buyer:, quantity: 1) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
