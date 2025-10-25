@@ -10,17 +10,20 @@ class RackAttackTest < ActionDispatch::IntegrationTest
 
   test 'allows normal requests' do
     get '/'
+
     assert_response :success
   end
 
   test 'allows all requests in test environment' do
     # In test environment, all requests should be allowed due to safelist
     get '/', headers: { 'REMOTE_ADDR' => '1.2.3.4' }
+
     assert_response :success
-    
+
     # Multiple requests should all be allowed
     10.times do
       get '/', headers: { 'REMOTE_ADDR' => '1.2.3.4' }
+
       assert_response :success
     end
   end
@@ -29,10 +32,12 @@ class RackAttackTest < ActionDispatch::IntegrationTest
     # This test verifies that rate limiting is disabled in test environment
     # by checking that many requests are all allowed
     get '/', headers: { 'REMOTE_ADDR' => '1.2.3.4' }
+
     assert_response :success
-    
+
     # Even many requests should be allowed in test environment
     get '/', headers: { 'REMOTE_ADDR' => '5.6.7.8' }
+
     assert_response :success
   end
 
