@@ -31,10 +31,10 @@
     ) %>
 
     <div class="buttons are-small is-centered mb-6">
-      <%= link_to 'All', completed_raffles_path(params.permit(:q, :category).except(:category)),
+      <%= link_to 'All', completed_raffles_path(raffle_search_params),
           class: "button is-light is-rounded #{'is-active' if @active_category == 'All'}" %>
       <% Raffle::CATEGORIES.each do |category| %>
-        <%= link_to category.humanize, completed_raffles_path(params.permit(:q, :category).merge(category: category)),
+        <%= link_to category.humanize, completed_raffles_path(raffle_search_params(category)),
             class: "button is-light is-rounded #{'is-active' if @active_category == category}" %>
       <% end %>
     </div>
