@@ -41,4 +41,21 @@ Rails.application.routes.draw do
   resources :my_participating_raffles, only: [:index]
   resources :my_tickets, only: [:index], controller: 'raffle_tickets'
   resources :referrals, only: [:index]
+
+  namespace :admin do
+    root to: 'admin#index'
+    resources :raffles, only: [] do
+      member do
+        post :cancel
+        post :toggle_auto_draw
+        post :hand_over
+      end
+    end
+    resources :users, only: [] do
+      member do
+        post :ban
+        post :unban
+      end
+    end
+  end
 end

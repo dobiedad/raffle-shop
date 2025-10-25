@@ -8,6 +8,7 @@ iphone_giveaway:
   condition: new
   end_date: <%= 7.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 ps5_bundle:
   user: jane
@@ -19,6 +20,7 @@ ps5_bundle:
   condition: new
   end_date: <%= 5.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 rolex_yacht_master:
   user: leo
@@ -30,6 +32,7 @@ rolex_yacht_master:
   condition: like_new
   end_date: <%= 10.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 hublot_king_power:
   user: jane
@@ -41,6 +44,7 @@ hublot_king_power:
   condition: like_new
   end_date: <%= 14.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 apple_watch_series_10:
   user: leo
@@ -52,6 +56,7 @@ apple_watch_series_10:
   condition: new
   end_date: <%= 6.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 dyson_comb:
   user: jane
@@ -63,6 +68,7 @@ dyson_comb:
   condition: new
   end_date: <%= 8.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false
 
 dyson_hair_dryer:
   user: leo
@@ -74,3 +80,4 @@ dyson_hair_dryer:
   condition: new
   end_date: <%= 9.days.from_now %>
   platform_fee_percent: 20
+  auto_draw: false

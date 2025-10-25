@@ -14,6 +14,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :platform_total_raised, :platform_total_tickets, :tickets_sold_today
 
+  protected
+
+  def require_admin!
+    return if current_user&.admin?
+
+    raise ActionController::RoutingError, 'Not Found'
+  end
+
   private
 
   def storable_location?

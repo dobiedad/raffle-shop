@@ -1,0 +1,94 @@
+<section class="section" style="background-color:#f9fafb; min-height:100vh;">
+  <div class="container">
+    <%= render UI::PageHeader.new(
+      title: '🔧 Admin Dashboard',
+      subtitle: 'Manage raffles, users, and platform settings'
+    ) %>
+
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <div class="box">
+          <h2 class="title is-4">Active Raffles</h2>
+          <% active_raffles = Raffle.active.order(created_at: :desc).limit(20) %>
+          <% if active_raffles.any? %>
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Auto Draw</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% active_raffles.each do |raffle| %>
+                  <tr>
+                    <td><%= link_to raffle.name, raffle_path(raffle) %></td>
+                    <td>
+                      <span class="tag <%= raffle.status == 'active' ? 'is-success' : '' %>">
+                        <%= raffle.status.humanize %>
+                      </span>
+                    </td>
+                    <td>
+                      <% if raffle.auto_draw %>
+                        <span class="tag is-info">Yes</span>
+                      <% else %>
+                        <span class="tag is-warning">No</span>
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= button_to 'Cancel', cancel_admin_raffle_path(raffle), method: :post, class: 'button is-small is-danger', data: { confirm: 'Are you sure?' } %>
+                      <%= button_to raffle.auto_draw ? 'Disable Auto Draw' : 'Enable Auto Draw', toggle_auto_draw_admin_raffle_path(raffle), method: :post, class: 'button is-small is-light' %>
+                      <% if raffle.completed? %>
+                        <%= button_to 'Mark Handed Over', hand_over_admin_raffle_path(raffle), method: :post, class: 'button is-small is-success', disabled: raffle.handed_over? %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p class="has-text-grey">No active raffles</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="box">
+          <h2 class="title is-4">Banned Users</h2>
+          <% banned_users = User.banned.limit(10) %>
+          <% if banned_users.any? %>
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% banned_users.each do |user| %>
+                  <tr>
+                    <td><%= link_to user.full_name, user_path(user) %></td>
+                    <td>
+                      <%= button_to 'Unban', unban_admin_user_path(user), method: :post, class: 'button is-small is-success' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p class="has-text-grey">No banned users</p>
+          <% end %>
+        </div>
+
+        <div class="box mt-4">
+          <h2 class="title is-4">Platform Stats</h2>
+          <p class="mb-2"><strong>Total Users:</strong> <%= User.count %></p>
+          <p class="mb-2"><strong>Active Raffles:</strong> <%= Raffle.active.count %></p>
+          <p class="mb-2"><strong>Completed Raffles:</strong> <%= Raffle.completed.count %></p>
+          <p><strong>Total Raised:</strong> <%= number_to_currency(platform_total_raised) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

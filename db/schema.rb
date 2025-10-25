@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_25_172240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,12 +94,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
   end
 
   create_table "raffles", force: :cascade do |t|
+    t.boolean "auto_draw", default: true, null: false
     t.string "category", null: false
     t.datetime "completed_at"
     t.string "condition", null: false
     t.datetime "created_at", null: false
     t.datetime "drawn_at"
     t.datetime "end_date", null: false
+    t.boolean "handed_over", default: false, null: false
     t.string "name", null: false
     t.decimal "platform_fee_percent"
     t.decimal "price", precision: 10, scale: 2
@@ -142,6 +144,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
+    t.boolean "banned", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

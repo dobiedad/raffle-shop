@@ -87,6 +87,8 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
       award_referral_ticket!(buyer)
 
+      draw_winner! if auto_draw && enough_tickets_sold?
+
       tickets
     end
   end
@@ -145,6 +147,14 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def enough_tickets_sold?
     raffle_tickets.purchased.count >= max_tickets
+  end
+
+  def hand_over!
+    update!(handed_over: true)
+  end
+
+  def cancel!
+    cancel_and_refund!
   end
 
   private

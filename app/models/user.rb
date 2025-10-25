@@ -34,6 +34,25 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, presence: true
 
+  scope :banned, -> { where(banned: true) }
+  scope :not_banned, -> { where(banned: false) }
+
+  def admin?
+    admin
+  end
+
+  def banned?
+    banned
+  end
+
+  def ban!
+    update!(banned: true)
+  end
+
+  def unban!
+    update!(banned: false)
+  end
+
   validates :profile_image,
             content_type: { in: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
                             message: 'must be a JPEG, PNG, GIF, or WebP' },
