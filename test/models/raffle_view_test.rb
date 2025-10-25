@@ -62,7 +62,7 @@ class RaffleViewTest < ActiveSupport::TestCase
     RaffleView.create!(
       raffle: raffles(:dyson_comb),
       user: users(:leo),
-      viewed_at: Time.current + 1.hour,
+      viewed_at: 1.hour.from_now,
       ip_address: '192.168.1.1'
     )
 
@@ -88,7 +88,7 @@ class RaffleViewTest < ActiveSupport::TestCase
   end
 
   test 'track_view creates new view when none exists' do
-    raffle = raffles(:dyson_comb)  # Use a different raffle to avoid fixture conflicts
+    raffle = raffles(:dyson_comb) # Use a different raffle to avoid fixture conflicts
     user = users(:bob)
 
     assert_difference 'RaffleView.count', 1 do
