@@ -5,6 +5,7 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :winner, class_name: 'User', optional: true, inverse_of: :raffles_won
   has_many :raffle_tickets, dependent: :destroy
   has_many :ticket_holders, through: :raffle_tickets, source: :user
+  has_many :raffle_views, dependent: :destroy
   has_many_attached :images
   has_rich_text :general_description
   has_rich_text :condition_description
@@ -144,6 +145,12 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def enough_tickets_sold?
     raffle_tickets.purchased.count >= max_tickets
+  end
+
+  def unique_viewers_today
+    raffle_views.today
+                .select('DISTINCT ON (COALESCE(user_id, ip_address)) *')
+                .count
   end
 
   private

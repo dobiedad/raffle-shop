@@ -25,4 +25,20 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     stored_location_for(resource_or_scope) || super
   end
+
+  def platform_total_raised
+    @platform_total_raised ||= Raffle.joins(:raffle_tickets)
+                                      .where(raffle_tickets: { referred_user_id: nil })
+                                      .sum('raffle_tickets.price')
+  end
+
+  def platform_total_tickets
+    @platform_total_tickets ||= RaffleTicket.where(referred_user_id: nil).count
+  end
+
+  def tickets_sold_today
+    @tickets_sold_today ||= RaffleTicket.where(referred_user_id: nil)
+                                        .where(purchased_at: Date.current.all_day)
+                                        .count
+  end
 end

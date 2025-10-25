@@ -24,5 +24,9 @@ module UI
     end
 
     delegate :max_tickets, to: :raffle
+
+    def unique_viewers_today
+      raffle.unique_viewers_today
+    end
   end
 end

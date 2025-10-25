@@ -19,6 +19,13 @@ class RafflesController < ApplicationController
 
   def show
     @raffle = Raffle.find(params[:id])
+
+    RaffleView.track_view(
+      raffle: @raffle,
+      user: user_signed_in? ? current_user : nil,
+      ip_address: request.remote_ip,
+      user_agent: request.user_agent
+    )
   end
 
   def new

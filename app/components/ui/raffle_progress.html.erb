@@ -15,7 +15,7 @@
 
   <% unless compact %>
     <p class="is-size-7 has-text-grey mt-3">
-      👀 <%= pluralize(5, 'person') %> viewed this raffle today
+      👀 <%= pluralize(unique_viewers_today, 'person') %> viewed this raffle today
     </p>
   <% end %>
 </div>
