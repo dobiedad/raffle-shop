@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :followings, through: :active_follows, source: :followed
   has_many :followers, through: :passive_follows, source: :follower
   has_many :user_activities, dependent: :destroy
+  has_many :user_achievements, dependent: :destroy
 
   belongs_to :referred_by, class_name: 'User', optional: true
   has_many :referred_users, class_name: 'User', foreign_key: 'referred_by_id', dependent: :nullify,
@@ -65,6 +66,46 @@ class User < ApplicationRecord
     return false if referral_reward_tickets.count >= 10
 
     !referral_reward_tickets.exists?(raffle: raffle)
+  end
+
+  # Achievement methods
+  def achievement?(achievement)
+    user_achievements.exists?(achievement_name: achievement.name.to_s)
+  end
+
+  def award_achievement!(achievement)
+    return if achievement?(achievement)
+
+    user_achievements.create!(achievement_name: achievement.name.to_s, earned_at: Time.current)
+  end
+
+  def achievements
+    user_achievements.map do |user_achievement|
+      AchievementsRegistry.find_by_name(user_achievement.achievement_name.to_sym)
+    end.compact
+  end
+
+  def consecutive_wins_count
+    return 0 if raffles_won.empty?
+
+    # Get all won raffles ordered by completion date
+    won_raffles = raffles_won.order(completed_at: :desc)
+
+    consecutive = 0
+    current_date = Date.current
+
+    won_raffles.each do |raffle|
+      break if raffle.completed_at.to_date < current_date - consecutive.days
+
+      consecutive += 1
+      current_date = raffle.completed_at.to_date - 1.day
+    end
+
+    consecutive
+  end
+
+  def days_since_registration
+    (Date.current - created_at.to_date).to_i
   end
 
   private

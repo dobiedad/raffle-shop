@@ -4,7 +4,15 @@ require 'test_helper'
 
 class UsersHelperTest < ActionView::TestCase
   test 'user_avatar_url returns placeholder URL' do
-    user = users(:leo)
+    # Create a user without a profile image
+    user = User.create!(
+      first_name: 'Test',
+      last_name: 'User',
+      email: 'test@example.com',
+      password: 'password123',
+      referral_code: 'TEST123'
+    )
+
     url = user_avatar_url(user)
 
     assert_includes url, 'pravatar.cc'
@@ -16,11 +24,8 @@ class UsersHelperTest < ActionView::TestCase
 
     html = render_achievements(user)
 
-    assert_includes html, 'First Win'
-    assert_includes html, '10+ Tickets'
-    assert_includes html, 'Trusted User'
-    assert_includes html, 'Early Adopter'
-    assert_includes html, 'Big Spender'
-    assert_includes html, 'Hot Streak'
+    assert_includes html, 'First win'
+    assert_includes html, 'tag is-success is-light' # First Win should be green
+    assert_includes html, '🏆' # First Win icon
   end
 end

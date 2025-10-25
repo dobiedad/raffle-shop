@@ -11,14 +11,12 @@ module UsersHelper
   end
   # :nocov:
 
-  def render_achievements(_user)
-    achievements = []
+  def render_achievements(user)
+    return '' unless user&.achievements&.any?
 
-    achievements << content_tag(:span, '🏆 First Win', class: 'tag is-success is-light')
-    achievements << content_tag(:span, '⭐ Trusted User', class: 'tag is-warning is-light')
-    achievements << content_tag(:span, '🎖️ Early Adopter', class: 'tag is-primary is-light')
-    achievements << content_tag(:span, '💰 Big Spender', class: 'tag is-link is-light')
-    achievements << content_tag(:span, '🔥 Hot Streak', class: 'tag is-danger is-light')
+    achievements = user.achievements.map do |achievement|
+      content_tag(:span, achievement.display_name, class: "tag #{achievement.color} is-light")
+    end
 
     safe_join(achievements)
   end

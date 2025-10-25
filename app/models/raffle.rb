@@ -87,6 +87,9 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
       award_referral_ticket!(buyer)
 
+      # Check for achievements after ticket purchase
+      Achievement.check_and_award_achievements(buyer)
+
       tickets
     end
   end
@@ -95,22 +98,9 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
     raise 'Raffle is not eligible for draw' unless eligible_for_draw?
 
     ActiveRecord::Base.transaction do
-      unless enough_tickets_sold?
-        cancel_and_refund!
-        return nil
-      end
+      return handle_insufficient_tickets unless enough_tickets_sold?
 
-      winning_ticket = raffle_tickets.order('RANDOM()').first
-      update!(
-        winner: winning_ticket.user,
-        drawn_at: Time.current,
-        completed_at: Time.current,
-        status: :completed
-      )
-
-      distribute_funds!
-      create_win_activity
-      winner
+      select_winner_and_complete
     end
   end
 
@@ -202,11 +192,40 @@ class Raffle < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def create_raffle_activity
     UserActivity.create_raffle_activity(user, self)
+    # Check for achievements after creating raffle
+    Achievement.check_and_award_achievements(user)
   end
 
   def create_win_activity
     return if winner.blank?
 
     UserActivity.create_win_activity(winner, self)
+  end
+
+  def handle_insufficient_tickets
+    cancel_and_refund!
+    nil
+  end
+
+  def select_winner_and_complete
+    winning_ticket = raffle_tickets.order('RANDOM()').first
+    update_winner_and_status(winning_ticket.user)
+    distribute_funds!
+    create_win_activity
+    check_achievements_for_winner
+    winner
+  end
+
+  def update_winner_and_status(winning_user)
+    update!(
+      winner: winning_user,
+      drawn_at: Time.current,
+      completed_at: Time.current,
+      status: :completed
+    )
+  end
+
+  def check_achievements_for_winner
+    Achievement.check_and_award_achievements(winner)
   end
 end

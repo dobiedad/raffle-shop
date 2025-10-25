@@ -129,4 +129,49 @@ class UserTest < ActiveSupport::TestCase
   test 'full_name' do
     assert_equal 'Leo Smith', leo.full_name
   end
+
+  test 'achievements returns user achievements from registry' do
+    user = leo
+
+    achievements = user.achievements
+
+    assert_equal 1, achievements.length
+    assert_instance_of Achievement, achievements.first
+    assert_equal :first_win, achievements.first.name
+    assert_equal '🏆', achievements.first.icon
+  end
+
+  test 'achievements returns empty array when no achievements' do
+    # Create a new user without any achievements
+    user = User.create!(
+      first_name: 'Test',
+      last_name: 'User',
+      email: 'test@example.com',
+      password: 'password123',
+      referral_code: 'TEST123'
+    )
+
+    assert_empty user.achievements
+  end
+
+  test 'achievements filters out nil achievements' do
+    # Create a new user without any achievements
+    user = User.create!(
+      first_name: 'Test',
+      last_name: 'User',
+      email: 'test2@example.com',
+      password: 'password123',
+      referral_code: 'TEST456'
+    )
+
+    # Create a user achievement with invalid achievement name
+    user.user_achievements.create!(
+      achievement_name: 'Non-existent Achievement',
+      earned_at: Time.current
+    )
+
+    achievements = user.achievements
+
+    assert_empty achievements
+  end
 end

@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_25_165405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.string "criteria_type", null: false
+    t.integer "criteria_value", null: false
+    t.text "description", null: false
+    t.string "icon", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_achievements_on_active"
+    t.index ["criteria_type"], name: "index_achievements_on_criteria_type"
+    t.index ["name"], name: "index_achievements_on_name", unique: true
+  end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
@@ -128,6 +142,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
     t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
 
+  create_table "user_achievements", force: :cascade do |t|
+    t.string "achievement_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "earned_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["achievement_name"], name: "index_user_achievements_on_achievement_name"
+    t.index ["earned_at"], name: "index_user_achievements_on_earned_at"
+    t.index ["user_id", "achievement_name"], name: "index_user_achievements_on_user_id_and_achievement_name", unique: true
+    t.index ["user_id"], name: "index_user_achievements_on_user_id"
+  end
+
   create_table "user_activities", force: :cascade do |t|
     t.string "activity_type", null: false
     t.datetime "created_at", null: false
@@ -179,6 +205,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_25_041513) do
   add_foreign_key "raffles", "users"
   add_foreign_key "raffles", "users", column: "winner_id"
   add_foreign_key "transactions", "wallets"
+  add_foreign_key "user_achievements", "users"
   add_foreign_key "user_activities", "users"
   add_foreign_key "users", "users", column: "referred_by_id"
   add_foreign_key "wallets", "users"

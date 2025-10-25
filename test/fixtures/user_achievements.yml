@@ -1,0 +1,14 @@
+leo_first_win:
+  user: leo
+  achievement_name: "first_win"
+  earned_at: <%= 1.day.ago %>
+
+jane_trusted_user:
+  user: jane
+  achievement_name: "trusted_user"
+  earned_at: <%= 2.days.ago %>
+
+bob_early_adopter:
+  user: bob
+  achievement_name: "early_adopter"
+  earned_at: <%= 3.days.ago %>

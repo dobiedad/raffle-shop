@@ -7,7 +7,7 @@ class Follow < ApplicationRecord
   validates :follower_id, uniqueness: { scope: :followed_id }
   validate :not_self_follow
 
-  after_create :create_follow_activity
+  after_create :create_follow_activity, :check_achievements
 
   private
 
@@ -17,5 +17,9 @@ class Follow < ApplicationRecord
 
   def create_follow_activity
     UserActivity.create_follow_activity(follower, followed)
+  end
+
+  def check_achievements
+    Achievement.check_and_award_achievements(followed)
   end
 end
