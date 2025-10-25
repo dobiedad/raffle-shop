@@ -48,7 +48,7 @@
 
     <% if @raffles.present? %>
       <p class="has-text-centered is-size-6 has-text-grey mt-5">
-        Over <strong><%= @total_raffles_count %></strong> active raffles · <strong><%= number_with_delimiter(@tickets_sold_today) %></strong> tickets sold today
+        Over <strong><%= @total_raffles_count %></strong> active raffles · <strong><%= number_with_delimiter(tickets_sold_today) %></strong> tickets sold today
       </p>
     <% end %>
 
@@ -71,7 +71,7 @@
 
     <div class="has-text-centered mt-6">
       <p class="is-size-7 has-text-grey">
-        Platform total: <strong><%= number_to_currency(@platform_total_raised) %> raised</strong> · <strong><%= number_with_delimiter(@platform_total_tickets) %> tickets</strong> sold across all raffles
+        Platform total: <strong><%= number_to_currency(platform_total_raised) %> raised</strong> · <strong><%= number_with_delimiter(platform_total_tickets) %> tickets</strong> sold across all raffles
       </p>
     </div>
 
